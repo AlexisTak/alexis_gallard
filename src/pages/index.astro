@@ -4,10 +4,51 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import WorkReel from '../components/WorkReel.astro';
 import { getCollection } from 'astro:content';
+import { SITE } from '../lib/site';
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.order - b.data.order);
+
+const faq = [
+	{
+		question: 'Quels postes recherche Alexis Gallard ?',
+		answer:
+			"Des postes de développeur Fullstack Senior, d'AI Engineer ou d'architecte logiciel, en CDI. Les contextes qui l'intéressent sont ceux où une application doit réellement tenir en production : trafic réel, données sensibles, contraintes d'exploitation.",
+	},
+	{
+		question: 'Où est-il basé et travaille-t-il à distance ?',
+		answer:
+			"Il est basé à Poitiers, en Nouvelle-Aquitaine. Il travaille sur place dans la région, et à distance partout ailleurs — il a mené des projets entiers en distanciel, du cadrage à la mise en production.",
+	},
+	{
+		question: 'Quelle est son expérience en intelligence artificielle ?',
+		answer:
+			"Depuis 2022, il intègre des LLM dans des applications réelles : pipelines RAG sur des corpus internes, agents outillés, fine-tuning LoRA, et déploiement de modèles open source auto-hébergés quand les données ne doivent pas sortir de l'entreprise. Anti-Pépins, sa plateforme de détection d'arnaques, combine un moteur de règles et un LLM.",
+	},
+	{
+		question: 'Quelles technologies maîtrise-t-il ?',
+		answer:
+			"Côté web, TypeScript avec React, Next.js et Vue.js, et des backends Node.js, NestJS ou Laravel. Côté logiciel installé, Rust avec Tauri ou une interface native. Côté infrastructure, Docker, Kubernetes, Terraform et des chaînes CI/CD complètes. Bases de données PostgreSQL, MySQL, MongoDB et Redis.",
+	},
+	{
+		question: "Combien d'années d'expérience a-t-il ?",
+		answer:
+			"Douze ans, depuis 2014. Neuf ans comme développeur Fullstack chez Emmaüs Ruffec, et depuis 2022 en indépendant sur des missions d'architecture, de développement et d'intégration d'IA.",
+	},
+];
+
+const schemas = [
+	{
+		'@type': 'FAQPage',
+		'@id': `${SITE.url}/#faq`,
+		mainEntity: faq.map((item) => ({
+			'@type': 'Question',
+			name: item.question,
+			acceptedAnswer: { '@type': 'Answer', text: item.answer },
+		})),
+	},
+];
 
 // Un vrai ordre : chaque étape conditionne la suivante. La numérotation dit quelque chose.
 const process = [
@@ -39,6 +80,7 @@ const process = [
 ---
 
 <Layout
+	schemas={schemas}
 	title="Alexis Gallard — Développeur Fullstack Senior & AI Engineer"
 	description="Développeur Fullstack Senior et AI Engineer. Applications web, logiciels desktop en Rust et IA appliquée (LLM, RAG, agents), de l'architecture à la production. Poitiers, Nouvelle-Aquitaine."
 >
@@ -63,12 +105,31 @@ const process = [
 					data-reveal
 					data-reveal-delay={i * 80}
 				>
-					<span class="label !text-accent">{String(i + 1).padStart(2, '0')}</span>
+					<span class="label text-accent!">{String(i + 1).padStart(2, '0')}</span>
 					<h3 class="text-lg font-medium text-text">{step.title}</h3>
 					<p class="max-w-[52ch] leading-relaxed text-text/70">{step.text}</p>
 				</li>
 			))}
 		</ol>
+	</Section>
+
+	<Section label="Questions" id="questions">
+		<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
+			Ce qu'on me demande le plus.
+		</h2>
+
+		<dl class="mt-16 flex flex-col">
+			{faq.map((item, i) => (
+				<div
+					class="grid gap-3 border-t border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-12"
+					data-reveal
+					data-reveal-delay={i * 60}
+				>
+					<dt class="max-w-[28ch] text-lg font-medium text-text">{item.question}</dt>
+					<dd class="max-w-[58ch] leading-relaxed text-text/70">{item.answer}</dd>
+				</div>
+			))}
+		</dl>
 	</Section>
 
 	<Section label="Suite" id="suite">
@@ -81,7 +142,7 @@ const process = [
 		</p>
 		<a
 			href="/contact"
-			class="label mt-12 inline-block border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
+			class="label mt-12 inline-block border border-accent bg-accent px-5 py-3 text-accent-ink! transition-colors hover:bg-transparent hover:text-accent!"
 			data-reveal
 			data-reveal-delay="160"
 		>

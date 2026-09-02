@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+
+const destinations = [
+	{ href: '/projets', label: 'Travail', note: 'Les études de cas' },
+	{ href: '/expertises', label: 'Expertises', note: "Domaines d'intervention" },
+	{ href: '/a-propos', label: 'Parcours', note: 'Expérience et compétences' },
+	{ href: '/contact', label: 'Contact', note: 'Email, téléphone, LinkedIn' },
+];
+---
+
+<Layout
+	title="Page introuvable — Alexis Gallard"
+	description="Cette page n'existe pas ou plus."
+	noindex
+>
+	<PageHeader
+		eyebrow="Erreur 404"
+		title="Cette page n'existe pas."
+		lede="Le lien est peut-être ancien, ou l'adresse comporte une faute. Voici par où reprendre."
+	/>
+
+	<Section label="Aller à">
+		<ul class="flex flex-col">
+			{destinations.map((destination, i) => (
+				<li class="border-t border-line" data-reveal data-reveal-delay={i * 70}>
+					<a
+						href={destination.href}
+						class="group grid gap-2 py-6 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
+					>
+						<span class="label self-center">{destination.label}</span>
+						<span class="text-xl text-text transition-colors group-hover:text-accent">
+							{destination.note}
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</Section>
+</Layout>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
+import { SITE } from '../lib/site';
 
 const channels = [
 	{
@@ -27,9 +28,19 @@ const channels = [
 		external: true,
 	},
 ];
+
+const schemas = [
+	{
+		'@type': 'ContactPage',
+		name: 'Contact',
+		mainEntity: { '@id': `${SITE.url}/#person` },
+	},
+];
 ---
 
 <Layout
+	breadcrumbs={[{ name: 'Contact', path: '/contact/' }]}
+	schemas={schemas}
 	title="Contact — Alexis Gallard"
 	description="Développeur Fullstack Senior et AI Engineer, ouvert aux opportunités. Email, téléphone, LinkedIn et GitHub."
 >

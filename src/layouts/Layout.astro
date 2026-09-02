@@ -2,49 +2,60 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE, personSchema, websiteSchema, breadcrumbSchema } from '../lib/site';
 
 interface Props {
 	title: string;
 	description: string;
+	/** website pour les pages du site, article pour un billet. */
+	ogType?: 'website' | 'article' | 'profile';
+	/** Fil d'Ariane, sans l'accueil qui est ajoute automatiquement. */
+	breadcrumbs?: { name: string; path: string }[];
+	/** Schemas propres a la page, fusionnes dans le graphe. */
+	schemas?: Record<string, unknown>[];
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
-const siteUrl = Astro.site ?? new URL('https://alexisgallard.vercel.app');
+const {
+	title,
+	description,
+	ogType = 'website',
+	breadcrumbs = [],
+	schemas = [],
+	noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(SITE.url);
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
 
-const personSchema = {
+// Une image par page, generee a la compilation : /og/<chemin>.png
+const ogSlug = Astro.url.pathname.replace(/^\/|\/$/g, '') || 'index';
+const ogImage = new URL(`/og/${ogSlug}.png`, siteUrl);
+
+// Un seul graphe plutot que plusieurs blocs isoles : les schemas se referencent
+// entre eux par @id, ce qu'un moteur exploite pour relier page, site et personne.
+const graph = {
 	'@context': 'https://schema.org',
-	'@type': 'Person',
-	name: 'Alexis Gallard',
-	jobTitle: 'Développeur Fullstack Senior · AI Engineer',
-	url: siteUrl.toString(),
-	sameAs: [
-		'https://www.linkedin.com/in/alexis-gallard',
-		'https://github.com/AlexisTak',
-	],
-	email: 'mailto:alexis_gallard@outlook.fr',
-	telephone: '+33765723070',
-	address: {
-		'@type': 'PostalAddress',
-		addressLocality: 'Poitiers',
-		addressRegion: 'Nouvelle-Aquitaine',
-		addressCountry: 'FR',
-	},
-	knowsAbout: [
-		'Développement Fullstack',
-		'TypeScript',
-		'React',
-		'Next.js',
-		'Node.js',
-		'Rust',
-		'Tauri',
-		'LLM',
-		'RAG',
-		'Agents IA',
-		'DevOps',
+	'@graph': [
+		websiteSchema,
+		personSchema,
+		{
+			'@type': 'WebPage',
+			'@id': `${canonicalUrl}#webpage`,
+			url: canonicalUrl.toString(),
+			name: title,
+			description,
+			inLanguage: SITE.lang,
+			isPartOf: { '@id': `${SITE.url}/#website` },
+			about: { '@id': `${SITE.url}/#person` },
+			primaryImageOfPage: ogImage.toString(),
+		},
+		breadcrumbSchema(breadcrumbs),
+		...schemas,
 	],
 };
 ---
+
 
 <!doctype html>
 <html lang="fr">
@@ -54,20 +65,40 @@ const personSchema = {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="canonical" href={canonicalUrl} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="alternate" type="application/rss+xml" title="Écrits — Alexis Gallard" href="/rss.xml" />
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="author" content={SITE.name} />
+		{/* max-image-preview:large autorise Google a afficher la grande vignette. */}
+		<meta
+			name="robots"
+			content={noindex
+				? 'noindex, nofollow'
+				: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+		/>
+		<meta name="theme-color" content="#08090b" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#eeedea" media="(prefers-color-scheme: light)" />
 
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:site_name" content={SITE.name} />
+		<meta property="og:locale" content={SITE.locale} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={title} />
+
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
 
-		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />
 
 		<script is:inline>
 			// Applique le thème avant le premier rendu : pas de flash.

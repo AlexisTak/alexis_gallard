@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { getCollection } from 'astro:content';
+import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -21,9 +22,38 @@ const sections = [
 	{ label: 'Solution', text: solution },
 	{ label: 'Résultats', text: results },
 ];
+
+const url = `${SITE.url}/projets/${project.id}/`;
+
+const schemas = [
+	{
+		'@type': 'CreativeWork',
+		'@id': `${url}#work`,
+		name: title,
+		alternateName: subtitle,
+		description: summary,
+		url,
+		creator: { '@id': `${SITE.url}/#person` },
+		author: { '@id': `${SITE.url}/#person` },
+		keywords: stack.join(', '),
+		inLanguage: SITE.lang,
+		...(link ? { sameAs: link } : {}),
+		// Le corps de l'etude de cas, en clair : ce qu'un moteur generatif cite.
+		abstract: [context, challenges, solution, results].join(' '),
+	},
+];
 ---
 
-<Layout title={`${title} — Alexis Gallard`} description={summary}>
+<Layout
+	breadcrumbs={[
+		{ name: 'Travail', path: '/projets/' },
+		{ name: title, path: `/projets/${project.id}/` },
+	]}
+	schemas={schemas}
+	ogType="article"
+	title={`${title} — Alexis Gallard`}
+	description={summary}
+>
 	<article>
 		<header class="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pb-24 md:pt-28">
 			<a href="/projets" class="label transition-colors hover:!text-accent">← Travail</a>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -12,9 +13,37 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const url = `${SITE.url}/blog/${post.id}/`;
+
+const schemas = [
+	{
+		'@type': 'BlogPosting',
+		'@id': `${url}#post`,
+		headline: post.data.title,
+		description: post.data.description,
+		datePublished: post.data.pubDate.toISOString(),
+		dateModified: post.data.pubDate.toISOString(),
+		url,
+		author: { '@id': `${SITE.url}/#person` },
+		publisher: { '@id': `${SITE.url}/#person` },
+		inLanguage: SITE.lang,
+		keywords: post.data.tags.join(', '),
+		isPartOf: { '@id': `${SITE.url}/blog/#blog` },
+	},
+];
 ---
 
-<Layout title={`${post.data.title} — Alexis Gallard`} description={post.data.description}>
+<Layout
+	breadcrumbs={[
+		{ name: 'Écrits', path: '/blog/' },
+		{ name: post.data.title, path: `/blog/${post.id}/` },
+	]}
+	schemas={schemas}
+	ogType="article"
+	title={`${post.data.title} — Alexis Gallard`}
+	description={post.data.description}
+>
 	<article class="mx-auto max-w-3xl px-6 pb-24 pt-20 md:pt-28">
 		<a href="/blog" class="label transition-colors hover:!text-accent">← Écrits</a>
 

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
+import { SITE } from '../lib/site';
 
 interface Job {
 	role: string;
@@ -83,9 +84,27 @@ const skillGroups = [
 		items: ['PostgreSQL', 'MySQL / MariaDB', 'MongoDB', 'Redis'],
 	},
 ];
+
+const schemas = [
+	{
+		'@type': 'ProfilePage',
+		'@id': `${SITE.url}/a-propos/#profilepage`,
+		mainEntity: { '@id': `${SITE.url}/#person` },
+		about: {
+			'@id': `${SITE.url}/#person`,
+			hasOccupation: jobs.map((job) => ({
+				'@type': 'Occupation',
+				name: job.role,
+				occupationLocation: { '@type': 'Place', name: job.place },
+			})),
+		},
+	},
+];
 ---
 
 <Layout
+	breadcrumbs={[{ name: 'Parcours', path: '/a-propos/' }]}
+	schemas={schemas}
 	title="Parcours — Alexis Gallard"
 	description="12 ans en développement Fullstack et IA appliquée : parcours, compétences et façon de travailler."
 >

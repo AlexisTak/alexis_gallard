@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
 
+# Les moteurs generatifs sont autorises explicitement : etre cite correctement
+# vaut mieux qu'etre resume de travers a partir de sources tierces.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://alexisgallard.vercel.app/sitemap-index.xml

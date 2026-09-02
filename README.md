@@ -41,8 +41,14 @@ src/
 ├── content.config.ts  schémas des collections (projects, blog)
 ├── layouts/
 │   └── Layout.astro   document HTML, métadonnées, balisage schema.org
+├── lib/
+│   └── site.ts        identité du site, schémas Person et WebSite
 ├── pages/
-│   ├── index.astro        accueil
+│   ├── index.astro        accueil, avec la FAQ balisée en FAQPage
+│   ├── 404.astro          page d'erreur
+│   ├── llms.txt.ts        résumé Markdown pour les moteurs génératifs
+│   ├── rss.xml.ts         flux des articles
+│   ├── og/[...route].ts   images de partage générées à la compilation
 │   ├── expertises.astro   domaines d'intervention
 │   ├── a-propos.astro     parcours et compétences
 │   ├── projets/           listing et études de cas générées
@@ -117,6 +123,36 @@ script en ligne avant le premier rendu, donc sans flash, et mémorisé dans
 
 **`prefers-reduced-motion` coupe tout.** Séquence d'ouverture, révélations,
 scroll interpolé et champ WebGL.
+
+## SEO et moteurs génératifs
+
+**Métadonnées** — chaque page déclare son canonique, ses balises Open Graph et
+Twitter, `og:locale`, et une directive `robots` autorisant les grandes
+vignettes (`max-image-preview:large`).
+
+**Images de partage** — `src/pages/og/[...route].ts` génère à la compilation une
+image 1200×630 par page, aux couleurs du site, avec le titre de la page. Sans
+elle, un lien partagé sur LinkedIn s'affiche en bloc de texte gris.
+
+**Données structurées** — un graphe `schema.org` unique par page plutôt que des
+blocs isolés : `WebSite`, `Person`, `WebPage` et `BreadcrumbList` partout, plus
+le schéma propre à chaque page (`ProfilePage`, `CollectionPage`, `CreativeWork`,
+`BlogPosting`, `FAQPage`, `ContactPage`). Les nœuds se référencent par `@id`,
+ce qu'un moteur exploite pour relier page, site et personne.
+
+**`llms.txt`** — généré par `src/pages/llms.txt.ts` d'après les mêmes sources que
+le site, il résume l'identité, les compétences et les projets en Markdown, à la
+troisième personne. C'est le pendant de `robots.txt` pour les moteurs
+génératifs : leur donner la version factuelle plutôt que les laisser extraire
+d'un HTML plein de scripts. Les robots correspondants sont autorisés
+explicitement dans `robots.txt`.
+
+**Flux RSS** — `/rss.xml` pour les articles.
+
+**Sitemap** — sans `lastmod` : le renseigner à la date du build annoncerait
+toutes les pages comme modifiées à chaque déploiement, et un signal faux est
+ignoré par les moteurs quand il ne leur coûte pas leur confiance. Les images de
+partage en sont exclues.
 
 ## Intégration continue
 

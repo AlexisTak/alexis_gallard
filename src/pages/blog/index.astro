@@ -3,13 +3,33 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import Section from '../../components/Section.astro';
 import { getCollection } from 'astro:content';
+import { SITE } from '../../lib/site';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const schemas = [
+	{
+		'@type': 'Blog',
+		'@id': `${SITE.url}/blog/#blog`,
+		name: 'Écrits',
+		description: "Notes techniques sur le développement Fullstack et l'IA appliquée.",
+		author: { '@id': `${SITE.url}/#person` },
+		blogPost: posts.map((post) => ({
+			'@type': 'BlogPosting',
+			headline: post.data.title,
+			description: post.data.description,
+			datePublished: post.data.pubDate.toISOString(),
+			url: `${SITE.url}/blog/${post.id}/`,
+		})),
+	},
+];
 ---
 
 <Layout
+	breadcrumbs={[{ name: 'Écrits', path: '/blog/' }]}
+	schemas={schemas}
 	title="Écrits — Alexis Gallard"
 	description="Notes techniques sur le développement Fullstack et l'IA appliquée : RAG en production, architecture, modèles open source."
 >

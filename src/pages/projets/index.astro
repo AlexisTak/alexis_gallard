@@ -4,11 +4,32 @@ import PageHeader from '../../components/PageHeader.astro';
 import Section from '../../components/Section.astro';
 import ProjectRow from '../../components/ProjectRow.astro';
 import { getCollection } from 'astro:content';
+import { SITE } from '../../lib/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const schemas = [
+	{
+		'@type': 'CollectionPage',
+		'@id': `${SITE.url}/projets/#collection`,
+		name: 'Études de cas',
+		mainEntity: {
+			'@type': 'ItemList',
+			numberOfItems: projects.length,
+			itemListElement: projects.map((project, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				url: `${SITE.url}/projets/${project.id}/`,
+				name: project.data.title,
+			})),
+		},
+	},
+];
 ---
 
 <Layout
+	breadcrumbs={[{ name: 'Travail', path: '/projets/' }]}
+	schemas={schemas}
 	title="Travail — Alexis Gallard"
 	description="Études de cas : Anti-Pépins, La Minute de Code, Biscuits IA. Contexte, choix techniques et résultats."
 >
