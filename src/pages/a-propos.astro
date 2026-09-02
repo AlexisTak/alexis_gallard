@@ -3,16 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 
+interface Job {
+	role: string;
+	place: string;
+	start: string;
+	/** Absent tant que le poste est en cours. */
+	end?: string;
+	note?: string;
+	points: string[];
+}
+
 /**
  * Périodes en AAAA-MM, comme sur le CV. `note` explique un chevauchement quand
  * il y en a un : deux postes tenus ensemble, ou une transition entre les deux.
  */
-const experience = [
+const experience: Job[] = [
 	{
 		role: 'Développeur Fullstack Senior · AI Engineer',
 		place: 'Indépendant',
 		start: '2022-04',
-		end: '2026-02',
 		points: [
 			"Architecture logicielle, analyse des besoins clients, conception d'API REST et développement Fullstack, avec tests unitaires et d'intégration.",
 			"Déploiement de solutions d'IA open source en entreprise, réduisant la dépendance et les coûts liés aux LLM propriétaires.",
@@ -46,9 +55,9 @@ const experience = [
 	},
 ];
 
-const formatPeriod = (start: string, end: string) => {
+const formatPeriod = (start: string, end?: string) => {
 	const short = (value: string) => value.split('-').reverse().join('/');
-	return `${short(start)} → ${short(end)}`;
+	return `${short(start)} → ${end ? short(end) : "aujourd'hui"}`;
 };
 
 const jobs = experience.map((job) => ({
