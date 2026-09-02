@@ -1,7 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import portrait from '../assets/photo.jpg';
-
 interface Props {
 	eyebrow: string;
 	/** Phrase diffusée mot à mot, comme une réponse de modèle. */
@@ -24,25 +21,10 @@ const { eyebrow, statement, support } = Astro.props;
 			{eyebrow}
 		</p>
 
-		<div class="mt-10 flex flex-col-reverse gap-10 md:flex-row md:items-start md:gap-10">
-			<h1 class="display flex-1 text-[clamp(2rem,6.6vw,5.5rem)] text-text" data-hero-headline>
-				<span data-stream>{statement}</span><span aria-hidden="true" data-caret class="stream-caret"
-				></span>
-			</h1>
-
-			<!-- L'animation d'entrée porte sur le conteneur : GSAP écrit une opacité
-			     en ligne, qui écraserait le voile appliqué à l'image. -->
-			<div data-hero-item class="shrink-0 self-start">
-				<Image
-					src={portrait}
-					alt="Alexis Gallard"
-					width={480}
-					height={480}
-					loading="eager"
-					class="portrait-veil size-40 md:size-[clamp(11rem,17vw,15rem)]"
-				/>
-			</div>
-		</div>
+		<h1 class="display mt-10 text-[clamp(2rem,8vw,6.5rem)] text-text" data-hero-headline>
+			<span data-stream>{statement}</span><span aria-hidden="true" data-caret class="stream-caret"
+			></span>
+		</h1>
 
 		<p class="mt-10 max-w-xl text-lg leading-relaxed text-text/70" data-hero-item>
 			{support}
