@@ -3,11 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 
+/**
+ * Périodes en AAAA-MM, comme sur le CV. `note` explique un chevauchement quand
+ * il y en a un : deux postes tenus ensemble, ou une transition entre les deux.
+ */
 const experience = [
 	{
 		role: 'Développeur Fullstack Senior · AI Engineer',
 		place: 'Indépendant',
-		period: '2022 → 2026',
+		start: '2022-04',
+		end: '2026-02',
 		points: [
 			"Architecture logicielle, analyse des besoins clients, conception d'API REST et développement Fullstack, avec tests unitaires et d'intégration.",
 			"Déploiement de solutions d'IA open source en entreprise, réduisant la dépendance et les coûts liés aux LLM propriétaires.",
@@ -18,7 +23,9 @@ const experience = [
 	{
 		role: 'Développeur Fullstack',
 		place: 'Emmaüs Ruffec',
-		period: '2014 → 2023',
+		start: '2014-10',
+		end: '2023-01',
+		note: "Derniers mois en parallèle du lancement de l'activité indépendante",
 		points: [
 			'Frontend JavaScript/TypeScript (React, Next.js, TailwindCSS) : responsive, SEO technique, accessibilité.',
 			'Backend Node.js (Express, NestJS) et PHP : API REST/GraphQL, authentification JWT/OAuth.',
@@ -28,14 +35,26 @@ const experience = [
 	},
 	{
 		role: 'Assistant technique',
-		place: 'Auto École Solidaire · en parallèle',
-		period: '2016 → 2022',
+		place: 'Auto École Solidaire',
+		start: '2016-02',
+		end: '2022-09',
+		note: 'Poste tenu en parallèle du poste chez Emmaüs Ruffec',
 		points: [
 			"Conception et maintenance de l'intranet de l'association.",
 			'Support et formation des équipes aux outils informatiques ; gestion des dossiers bénéficiaires.',
 		],
 	},
 ];
+
+const formatPeriod = (start: string, end: string) => {
+	const short = (value: string) => value.split('-').reverse().join('/');
+	return `${short(start)} → ${short(end)}`;
+};
+
+const jobs = experience.map((job) => ({
+	...job,
+	period: formatPeriod(job.start, job.end),
+}));
 
 const skillGroups = [
 	{
@@ -73,16 +92,17 @@ const skillGroups = [
 
 	<Section label="Expérience">
 		<div class="flex flex-col">
-			{experience.map((job, i) => (
+			{jobs.map((job, i) => (
 				<div
 					class="grid gap-4 border-t border-line py-10 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
 					data-reveal
 					data-reveal-delay={i * 80}
 				>
-					<p class="label self-start">{job.period}</p>
+					<p class="label self-start whitespace-nowrap">{job.period}</p>
 					<div>
 						<h2 class="text-xl font-medium text-text">{job.role}</h2>
 						<p class="mt-1 text-sm text-muted">{job.place}</p>
+						{job.note && <p class="label mt-3 !text-accent">{job.note}</p>}
 						<ul class="mt-6 flex flex-col gap-3">
 							{job.points.map((point) => (
 								<li class="max-w-[58ch] leading-relaxed text-text/80">{point}</li>
