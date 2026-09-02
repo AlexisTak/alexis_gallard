@@ -60,18 +60,18 @@ const route = await OGImageRoute({
 			[8, 9, 11],
 			[20, 22, 26],
 		],
-		border: { color: [240, 180, 41], width: 8, side: 'inline-start' },
-		padding: 72,
+		border: { color: [240, 180, 41], width: 10, side: 'inline-start' },
+		padding: 96,
 		font: {
 			title: {
-				size: 72,
+				size: 88,
 				weight: 'Bold',
 				color: [232, 230, 225],
 				lineHeight: 1.1,
 				families: ['Archivo', 'Instrument Sans', 'sans-serif'],
 			},
 			description: {
-				size: 32,
+				size: 36,
 				weight: 'Normal',
 				color: [122, 140, 163],
 				lineHeight: 1.4,
