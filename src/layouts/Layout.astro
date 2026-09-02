@@ -67,7 +67,7 @@ const personSchema = {
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 
-		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
 		<script is:inline>
 			// Applique le thème avant le premier rendu : pas de flash.

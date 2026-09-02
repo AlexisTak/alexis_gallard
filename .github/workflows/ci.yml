@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  # Permet de relancer la vérification à la main depuis l'onglet Actions.
+  workflow_dispatch:
+
+# Un push qui en remplace un autre annule la vérification devenue inutile.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Types, build et liens
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # npm ci installe exactement le contenu du lockfile : la CI teste ce qui
+      # sera déployé, pas une résolution de dépendances plus récente.
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Vérifier les types
+        run: npm run check
+
+      - name: Compiler le site
+        run: npm run build
+
+      - name: Vérifier les liens internes
+        run: npm run check:links
+
+      # Le site compilé reste téléchargeable depuis la page du run, ce qui
+      # permet d'inspecter le résultat sans relancer la compilation localement.
+      - name: Conserver le site compilé
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7

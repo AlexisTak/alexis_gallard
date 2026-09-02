@@ -1,5 +1,7 @@
 # Portfolio — Alexis Gallard
 
+[![CI](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml/badge.svg)](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml)
+
 Site personnel d'Alexis Gallard, développeur Fullstack Senior et AI Engineer.
 Applications web, logiciels desktop en Rust, intégration IA (LLM, RAG, agents).
 
@@ -60,6 +62,9 @@ src/
 | `npm run dev` | Serveur de développement sur `localhost:4321` |
 | `npm run build` | Compile le site statique dans `./dist/` |
 | `npm run preview` | Sert le résultat de la compilation localement |
+| `npm run check` | Vérifie les types dans les fichiers `.astro` et `.ts` |
+| `npm run check:links` | Contrôle les liens internes du site compilé |
+| `npm run verify` | Enchaîne les trois : types, compilation, liens — ce que lance la CI |
 
 Node 22.12 ou plus récent.
 
@@ -110,6 +115,23 @@ script en ligne avant le premier rendu, donc sans flash, et mémorisé dans
 
 **`prefers-reduced-motion` coupe tout.** Séquence d'ouverture, révélations,
 scroll interpolé et champ WebGL.
+
+## Intégration continue
+
+Le workflow `.github/workflows/ci.yml` s'exécute à chaque push et sur chaque
+pull request. Il rejoue exactement `npm run verify` :
+
+1. `npm ci` installe le contenu du lockfile, pas une résolution plus récente —
+   la CI teste ce qui sera déployé.
+2. `astro check` valide les types, y compris dans les balises `.astro`.
+3. `astro build` compile le site.
+4. `scripts/check-links.mjs` parcourt le HTML généré et vérifie que chaque lien
+   interne mène quelque part. Il lit le résultat compilé plutôt que les
+   sources : il attrape donc aussi les liens construits dynamiquement, comme
+   ceux des études de cas.
+
+Le site compilé est conservé en artefact pendant sept jours, téléchargeable
+depuis la page du run.
 
 ## Déploiement
 
