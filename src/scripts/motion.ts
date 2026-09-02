@@ -20,6 +20,23 @@ export function initReveals() {
 		return;
 	}
 
+	// Ce qui est deja visible au premier rendu n'a pas a etre anime : le fondu
+	// retarderait la lecture, et son etat intermediaire fait passer le texte
+	// sous le rapport de contraste requis.
+	const viewportHeight = window.innerHeight;
+	const pending = targets.filter((target) => {
+		const box = target.getBoundingClientRect();
+		if (box.top >= viewportHeight) return true;
+		target.style.transition = 'none';
+		reveal(target);
+		// Rendue au cadre suivant pour que les blocs animes plus tard gardent
+		// leur transition.
+		requestAnimationFrame(() => target.style.removeProperty('transition'));
+		return false;
+	});
+
+	if (pending.length === 0) return;
+
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -34,10 +51,10 @@ export function initReveals() {
 		{ rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
 	);
 
-	targets.forEach((target) => observer.observe(target));
+	pending.forEach((target) => observer.observe(target));
 
 	// Filet : le contenu ne dépend jamais d'une animation qui aboutit. Onglet
 	// ouvert en arrière-plan, observateur muet, erreur — au bout du délai,
 	// l'état final est appliqué quoi qu'il arrive.
-	window.setTimeout(() => targets.forEach(reveal), 3000);
+	window.setTimeout(() => pending.forEach(reveal), 3000);
 }

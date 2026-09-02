@@ -54,7 +54,7 @@
 	--c-line: rgba(27, 37, 48, 0.14);
 	--c-line-hi: rgba(27, 37, 48, 0.3);
 	--c-text: #16181c;
-	--c-muted: #6d6659;
+	--c-muted: #5f584c;
 	/* Deux ambres : l'aplat pour les surfaces, le foncé pour le texte, qui
 	   sinon tomberait sous le rapport de contraste requis. */
 	--c-accent: #f0b429;
