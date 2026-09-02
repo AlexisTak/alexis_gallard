@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const offers = [
+	{
+		title: 'Développement d\'application Fullstack',
+		description: "Conception et développement d'applications web ou d'outils métiers sur mesure, du cahier des charges à la mise en production : frontend React/Next.js, backend Node.js/Laravel, base de données, déploiement.",
+		price: 'À partir de 4 000 €',
+		delay: 'Délai type : 3 à 8 semaines selon périmètre',
+	},
+	{
+		title: 'Intégration IA / RAG / Agents',
+		description: "Intégration de LLM dans vos outils existants : recherche augmentée (RAG) sur vos documents internes, agents automatisant des tâches répétitives, choix entre modèles propriétaires et open source selon vos contraintes de coût et de confidentialité.",
+		price: 'Sur devis, TJM 550 €',
+		delay: "Cadrage initial offert (30-45 min)",
+	},
+	{
+		title: 'Audit technique et sécurité',
+		description: "Audit de code, d'architecture ou de sécurité (pentest applicatif, contrôle d'accès, exposition API) avec rapport priorisé et recommandations concrètes, actionnables par votre équipe.",
+		price: 'À partir de 900 €',
+		delay: 'Délai type : 3 à 5 jours',
+	},
+];
+---
+
+<Layout
+	title="Services — Alexis Gallard"
+	description="Développement Fullstack, intégration IA (LLM, RAG, agents) et audit technique/sécurité — offres et fourchettes de prix."
+>
+	<section class="mx-auto max-w-5xl px-6 pb-20 pt-20">
+		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">Services</p>
+		<h1 class="max-w-2xl text-3xl font-bold tracking-tight text-ink md:text-4xl">
+			Comment je peux vous aider
+		</h1>
+		<p class="mt-4 max-w-2xl text-ink/70">
+			Trois offres claires. Les fourchettes ci-dessous donnent un ordre de grandeur — chaque devis
+			est ajusté au périmètre réel après un premier échange.
+		</p>
+
+		<div class="mt-12 grid gap-6 md:grid-cols-3">
+			{offers.map((offer) => (
+				<div class="flex flex-col gap-4 rounded-2xl border border-ink/10 bg-white p-6">
+					<h2 class="text-lg font-semibold text-ink">{offer.title}</h2>
+					<p class="flex-1 text-sm leading-relaxed text-ink/70">{offer.description}</p>
+					<div class="border-t border-ink/10 pt-4 text-sm">
+						<p class="font-semibold text-accent">{offer.price}</p>
+						<p class="text-ink/50">{offer.delay}</p>
+					</div>
+				</div>
+			))}
+		</div>
+
+		<div class="mt-16 rounded-2xl bg-ink p-8 text-center text-paper">
+			<h2 class="text-xl font-bold">Pas sûr de l'offre qui correspond ?</h2>
+			<p class="mt-2 text-paper/70">Décrivez-moi votre besoin, je vous oriente rapidement.</p>
+			<a
+				href="/contact"
+				class="mt-4 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent-dark hover:text-paper"
+			>
+				Discutons de votre projet
+			</a>
+		</div>
+	</section>
+</Layout>

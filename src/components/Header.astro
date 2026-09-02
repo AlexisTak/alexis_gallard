@@ -1,0 +1,40 @@
+---
+const navItems = [
+	{ href: '/', label: 'Accueil' },
+	{ href: '/a-propos', label: 'À propos' },
+	{ href: '/projets', label: 'Projets' },
+	{ href: '/services', label: 'Services' },
+	{ href: '/blog', label: 'Blog' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-ink/10 bg-paper/80 backdrop-blur">
+	<nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+		<a href="/" class="text-lg font-semibold tracking-tight text-ink">
+			Alexis Gallard
+		</a>
+		<ul class="hidden gap-6 text-sm font-medium text-ink/70 md:flex">
+			{navItems.map((item) => (
+				<li>
+					<a
+						href={item.href}
+						class:list={[
+							'transition-colors hover:text-ink',
+							{ 'text-accent': currentPath === item.href },
+						]}
+					>
+						{item.label}
+					</a>
+				</li>
+			))}
+		</ul>
+		<a
+			href="/contact"
+			class="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent"
+		>
+			Contact
+		</a>
+	</nav>
+</header>

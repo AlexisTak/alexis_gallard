@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Remplacer FORM_ID par l'ID de formulaire Formspree (https://formspree.io) une fois le compte créé.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
+---
+
+<Layout
+	title="Contact — Alexis Gallard"
+	description="Discutons de votre projet Fullstack ou IA : formulaire de contact, email et téléphone."
+>
+	<section class="mx-auto max-w-3xl px-6 pb-20 pt-20">
+		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">Contact</p>
+		<h1 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">Discutons de votre projet</h1>
+		<p class="mt-4 text-ink/70">
+			Décrivez votre besoin en quelques lignes, je réponds sous 48h.
+		</p>
+
+		<form action={FORMSPREE_ENDPOINT} method="POST" class="mt-10 space-y-5">
+			<div>
+				<label for="name" class="mb-1.5 block text-sm font-medium text-ink">Nom</label>
+				<input
+					type="text"
+					id="name"
+					name="name"
+					required
+					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
+				/>
+			</div>
+			<div>
+				<label for="email" class="mb-1.5 block text-sm font-medium text-ink">Email</label>
+				<input
+					type="email"
+					id="email"
+					name="email"
+					required
+					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
+				/>
+			</div>
+			<div>
+				<label for="message" class="mb-1.5 block text-sm font-medium text-ink">Message</label>
+				<textarea
+					id="message"
+					name="message"
+					rows="6"
+					required
+					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
+				></textarea>
+			</div>
+			<button
+				type="submit"
+				class="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+			>
+				Envoyer
+			</button>
+		</form>
+
+		<div class="mt-12 border-t border-ink/10 pt-8 text-sm text-ink/70">
+			<p>Ou directement :</p>
+			<ul class="mt-3 space-y-1">
+				<li><a class="font-medium text-accent hover:underline" href="mailto:alexis_gallard@outlook.fr">alexis_gallard@outlook.fr</a></li>
+				<li><a class="font-medium text-accent hover:underline" href="tel:0765723070">07 65 72 30 70</a></li>
+				<li><a class="font-medium text-accent hover:underline" href="https://www.linkedin.com/in/alexis-gallard" target="_blank" rel="noopener">linkedin.com/in/alexis-gallard</a></li>
+			</ul>
+		</div>
+	</section>
+</Layout>

@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} — Alexis Gallard`} description={post.data.description}>
+	<article class="mx-auto max-w-3xl px-6 pb-20 pt-20">
+		<a href="/blog" class="text-sm font-medium text-accent hover:underline">← Tous les articles</a>
+		<h1 class="mt-6 text-3xl font-bold tracking-tight text-ink">{post.data.title}</h1>
+		<time class="mt-2 block text-sm text-ink/50" datetime={post.data.pubDate.toISOString()}>
+			{post.data.pubDate.toLocaleDateString('fr-FR')}
+		</time>
+		<div class="mt-8 space-y-4 leading-relaxed text-ink/80 [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink [&_a]:text-accent [&_a]:underline">
+			<Content />
+		</div>
+	</article>
+</Layout>

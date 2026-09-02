@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+	title="Projets — Alexis Gallard"
+	description="Études de cas : Anti-Pépins, La Minute de Code, Biscuits IA — contexte, choix techniques et résultats."
+>
+	<section class="mx-auto max-w-5xl px-6 pb-20 pt-20">
+		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">Projets</p>
+		<h1 class="max-w-2xl text-3xl font-bold tracking-tight text-ink md:text-4xl">
+			Réalisations et études de cas
+		</h1>
+		<p class="mt-4 max-w-2xl text-ink/70">
+			Contexte, choix techniques justifiés, défis rencontrés et résultats — pour chaque projet.
+		</p>
+
+		<div class="mt-12 grid gap-6 md:grid-cols-3">
+			{projects.map((project) => (
+				<ProjectCard
+					slug={project.id}
+					title={project.data.title}
+					subtitle={project.data.subtitle}
+					summary={project.data.summary}
+					stack={project.data.stack}
+				/>
+			))}
+		</div>
+	</section>
+</Layout>

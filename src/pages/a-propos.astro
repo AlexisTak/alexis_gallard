@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experience = [
+	{
+		role: 'Développeur Fullstack Senior · AI Engineer',
+		place: 'Indépendant',
+		period: '04/2022 – 02/2026',
+		points: [
+			"Architecture logicielle, analyse des besoins clients, conception d'API REST et développement Fullstack, avec tests unitaires/intégration et optimisation des performances.",
+			"Déploiement de solutions d'IA open source en entreprise, réduisant la dépendance et les coûts liés aux LLM propriétaires.",
+			"Mise en place d'agents IA et de workflows automatisés ; hébergement et optimisation de modèles locaux selon les contraintes matérielles.",
+			"Audit et migration d'infrastructures IA ; audits de code, d'architecture et de sécurité.",
+		],
+	},
+	{
+		role: 'Développeur Fullstack',
+		place: 'Emmaüs Ruffec',
+		period: '10/2014 – 01/2023',
+		points: [
+			'Frontend JavaScript/TypeScript (React, Next.js, TailwindCSS) : responsive, SEO technique, accessibilité (a11y).',
+			'Backend Node.js (Express, NestJS) et PHP : API REST/GraphQL, authentification JWT/OAuth.',
+			'Conception et optimisation de bases de données PostgreSQL, MySQL, MongoDB, Redis.',
+			'Cloud & DevOps : Docker, CI/CD, Linux, Nginx, Vercel, Supabase ; déploiement et maintenance en production.',
+		],
+	},
+	{
+		role: 'Assistant technique',
+		place: 'Auto École Solidaire · poste occupé en parallèle',
+		period: '02/2016 – 09/2022',
+		points: [
+			"Conception et maintenance de l'intranet de l'association.",
+			'Support et formation des équipes aux outils informatiques ; gestion des dossiers bénéficiaires.',
+		],
+	},
+];
+
+const strengths = [
+	'Vision technique globale, de la conception à la production',
+	'Architecture logicielle et systèmes complets',
+	'Autonomie de bout en bout',
+	'Culture DevOps et automatisation',
+	'Culture cybersécurité',
+	'IA appliquée en conditions réelles',
+];
+
+const skillGroups = [
+	{ label: 'Développement', items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Vue.js', 'TailwindCSS', 'Node.js', 'NestJS', 'Laravel', 'PHP', 'REST API', 'GraphQL', 'Rust', 'Go'] },
+	{ label: 'Intelligence artificielle', items: ['LLM', 'Mistral', 'Qwen', 'Ollama', 'RAG', 'LoRA / fine-tuning', 'Agents IA', 'Orchestration multi-modèles', 'Déploiement local'] },
+	{ label: 'DevOps / Infrastructure', items: ['Docker', 'Kubernetes', 'Helm', 'ArgoCD', 'Traefik', 'Nginx', 'CI/CD', 'GitHub Actions', 'Azure', 'AWS', 'Cloudflare', 'Linux', 'Terraform', 'Prometheus', 'Grafana'] },
+	{ label: 'Bases de données', items: ['PostgreSQL', 'MySQL / MariaDB', 'MongoDB', 'Redis'] },
+	{ label: 'Cybersécurité', items: ['Pentest applicatif', 'Audit de code', "Audit d'architecture", 'Sécurité API', "Contrôle d'accès / RLS", 'Analyse de vulnérabilités', 'Hardening', 'OSINT'] },
+];
+---
+
+<Layout
+	title="À propos — Alexis Gallard"
+	description="12 ans d'expérience en développement Fullstack et IA appliquée : parcours, compétences et façon de travailler."
+>
+	<section class="mx-auto max-w-4xl px-6 pb-16 pt-20">
+		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">À propos</p>
+		<h1 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">Alexis Gallard</h1>
+		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
+			Développeur Fullstack Senior et AI Engineer, 12 ans d'expérience, de l'architecture logicielle
+			à la mise en production. Je conçois des applications web et des outils métiers intégrant les
+			technologies d'IA (LLM, RAG, LoRA, agents, automatisation), avec un fort volet infrastructure/DevOps
+			et sécurité. Créateur d'Anti-Pépins, plateforme IA de lutte contre les arnaques en ligne.
+			J'interviens de la conception jusqu'à l'exploitation, incluant l'audit de code, d'architecture et de sécurité.
+		</p>
+
+		<div class="mt-10 flex flex-wrap gap-3">
+			{strengths.map((s) => (
+				<span class="rounded-full bg-ink/5 px-4 py-1.5 text-sm font-medium text-ink/80">{s}</span>
+			))}
+		</div>
+
+		<a
+			href="/cv-alexis-gallard.pdf"
+			download
+			class="mt-8 inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+		>
+			Télécharger le CV (PDF)
+		</a>
+	</section>
+
+	<section class="border-t border-ink/10 bg-white py-16">
+		<div class="mx-auto max-w-4xl px-6">
+			<h2 class="mb-10 text-2xl font-bold text-ink">Parcours</h2>
+			<div class="space-y-10">
+				{experience.map((job) => (
+					<div class="border-l-2 border-accent/30 pl-6">
+						<div class="flex flex-wrap items-baseline justify-between gap-2">
+							<h3 class="font-semibold text-ink">{job.role}</h3>
+							<span class="text-sm text-ink/50">{job.period}</span>
+						</div>
+						<p class="text-sm text-ink/60">{job.place}</p>
+						<ul class="mt-3 space-y-2 text-sm leading-relaxed text-ink/80">
+							{job.points.map((point) => (
+								<li class="flex gap-2">
+									<span class="text-accent">•</span>
+									<span>{point}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-4xl px-6 py-16">
+		<h2 class="mb-10 text-2xl font-bold text-ink">Compétences</h2>
+		<div class="grid gap-8 sm:grid-cols-2">
+			{skillGroups.map((group) => (
+				<div>
+					<h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-ink/50">{group.label}</h3>
+					<div class="flex flex-wrap gap-2">
+						{group.items.map((item) => (
+							<span class="rounded-full bg-ink/5 px-3 py-1 text-xs font-medium text-ink/70">{item}</span>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</Layout>

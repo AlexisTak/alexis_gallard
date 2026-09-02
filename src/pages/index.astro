@@ -1,11 +1,107 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = (await getCollection('projects'))
+	.filter((p) => p.data.featured)
+	.sort((a, b) => a.data.order - b.data.order);
+
+const process = [
+	{
+		title: 'Cadrage',
+		text: "On clarifie le besoin réel, les contraintes techniques et budgétaires, et ce qui compte pour mesurer le succès.",
+	},
+	{
+		title: 'Architecture',
+		text: 'Choix technique justifié plutôt que par défaut : la bonne stack pour le problème, pas la plus impressionnante sur le papier.',
+	},
+	{
+		title: 'Développement',
+		text: 'Livraisons itératives, tests, points réguliers — vous voyez le projet avancer, pas juste le résultat final.',
+	},
+	{
+		title: 'Mise en production',
+		text: "Déploiement, monitoring, et transfert de compétences si vous reprenez la main en interne ensuite.",
+	},
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Alexis Gallard — Développeur Fullstack Senior & AI Engineer"
+	description="Je transforme vos idées en applications web et outils métiers fiables, en intégrant l'IA (LLM, RAG, agents) quand elle apporte une vraie valeur."
+>
+	<section class="mx-auto max-w-5xl px-6 pb-20 pt-20 md:pt-28">
+		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">
+			Fullstack Senior · AI Engineer · 12 ans d'expérience
+		</p>
+		<h1 class="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl">
+			Je transforme vos idées en applications IA fiables et performantes.
+		</h1>
+		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
+			Développement Fullstack (Next.js, Laravel, Node.js) et intégration IA appliquée
+			(LLM, RAG, agents) pour des outils qui tiennent en production — de l'architecture
+			jusqu'à l'exploitation, sécurité et infrastructure incluses.
+		</p>
+		<div class="mt-8 flex flex-wrap gap-4">
+			<a
+				href="/contact"
+				class="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+			>
+				Discutons de votre projet
+			</a>
+			<a
+				href="/projets"
+				class="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+			>
+				Voir mes réalisations
+			</a>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-5xl px-6 pb-20">
+		<div class="mb-8 flex items-end justify-between">
+			<h2 class="text-2xl font-bold text-ink">Projets phares</h2>
+			<a href="/projets" class="text-sm font-medium text-accent hover:underline">Tous les projets →</a>
+		</div>
+		<div class="grid gap-6 md:grid-cols-3">
+			{projects.map((project) => (
+				<ProjectCard
+					slug={project.id}
+					title={project.data.title}
+					subtitle={project.data.subtitle}
+					summary={project.data.summary}
+					stack={project.data.stack}
+				/>
+			))}
+		</div>
+	</section>
+
+	<section class="border-t border-ink/10 bg-white py-20">
+		<div class="mx-auto max-w-5xl px-6">
+			<h2 class="mb-10 text-2xl font-bold text-ink">Comment je travaille</h2>
+			<div class="grid gap-8 md:grid-cols-4">
+				{process.map((step, i) => (
+					<div>
+						<span class="text-sm font-semibold text-accent">{String(i + 1).padStart(2, '0')}</span>
+						<h3 class="mt-2 font-semibold text-ink">{step.title}</h3>
+						<p class="mt-2 text-sm leading-relaxed text-ink/70">{step.text}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-5xl px-6 py-20 text-center">
+		<h2 class="text-2xl font-bold text-ink">Un projet en tête ?</h2>
+		<p class="mx-auto mt-3 max-w-xl text-ink/70">
+			Discutons de vos besoins, techniques ou pas encore tout à fait définis — c'est aussi mon rôle de les clarifier.
+		</p>
+		<a
+			href="/contact"
+			class="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+		>
+			Me contacter
+		</a>
+	</section>
 </Layout>
