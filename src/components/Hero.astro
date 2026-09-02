@@ -30,15 +30,18 @@ const { eyebrow, statement, support } = Astro.props;
 				></span>
 			</h1>
 
-			<Image
-				src={portrait}
-				alt="Alexis Gallard"
-				width={480}
-				height={480}
-				loading="eager"
-				data-hero-item
-				class="portrait-veil size-40 shrink-0 self-start md:size-[clamp(11rem,17vw,15rem)]"
-			/>
+			<!-- L'animation d'entrée porte sur le conteneur : GSAP écrit une opacité
+			     en ligne, qui écraserait le voile appliqué à l'image. -->
+			<div data-hero-item class="shrink-0 self-start">
+				<Image
+					src={portrait}
+					alt="Alexis Gallard"
+					width={480}
+					height={480}
+					loading="eager"
+					class="portrait-veil size-40 md:size-[clamp(11rem,17vw,15rem)]"
+				/>
+			</div>
 		</div>
 
 		<p class="mt-10 max-w-xl text-lg leading-relaxed text-text/70" data-hero-item>
