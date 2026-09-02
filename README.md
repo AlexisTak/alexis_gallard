@@ -138,6 +138,8 @@ depuis la page du run.
 Hébergé sur Vercel, qui compile et publie à chaque push sur `master` via son
 intégration GitHub — aucun workflow de déploiement n'est donc nécessaire.
 
+Domaine de production : [alexis-gallard.com](https://alexis-gallard.com).
+
 `vercel.json` fixe ce que la plateforme ne devine pas :
 
 - **En-têtes de sécurité** sur toutes les réponses : `X-Content-Type-Options`,
