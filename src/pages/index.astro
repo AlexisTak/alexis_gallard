@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
-import ProjectRow from '../components/ProjectRow.astro';
+import WorkReel from '../components/WorkReel.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
@@ -40,23 +40,13 @@ const process = [
 		support="Développement Fullstack et intégration IA appliquée — LLM, RAG, agents — pour des outils qui tiennent en production. 12 ans d'expérience, de l'architecture jusqu'à l'exploitation, sécurité et infrastructure incluses."
 	/>
 
-	<Section label="Travail" id="travail">
-		<div class="flex flex-col">
-			{projects.map((project, i) => (
-				<ProjectRow
-					slug={project.id}
-					title={project.data.title}
-					subtitle={project.data.subtitle}
-					summary={project.data.summary}
-					stack={project.data.stack}
-					delay={i * 90}
-				/>
-			))}
-		</div>
+	<WorkReel projects={projects} />
 
+	<Section label="Suite du travail" id="travail">
 		<a
 			href="/projets"
-			class="label mt-12 inline-block border-b border-line-hi pb-1 transition-colors hover:!text-accent"
+			class="label inline-block border-b border-line-hi pb-1 transition-colors hover:!text-accent"
+			data-reveal
 		>
 			Toutes les études de cas ↗
 		</a>
