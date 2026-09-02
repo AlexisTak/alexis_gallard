@@ -61,6 +61,25 @@ body {
 	color: var(--c-accent-ink);
 }
 
+/* Lenis prend la main sur le défilement : le scroll natif lissé du navigateur
+   entrerait en concurrence avec le sien. */
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
 :focus-visible {
 	outline: 2px solid var(--c-accent);
 	outline-offset: 3px;
