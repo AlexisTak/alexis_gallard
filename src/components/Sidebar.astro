@@ -68,7 +68,7 @@ const isCurrent = (href: string) =>
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					aria-hidden="true"
-					hidden
+					class="hidden"
 				>
 					<circle cx="12" cy="12" r="4" />
 					<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
@@ -140,14 +140,16 @@ const isCurrent = (href: string) =>
 <script>
 	// Bascule de thème : clair par défaut, choix mémorisé.
 	const toggle = document.getElementById('theme-toggle');
-	const moon = document.querySelector<HTMLElement>('[data-theme-icon="dark"]');
-	const sun = document.querySelector<HTMLElement>('[data-theme-icon="light"]');
+	const moon = document.querySelector<SVGElement>('[data-theme-icon="dark"]');
+	const sun = document.querySelector<SVGElement>('[data-theme-icon="light"]');
 
 	// L'icône montre la destination : lune quand on peut passer au sombre.
+	// Le masquage passe par une classe : l'attribut `hidden` ne masque pas un
+	// SVG, la règle des feuilles par défaut ne visant que les éléments HTML.
 	const syncLabel = () => {
 		const isDark = document.documentElement.dataset.theme === 'dark';
-		if (moon) moon.hidden = isDark;
-		if (sun) sun.hidden = !isDark;
+		moon?.classList.toggle('hidden', isDark);
+		sun?.classList.toggle('hidden', !isDark);
 	};
 
 	syncLabel();
