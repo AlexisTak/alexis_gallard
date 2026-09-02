@@ -135,8 +135,20 @@ depuis la page du run.
 
 ## Déploiement
 
-Site entièrement statique : `npm run build` produit `./dist/`, à servir tel quel
-(Vercel, Netlify, Cloudflare Pages ou n'importe quel serveur de fichiers).
+Hébergé sur Vercel, qui compile et publie à chaque push sur `master` via son
+intégration GitHub — aucun workflow de déploiement n'est donc nécessaire.
 
-Le domaine est déclaré dans `astro.config.mjs` (`site`) — il alimente le sitemap
-et les URL canoniques. Il faut aussi le reporter dans `public/robots.txt`.
+`vercel.json` fixe ce que la plateforme ne devine pas :
+
+- **En-têtes de sécurité** sur toutes les réponses : `X-Content-Type-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`.
+- **Cache immuable d'un an** sur `/_astro/`, où Astro place les fichiers dont le
+  nom contient une empreinte du contenu — ils changent de nom à chaque
+  modification, donc rien ne peut être servi périmé.
+- **Slash final** conservé : Astro génère des dossiers avec `index.html`, et les
+  URL canoniques comme le sitemap portent le slash. Forcer l'inverse ferait
+  rediriger vers une adresse que la balise canonique contredit.
+
+Le domaine de production est déclaré dans `astro.config.mjs` (`site`) — il
+alimente le sitemap et les URL canoniques — et doit être reporté dans
+`public/robots.txt`.
