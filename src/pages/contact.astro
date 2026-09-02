@@ -3,71 +3,70 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 
-// Remplacer FORM_ID par l'identifiant de formulaire Formspree (https://formspree.io).
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
-
-const field =
-	'w-full border border-line bg-transparent px-4 py-3 text-text transition-colors placeholder:text-muted/60 focus:border-accent focus:outline-none';
+const channels = [
+	{
+		label: 'Email',
+		value: 'alexis_gallard@outlook.fr',
+		href: 'mailto:alexis_gallard@outlook.fr',
+	},
+	{
+		label: 'Téléphone',
+		value: '07 65 72 30 70',
+		href: 'tel:0765723070',
+	},
+	{
+		label: 'LinkedIn',
+		value: 'linkedin.com/in/alexis-gallard',
+		href: 'https://www.linkedin.com/in/alexis-gallard',
+		external: true,
+	},
+	{
+		label: 'GitHub',
+		value: 'github.com/AlexisTak',
+		href: 'https://github.com/AlexisTak',
+		external: true,
+	},
+];
 ---
 
 <Layout
 	title="Contact — Alexis Gallard"
-	description="Développeur Fullstack Senior et AI Engineer, ouvert aux opportunités. Réponse sous 48 heures."
+	description="Développeur Fullstack Senior et AI Engineer, ouvert aux opportunités. Email, téléphone, LinkedIn et GitHub."
 >
 	<PageHeader
 		eyebrow="Contact"
 		title="Parlons-en."
-		lede="Un poste, une mission, ou simplement une question technique : quelques lignes suffisent. Réponse sous 48 heures."
+		lede="Un poste, une mission, ou simplement une question technique. Réponse sous 48 heures."
 	/>
 
-	<Section label="Formulaire">
-		<form action={FORMSPREE_ENDPOINT} method="POST" class="flex max-w-xl flex-col gap-6">
-			<div>
-				<label for="name" class="label mb-3 block">Nom</label>
-				<input type="text" id="name" name="name" required class={field} />
-			</div>
-			<div>
-				<label for="email" class="label mb-3 block">Email</label>
-				<input type="email" id="email" name="email" required class={field} />
-			</div>
-			<div>
-				<label for="message" class="label mb-3 block">Message</label>
-				<textarea id="message" name="message" rows="7" required class={field}></textarea>
-			</div>
-			<button
-				type="submit"
-				class="label self-start border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
-			>
-				Envoyer
-			</button>
-		</form>
+	<Section label="Écrire">
+		<ul class="flex flex-col">
+			{channels.map((channel, i) => (
+				<li class="border-t border-line" data-reveal data-reveal-delay={i * 70}>
+					<a
+						href={channel.href}
+						target={channel.external ? '_blank' : undefined}
+						rel={channel.external ? 'noopener' : undefined}
+						class="group grid gap-2 py-6 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
+					>
+						<span class="label self-center">{channel.label}</span>
+						<span class="text-xl text-text transition-colors group-hover:text-accent">
+							{channel.value}{channel.external && ' ↗'}
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
 	</Section>
 
-	<Section label="Direct">
-		<ul class="flex flex-col gap-4">
-			<li>
-				<a
-					href="mailto:alexis_gallard@outlook.fr"
-					class="text-xl text-text transition-colors hover:text-accent"
-				>
-					alexis_gallard@outlook.fr
-				</a>
-			</li>
-			<li>
-				<a href="tel:0765723070" class="text-xl text-text transition-colors hover:text-accent">
-					07 65 72 30 70
-				</a>
-			</li>
-			<li>
-				<a
-					href="https://www.linkedin.com/in/alexis-gallard"
-					target="_blank"
-					rel="noopener"
-					class="text-xl text-text transition-colors hover:text-accent"
-				>
-					linkedin.com/in/alexis-gallard ↗
-				</a>
-			</li>
-		</ul>
+	<Section label="Document">
+		<a
+			href="/cv-alexis-gallard.pdf"
+			download
+			class="label inline-block border border-line px-5 py-3 transition-colors hover:border-accent hover:!text-accent"
+			data-reveal
+		>
+			Télécharger le CV · PDF
+		</a>
 	</Section>
 </Layout>
