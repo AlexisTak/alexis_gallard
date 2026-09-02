@@ -1,5 +1,7 @@
 # Portfolio — Alexis Gallard
 
+**→ [alexisgallard.vercel.app](https://alexisgallard.vercel.app)**
+
 [![CI](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml/badge.svg)](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml)
 
 Site personnel d'Alexis Gallard, développeur Fullstack Senior et AI Engineer.
@@ -137,8 +139,6 @@ depuis la page du run.
 
 Hébergé sur Vercel, qui compile et publie à chaque push sur `master` via son
 intégration GitHub — aucun workflow de déploiement n'est donc nécessaire.
-
-Domaine de production : [alexisgallard.vercel.app](https://alexisgallard.vercel.app).
 
 `vercel.json` fixe ce que la plateforme ne devine pas :
 
