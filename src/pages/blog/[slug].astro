@@ -15,13 +15,17 @@ const { Content } = await render(post);
 ---
 
 <Layout title={`${post.data.title} — Alexis Gallard`} description={post.data.description}>
-	<article class="mx-auto max-w-3xl px-6 pb-20 pt-20">
-		<a href="/blog" class="text-sm font-medium text-accent hover:underline">← Tous les articles</a>
-		<h1 class="mt-6 text-3xl font-bold tracking-tight text-ink">{post.data.title}</h1>
-		<time class="mt-2 block text-sm text-ink/50" datetime={post.data.pubDate.toISOString()}>
+	<article class="mx-auto max-w-3xl px-6 pb-24 pt-20 md:pt-28">
+		<a href="/blog" class="label transition-colors hover:!text-accent">← Écrits</a>
+
+		<h1 class="display mt-8 text-[clamp(2rem,5.5vw,3.6rem)] text-text">{post.data.title}</h1>
+		<time class="label mt-6 block" datetime={post.data.pubDate.toISOString()}>
 			{post.data.pubDate.toLocaleDateString('fr-FR')}
 		</time>
-		<div class="mt-8 space-y-4 leading-relaxed text-ink/80 [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink [&_a]:text-accent [&_a]:underline">
+
+		<div
+			class="mt-14 flex flex-col gap-6 text-lg leading-relaxed text-text/85 [&_a]:text-accent [&_a]:underline [&_code]:font-mono [&_code]:text-base [&_code]:text-accent [&_h2]:display [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:text-text [&_li]:ml-5 [&_li]:list-disc [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-line [&_pre]:bg-surface [&_pre]:p-5 [&_pre_code]:text-text"
+		>
 			<Content />
 		</div>
 	</article>

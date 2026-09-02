@@ -1,40 +1,111 @@
 ---
 const navItems = [
-	{ href: '/', label: 'Accueil' },
-	{ href: '/a-propos', label: 'À propos' },
-	{ href: '/projets', label: 'Projets' },
-	{ href: '/services', label: 'Services' },
-	{ href: '/blog', label: 'Blog' },
+	{ href: '/projets', label: 'Travail' },
+	{ href: '/services', label: 'Offres' },
+	{ href: '/a-propos', label: 'Parcours' },
+	{ href: '/blog', label: 'Écrits' },
 ];
 
 const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) => currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
-<header class="sticky top-0 z-50 border-b border-ink/10 bg-paper/80 backdrop-blur">
-	<nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-		<a href="/" class="text-lg font-semibold tracking-tight text-ink">
+<header
+	id="site-header"
+	class="sticky top-0 z-50 border-b border-transparent bg-bg/85 backdrop-blur transition-colors duration-300"
+>
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
+		<a
+			href="/"
+			class="label whitespace-nowrap !text-text !tracking-[0.22em] transition-colors hover:!text-accent"
+		>
 			Alexis Gallard
 		</a>
-		<ul class="hidden gap-6 text-sm font-medium text-ink/70 md:flex">
+
+		<nav aria-label="Navigation principale" class="hidden md:block">
+			<ul class="flex items-center gap-8">
+				{navItems.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							aria-current={isCurrent(item.href) ? 'page' : undefined}
+							class:list={[
+								'label transition-colors hover:!text-text',
+								isCurrent(item.href) && '!text-accent',
+							]}
+						>
+							{item.label}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+
+		<div class="flex items-center gap-4">
+			<button
+				id="theme-toggle"
+				type="button"
+				aria-label="Basculer entre thème sombre et clair"
+				class="label border border-line px-2.5 py-1.5 transition-colors hover:border-accent hover:!text-accent"
+			>
+				<span data-theme-label>Clair</span>
+			</button>
+			<a
+				href="/contact"
+				class="label whitespace-nowrap border border-accent px-3.5 py-1.5 !text-accent transition-colors hover:bg-accent hover:!text-accent-ink"
+			>
+				<span class="md:hidden">Contact</span>
+				<span class="hidden md:inline">Parler du projet</span>
+			</a>
+		</div>
+	</div>
+
+	<nav aria-label="Navigation principale (mobile)" class="border-t border-line md:hidden">
+		<ul class="mx-auto flex max-w-6xl items-center gap-6 overflow-x-auto px-6 py-3">
 			{navItems.map((item) => (
 				<li>
 					<a
 						href={item.href}
-						class:list={[
-							'transition-colors hover:text-ink',
-							{ 'text-accent': currentPath === item.href },
-						]}
+						aria-current={isCurrent(item.href) ? 'page' : undefined}
+						class:list={['label whitespace-nowrap', isCurrent(item.href) && '!text-accent']}
 					>
 						{item.label}
 					</a>
 				</li>
 			))}
 		</ul>
-		<a
-			href="/contact"
-			class="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent"
-		>
-			Contact
-		</a>
 	</nav>
 </header>
+
+<script>
+	// Le filet du header n'apparaît qu'une fois la page en mouvement.
+	const header = document.getElementById('site-header');
+	if (header) {
+		const setLine = () => {
+			header.classList.toggle('border-line', window.scrollY > 8);
+			header.classList.toggle('border-transparent', window.scrollY <= 8);
+		};
+		setLine();
+		window.addEventListener('scroll', setLine, { passive: true });
+	}
+
+	// Bascule de thème : sombre par défaut, clair sur choix explicite.
+	const toggle = document.getElementById('theme-toggle');
+	const label = document.querySelector('[data-theme-label]');
+
+	const syncLabel = () => {
+		if (!label) return;
+		label.textContent = document.documentElement.dataset.theme === 'light' ? 'Sombre' : 'Clair';
+	};
+
+	syncLabel();
+
+	toggle?.addEventListener('click', () => {
+		const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+		document.documentElement.dataset.theme = next;
+		try {
+			localStorage.setItem('theme', next);
+		} catch {}
+		syncLabel();
+	});
+</script>

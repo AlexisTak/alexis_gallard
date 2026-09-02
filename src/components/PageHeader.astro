@@ -1,0 +1,15 @@
+---
+interface Props {
+	eyebrow: string;
+	title: string;
+	lede?: string;
+}
+
+const { eyebrow, title, lede } = Astro.props;
+---
+
+<header class="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pb-24 md:pt-28">
+	<p class="label">{eyebrow}</p>
+	<h1 class="display mt-8 max-w-[18ch] text-[clamp(1.9rem,7vw,5rem)] text-text">{title}</h1>
+	{lede && <p class="mt-8 max-w-[52ch] text-lg leading-relaxed text-text/70">{lede}</p>}
+</header>

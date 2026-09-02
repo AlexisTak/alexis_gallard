@@ -1,67 +1,73 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
 
-// Remplacer FORM_ID par l'ID de formulaire Formspree (https://formspree.io) une fois le compte créé.
+// Remplacer FORM_ID par l'identifiant de formulaire Formspree (https://formspree.io).
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
+
+const field =
+	'w-full border border-line bg-transparent px-4 py-3 text-text transition-colors placeholder:text-muted/60 focus:border-accent focus:outline-none';
 ---
 
 <Layout
 	title="Contact — Alexis Gallard"
-	description="Discutons de votre projet Fullstack ou IA : formulaire de contact, email et téléphone."
+	description="Décrivez votre projet Fullstack ou IA. Réponse sous 48 heures."
 >
-	<section class="mx-auto max-w-3xl px-6 pb-20 pt-20">
-		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">Contact</p>
-		<h1 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">Discutons de votre projet</h1>
-		<p class="mt-4 text-ink/70">
-			Décrivez votre besoin en quelques lignes, je réponds sous 48h.
-		</p>
+	<PageHeader
+		eyebrow="Contact"
+		title="Décrivez le besoin."
+		lede="Quelques lignes suffisent pour commencer. Réponse sous 48 heures, avec un premier avis honnête sur la faisabilité."
+	/>
 
-		<form action={FORMSPREE_ENDPOINT} method="POST" class="mt-10 space-y-5">
+	<Section label="Formulaire">
+		<form action={FORMSPREE_ENDPOINT} method="POST" class="flex max-w-xl flex-col gap-6">
 			<div>
-				<label for="name" class="mb-1.5 block text-sm font-medium text-ink">Nom</label>
-				<input
-					type="text"
-					id="name"
-					name="name"
-					required
-					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
-				/>
+				<label for="name" class="label mb-3 block">Nom</label>
+				<input type="text" id="name" name="name" required class={field} />
 			</div>
 			<div>
-				<label for="email" class="mb-1.5 block text-sm font-medium text-ink">Email</label>
-				<input
-					type="email"
-					id="email"
-					name="email"
-					required
-					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
-				/>
+				<label for="email" class="label mb-3 block">Email</label>
+				<input type="email" id="email" name="email" required class={field} />
 			</div>
 			<div>
-				<label for="message" class="mb-1.5 block text-sm font-medium text-ink">Message</label>
-				<textarea
-					id="message"
-					name="message"
-					rows="6"
-					required
-					class="w-full rounded-lg border border-ink/15 px-4 py-2.5 text-ink outline-none focus:border-accent"
-				></textarea>
+				<label for="message" class="label mb-3 block">Projet</label>
+				<textarea id="message" name="message" rows="7" required class={field}></textarea>
 			</div>
 			<button
 				type="submit"
-				class="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+				class="label self-start border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
 			>
 				Envoyer
 			</button>
 		</form>
+	</Section>
 
-		<div class="mt-12 border-t border-ink/10 pt-8 text-sm text-ink/70">
-			<p>Ou directement :</p>
-			<ul class="mt-3 space-y-1">
-				<li><a class="font-medium text-accent hover:underline" href="mailto:alexis_gallard@outlook.fr">alexis_gallard@outlook.fr</a></li>
-				<li><a class="font-medium text-accent hover:underline" href="tel:0765723070">07 65 72 30 70</a></li>
-				<li><a class="font-medium text-accent hover:underline" href="https://www.linkedin.com/in/alexis-gallard" target="_blank" rel="noopener">linkedin.com/in/alexis-gallard</a></li>
-			</ul>
-		</div>
-	</section>
+	<Section label="Direct">
+		<ul class="flex flex-col gap-4">
+			<li>
+				<a
+					href="mailto:alexis_gallard@outlook.fr"
+					class="text-xl text-text transition-colors hover:text-accent"
+				>
+					alexis_gallard@outlook.fr
+				</a>
+			</li>
+			<li>
+				<a href="tel:0765723070" class="text-xl text-text transition-colors hover:text-accent">
+					07 65 72 30 70
+				</a>
+			</li>
+			<li>
+				<a
+					href="https://www.linkedin.com/in/alexis-gallard"
+					target="_blank"
+					rel="noopener"
+					class="text-xl text-text transition-colors hover:text-accent"
+				>
+					linkedin.com/in/alexis-gallard ↗
+				</a>
+			</li>
+		</ul>
+	</Section>
 </Layout>

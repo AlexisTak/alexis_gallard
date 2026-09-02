@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -11,57 +12,61 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, subtitle, stack, summary, context, challenges, solution, results, link } = project.data;
+const { title, subtitle, stack, summary, context, challenges, solution, results, link } =
+	project.data;
 
 const sections = [
 	{ label: 'Contexte', text: context },
-	{ label: 'Défis techniques', text: challenges },
+	{ label: 'Défis', text: challenges },
 	{ label: 'Solution', text: solution },
 	{ label: 'Résultats', text: results },
 ];
 ---
 
 <Layout title={`${title} — Alexis Gallard`} description={summary}>
-	<article class="mx-auto max-w-3xl px-6 pb-20 pt-20">
-		<a href="/projets" class="text-sm font-medium text-accent hover:underline">← Tous les projets</a>
+	<article>
+		<header class="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pb-24 md:pt-28">
+			<a href="/projets" class="label transition-colors hover:!text-accent">← Travail</a>
 
-		<h1 class="mt-6 text-3xl font-bold tracking-tight text-ink md:text-4xl">{title}</h1>
-		<p class="mt-2 text-lg text-ink/60">{subtitle}</p>
+			<h1 class="display mt-8 max-w-[16ch] text-[clamp(1.9rem,7vw,5rem)] text-text">{title}</h1>
+			<p class="mt-6 max-w-[52ch] text-lg text-text/70">{subtitle}</p>
 
-		<ul class="mt-6 flex flex-wrap gap-2">
-			{stack.map((tech: string) => (
-				<li class="rounded-full bg-ink/5 px-3 py-1 text-xs font-medium text-ink/70">{tech}</li>
-			))}
-		</ul>
+			<ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2">
+				{stack.map((tech: string) => <li class="label">{tech}</li>)}
+			</ul>
 
-		{link && (
-			<a
-				href={link}
-				target="_blank"
-				rel="noopener"
-				class="mt-6 inline-block text-sm font-semibold text-accent hover:underline"
-			>
-				Voir le site en production →
-			</a>
-		)}
+			{link && (
+				<a
+					href={link}
+					target="_blank"
+					rel="noopener"
+					class="label mt-10 inline-block border-b border-line-hi pb-1 transition-colors hover:!text-accent"
+				>
+					Voir en production ↗
+				</a>
+			)}
+		</header>
 
-		<div class="mt-12 space-y-10">
-			{sections.map((section) => (
-				<div>
-					<h2 class="text-sm font-semibold uppercase tracking-wide text-ink/50">{section.label}</h2>
-					<p class="mt-3 leading-relaxed text-ink/80">{section.text}</p>
-				</div>
-			))}
-		</div>
+		{sections.map((section) => (
+			<Section label={section.label}>
+				<p class="max-w-[58ch] text-lg leading-relaxed text-text/85" data-reveal>
+					{section.text}
+				</p>
+			</Section>
+		))}
 
-		<div class="mt-16 rounded-2xl bg-ink p-8 text-center text-paper">
-			<h2 class="text-xl font-bold">Un projet similaire en tête ?</h2>
+		<Section label="Suite">
+			<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
+				Un projet du même ordre ?
+			</h2>
 			<a
 				href="/contact"
-				class="mt-4 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent-dark hover:text-paper"
+				class="label mt-10 inline-block border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
+				data-reveal
+				data-reveal-delay="80"
 			>
-				Discutons-en
+				En parler
 			</a>
-		</div>
+		</Section>
 	</article>
 </Layout>

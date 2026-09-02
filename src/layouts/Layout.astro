@@ -30,7 +30,8 @@ const serviceSchema = {
 	'@type': 'ProfessionalService',
 	name: 'Alexis Gallard — Développement Fullstack & IA',
 	areaServed: 'Poitiers, Nouvelle-Aquitaine, France',
-	description: 'Développement d\'applications Fullstack et intégration IA (LLM, RAG, agents) pour PME et startups.',
+	description:
+		"Développement d'applications Fullstack et intégration IA (LLM, RAG, agents) pour PME et startups.",
 };
 ---
 
@@ -57,12 +58,45 @@ const serviceSchema = {
 
 		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 		<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+		<script is:inline>
+			// Applique le thème avant le premier rendu : pas de flash.
+			try {
+				const stored = localStorage.getItem('theme');
+				if (stored === 'light' || stored === 'dark') {
+					document.documentElement.dataset.theme = stored;
+				}
+			} catch {}
+		</script>
 	</head>
-	<body class="flex min-h-screen flex-col antialiased">
+	<body class="flex min-h-screen flex-col bg-bg text-text">
 		<Header />
 		<main class="flex-1">
 			<slot />
 		</main>
 		<Footer />
+
+		<script>
+			const revealables = document.querySelectorAll('[data-reveal]');
+			const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (reduced || !('IntersectionObserver' in window)) {
+				revealables.forEach((el) => el.classList.add('is-visible'));
+			} else {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (!entry.isIntersecting) return;
+							const el = entry.target as HTMLElement;
+							const delay = Number(el.dataset.revealDelay ?? 0);
+							window.setTimeout(() => el.classList.add('is-visible'), delay);
+							observer.unobserve(el);
+						});
+					},
+					{ rootMargin: '0px 0px -12% 0px', threshold: 0.1 },
+				);
+				revealables.forEach((el) => observer.observe(el));
+			}
+		</script>
 	</body>
 </html>

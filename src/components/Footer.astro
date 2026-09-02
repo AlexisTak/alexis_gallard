@@ -1,15 +1,37 @@
 ---
 const year = new Date().getFullYear();
+
+const links = [
+	{ href: 'mailto:alexis_gallard@outlook.fr', label: 'alexis_gallard@outlook.fr' },
+	{ href: 'tel:0765723070', label: '07 65 72 30 70' },
+	{ href: 'https://www.linkedin.com/in/alexis-gallard', label: 'LinkedIn', external: true },
+	{ href: 'https://github.com/AlexisTak', label: 'GitHub', external: true },
+];
 ---
 
-<footer class="border-t border-ink/10 bg-ink text-paper/80">
-	<div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-10 text-sm md:flex-row md:items-center md:justify-between">
-		<p>&copy; {year} Alexis Gallard. Développeur Fullstack Senior · AI Engineer.</p>
-		<ul class="flex gap-5">
-			<li><a class="hover:text-accent" href="mailto:alexis_gallard@outlook.fr">Email</a></li>
-			<li><a class="hover:text-accent" href="tel:0765723070">Téléphone</a></li>
-			<li><a class="hover:text-accent" href="https://www.linkedin.com/in/alexis-gallard" target="_blank" rel="noopener">LinkedIn</a></li>
-			<li><a class="hover:text-accent" href="https://github.com/AlexisTak" target="_blank" rel="noopener">GitHub</a></li>
-		</ul>
+<footer class="border-t border-line">
+	<div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-16">
+		<p class="label self-start">Contact</p>
+
+		<div class="flex flex-col gap-10">
+			<ul class="flex flex-col gap-3">
+				{links.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener' : undefined}
+							class="text-lg text-text transition-colors hover:text-accent"
+						>
+							{link.label}
+						</a>
+					</li>
+				))}
+			</ul>
+
+			<p class="label !tracking-[0.14em]">
+				&copy; {year} Alexis Gallard · Fullstack &amp; IA appliquée · Poitiers
+			</p>
+		</div>
 	</div>
 </footer>

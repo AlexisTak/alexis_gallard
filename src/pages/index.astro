@@ -1,16 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ProjectRow from '../components/ProjectRow.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.order - b.data.order);
 
+// Un vrai ordre : chaque étape conditionne la suivante. La numérotation dit quelque chose.
 const process = [
 	{
 		title: 'Cadrage',
-		text: "On clarifie le besoin réel, les contraintes techniques et budgétaires, et ce qui compte pour mesurer le succès.",
+		text: "On clarifie le besoin réel, les contraintes techniques et budgétaires, et ce qui servira à mesurer le succès.",
 	},
 	{
 		title: 'Architecture',
@@ -18,90 +21,82 @@ const process = [
 	},
 	{
 		title: 'Développement',
-		text: 'Livraisons itératives, tests, points réguliers — vous voyez le projet avancer, pas juste le résultat final.',
+		text: 'Livraisons itératives, tests, points réguliers. Vous voyez le projet avancer, pas seulement le résultat final.',
 	},
 	{
-		title: 'Mise en production',
-		text: "Déploiement, monitoring, et transfert de compétences si vous reprenez la main en interne ensuite.",
+		title: 'Production',
+		text: "Déploiement, monitoring, et transfert de compétences si votre équipe reprend la main ensuite.",
 	},
 ];
 ---
 
 <Layout
 	title="Alexis Gallard — Développeur Fullstack Senior & AI Engineer"
-	description="Je transforme vos idées en applications web et outils métiers fiables, en intégrant l'IA (LLM, RAG, agents) quand elle apporte une vraie valeur."
+	description="Applications web et outils métiers avec IA appliquée (LLM, RAG, agents), de l'architecture à la production. Freelance à Poitiers, Nouvelle-Aquitaine."
 >
-	<section class="mx-auto max-w-5xl px-6 pb-20 pt-20 md:pt-28">
-		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">
-			Fullstack Senior · AI Engineer · 12 ans d'expérience
-		</p>
-		<h1 class="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl">
-			Je transforme vos idées en applications IA fiables et performantes.
-		</h1>
-		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
-			Développement Fullstack (Next.js, Laravel, Node.js) et intégration IA appliquée
-			(LLM, RAG, agents) pour des outils qui tiennent en production — de l'architecture
-			jusqu'à l'exploitation, sécurité et infrastructure incluses.
-		</p>
-		<div class="mt-8 flex flex-wrap gap-4">
-			<a
-				href="/contact"
-				class="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
-			>
-				Discutons de votre projet
-			</a>
-			<a
-				href="/projets"
-				class="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
-			>
-				Voir mes réalisations
-			</a>
-		</div>
-	</section>
+	<Hero
+		eyebrow="Disponible · Poitiers · Nouvelle-Aquitaine"
+		statement="Je transforme vos idées en applications IA fiables."
+		support="Développement Fullstack et intégration IA appliquée — LLM, RAG, agents — pour des outils qui tiennent en production. 12 ans d'expérience, de l'architecture jusqu'à l'exploitation, sécurité et infrastructure incluses."
+	/>
 
-	<section class="mx-auto max-w-5xl px-6 pb-20">
-		<div class="mb-8 flex items-end justify-between">
-			<h2 class="text-2xl font-bold text-ink">Projets phares</h2>
-			<a href="/projets" class="text-sm font-medium text-accent hover:underline">Tous les projets →</a>
-		</div>
-		<div class="grid gap-6 md:grid-cols-3">
-			{projects.map((project) => (
-				<ProjectCard
+	<Section label="Travail" id="travail">
+		<div class="flex flex-col">
+			{projects.map((project, i) => (
+				<ProjectRow
 					slug={project.id}
 					title={project.data.title}
 					subtitle={project.data.subtitle}
 					summary={project.data.summary}
 					stack={project.data.stack}
+					delay={i * 90}
 				/>
 			))}
 		</div>
-	</section>
 
-	<section class="border-t border-ink/10 bg-white py-20">
-		<div class="mx-auto max-w-5xl px-6">
-			<h2 class="mb-10 text-2xl font-bold text-ink">Comment je travaille</h2>
-			<div class="grid gap-8 md:grid-cols-4">
-				{process.map((step, i) => (
-					<div>
-						<span class="text-sm font-semibold text-accent">{String(i + 1).padStart(2, '0')}</span>
-						<h3 class="mt-2 font-semibold text-ink">{step.title}</h3>
-						<p class="mt-2 text-sm leading-relaxed text-ink/70">{step.text}</p>
-					</div>
-				))}
-			</div>
-		</div>
-	</section>
+		<a
+			href="/projets"
+			class="label mt-12 inline-block border-b border-line-hi pb-1 transition-colors hover:!text-accent"
+		>
+			Toutes les études de cas ↗
+		</a>
+	</Section>
 
-	<section class="mx-auto max-w-5xl px-6 py-20 text-center">
-		<h2 class="text-2xl font-bold text-ink">Un projet en tête ?</h2>
-		<p class="mx-auto mt-3 max-w-xl text-ink/70">
-			Discutons de vos besoins, techniques ou pas encore tout à fait définis — c'est aussi mon rôle de les clarifier.
+	<Section label="Méthode" id="methode">
+		<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
+			Quatre étapes, dans cet ordre.
+		</h2>
+
+		<ol class="mt-16 flex flex-col">
+			{process.map((step, i) => (
+				<li
+					class="grid gap-4 border-t border-line py-8 md:grid-cols-[4rem_12rem_minmax(0,1fr)] md:gap-8"
+					data-reveal
+					data-reveal-delay={i * 80}
+				>
+					<span class="label !text-accent">{String(i + 1).padStart(2, '0')}</span>
+					<h3 class="text-lg font-medium text-text">{step.title}</h3>
+					<p class="max-w-[52ch] leading-relaxed text-text/70">{step.text}</p>
+				</li>
+			))}
+		</ol>
+	</Section>
+
+	<Section label="Suite" id="suite">
+		<h2 class="display max-w-[14ch] text-[clamp(2rem,6vw,4rem)]" data-reveal>
+			Un projet en tête ?
+		</h2>
+		<p class="mt-8 max-w-[52ch] leading-relaxed text-text/70" data-reveal data-reveal-delay="80">
+			Techniquement cadré ou encore flou : clarifier le besoin fait partie du travail.
+			Réponse sous 48 heures.
 		</p>
 		<a
 			href="/contact"
-			class="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+			class="label mt-12 inline-block border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
+			data-reveal
+			data-reveal-delay="160"
 		>
-			Me contacter
+			Parler de votre projet
 		</a>
-	</section>
+	</Section>
 </Layout>

@@ -1,0 +1,117 @@
+---
+interface Props {
+	eyebrow: string;
+	/** Phrase diffusée mot à mot, comme une réponse de modèle. */
+	statement: string;
+	support: string;
+}
+
+const { eyebrow, statement, support } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-6 pb-24 pt-20 md:pb-36 md:pt-32">
+	<p class="label flex items-center gap-3">
+		<span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+		{eyebrow}
+	</p>
+
+	<h1 class="display mt-10 text-[clamp(2rem,8vw,6.5rem)] text-text">
+		<span data-stream>{statement}</span><span aria-hidden="true" data-caret class="stream-caret"
+		></span>
+	</h1>
+
+	<p class="mt-10 max-w-xl text-lg leading-relaxed text-text/70">
+		{support}
+	</p>
+
+	<div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+		<a
+			href="/contact"
+			class="label border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
+		>
+			Parler de votre projet
+		</a>
+		<a href="/projets" class="label border-b border-line-hi pb-1 transition-colors hover:!text-text">
+			Voir le travail
+		</a>
+	</div>
+</section>
+
+<style is:global>
+	.stream-word {
+		opacity: 0;
+		transition: opacity 0.3s ease-out;
+	}
+
+	.stream-word.is-on {
+		opacity: 1;
+	}
+
+	.stream-caret {
+		display: inline-block;
+		width: 0.5em;
+		height: 0.78em;
+		margin-left: 0.12em;
+		background-color: var(--c-accent);
+		vertical-align: baseline;
+		animation: caret-blink 1.1s steps(1) infinite;
+	}
+
+	.stream-caret.is-done {
+		opacity: 0;
+		transition: opacity 0.5s ease-out 0.4s;
+		animation: none;
+	}
+
+	@keyframes caret-blink {
+		0%,
+		49% {
+			opacity: 1;
+		}
+		50%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.stream-word {
+			opacity: 1;
+		}
+
+		.stream-caret {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	// Le hero se diffuse mot à mot : le produit se démontre lui-même, une seule fois.
+	const target = document.querySelector<HTMLElement>('[data-stream]');
+	const caret = document.querySelector<HTMLElement>('[data-caret]');
+	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (target && !reduced) {
+		const words = (target.textContent ?? '').trim().split(/\s+/);
+		target.textContent = '';
+
+		const spans = words.map((word, index) => {
+			const span = document.createElement('span');
+			span.className = 'stream-word';
+			span.textContent = index === words.length - 1 ? word : `${word} `;
+			target.appendChild(span);
+			return span;
+		});
+
+		spans.forEach((span, index) => {
+			window.setTimeout(() => {
+				span.classList.add('is-on');
+				if (index === spans.length - 1) {
+					window.setTimeout(() => caret?.classList.add('is-done'), 260);
+				}
+			}, 120 + index * 85);
+		});
+	} else {
+		caret?.classList.add('is-done');
+	}
+</script>

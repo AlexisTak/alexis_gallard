@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -8,31 +10,42 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <Layout
-	title="Blog — Alexis Gallard"
-	description="Articles techniques sur le développement Fullstack et l'IA appliquée (LLM, RAG, agents)."
+	title="Écrits — Alexis Gallard"
+	description="Notes techniques sur le développement Fullstack et l'IA appliquée : RAG en production, architecture, modèles open source."
 >
-	<section class="mx-auto max-w-3xl px-6 pb-20 pt-20">
-		<p class="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">Blog</p>
-		<h1 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">Articles techniques</h1>
+	<PageHeader
+		eyebrow="Écrits"
+		title="Notes techniques."
+		lede="Ce que j'apprends en production, écrit pendant que c'est encore frais."
+	/>
 
+	<Section label={posts.length > 0 ? `${posts.length} notes` : 'Bientôt'}>
 		{posts.length === 0 ? (
-			<p class="mt-8 text-ink/60">
-				Premiers articles bientôt : RAG en production, choix d'architecture Fullstack, IA open source.
+			<p class="max-w-[52ch] text-lg leading-relaxed text-text/70" data-reveal>
+				Premières notes en préparation : RAG en production et ses pièges, arbitrer entre modèle
+				propriétaire et open source, choisir sa stack sans suivre la mode.
 			</p>
 		) : (
-			<ul class="mt-10 space-y-6">
-				{posts.map((post) => (
-					<li class="border-b border-ink/10 pb-6">
-						<a href={`/blog/${post.id}`} class="text-lg font-semibold text-ink hover:text-accent">
-							{post.data.title}
-						</a>
-						<p class="mt-1 text-sm text-ink/60">{post.data.description}</p>
-						<time class="mt-1 block text-xs text-ink/40" datetime={post.data.pubDate.toISOString()}>
+			<div class="flex flex-col">
+				{posts.map((post, i) => (
+					<a
+						href={`/blog/${post.id}`}
+						class="group grid gap-3 border-t border-line py-8 transition-colors hover:border-accent md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
+						data-reveal
+						data-reveal-delay={i * 70}
+					>
+						<time class="label self-start" datetime={post.data.pubDate.toISOString()}>
 							{post.data.pubDate.toLocaleDateString('fr-FR')}
 						</time>
-					</li>
+						<div>
+							<h2 class="text-xl font-medium text-text transition-colors group-hover:text-accent">
+								{post.data.title}
+							</h2>
+							<p class="mt-2 max-w-[58ch] leading-relaxed text-text/70">{post.data.description}</p>
+						</div>
+					</a>
 				))}
-			</ul>
+			</div>
 		)}
-	</section>
+	</Section>
 </Layout>
