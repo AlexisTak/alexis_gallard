@@ -21,11 +21,19 @@ const process = [
 	},
 	{
 		title: 'Développement',
-		text: 'Livraisons itératives, tests, points réguliers. Vous voyez le projet avancer, pas seulement le résultat final.',
+		text: "Livraisons itératives, tests unitaires et d'intégration écrits avec le code, revues régulières. On voit le projet avancer, pas seulement le résultat final.",
+	},
+	{
+		title: 'Intégration continue',
+		text: "Chaque commit passe par la CI : tests, analyse statique, build. Une branche qui casse la suite ne part pas plus loin, et le déploiement cesse d'être un moment risqué.",
+	},
+	{
+		title: 'Pré-production',
+		text: "Un environnement identique à la production, aux données près : recette fonctionnelle, tests de bout en bout, vérification des migrations et des montées de charge avant que quiconque en dépende.",
 	},
 	{
 		title: 'Production',
-		text: "Déploiement, monitoring, et transfert de compétences si votre équipe reprend la main ensuite.",
+		text: 'Déploiement, supervision, alertes sur ce qui compte, et transfert de compétences quand une équipe reprend la main ensuite.',
 	},
 ];
 ---
@@ -45,7 +53,7 @@ const process = [
 
 	<Section label="Méthode" id="methode">
 		<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
-			Quatre étapes, dans cet ordre.
+			Six étapes, dans cet ordre.
 		</h2>
 
 		<ol class="mt-16 flex flex-col">
