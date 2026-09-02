@@ -80,8 +80,8 @@ ${
 }
 ## Ce site
 
-Site statique construit avec Astro, Tailwind CSS, GSAP et un champ de points en
-WebGL écrit à la main. Code source : ${SITE.repository}
+Site statique construit avec Astro, Tailwind CSS et GSAP.
+Code source : ${SITE.repository}
 `;
 
 	return new Response(body, {

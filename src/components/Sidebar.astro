@@ -1,0 +1,146 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../lib/site';
+
+const navItems = [
+	{ href: '/', label: 'Accueil' },
+	{ href: '/projets', label: 'Travail' },
+	{ href: '/expertises', label: 'Expertises' },
+	{ href: '/a-propos', label: 'Parcours' },
+	{ href: '/blog', label: 'Écrits' },
+	{ href: '/contact', label: 'Contact' },
+];
+
+const figures = [
+	{ value: '12', unit: 'ans', note: "d'expérience" },
+	{ value: '3', unit: 'domaines', note: 'web, IA, infra' },
+];
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+	href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+{/* Carte de visite permanente : à partir de lg elle reste à l'écran pendant
+    que le contenu défile ; en dessous elle redevient un en-tête classique. */}
+<aside
+	class="lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-[19rem] lg:flex-col lg:gap-4 lg:overflow-y-auto lg:p-4"
+>
+	<div class="card flex flex-col gap-5 p-5">
+		<div class="flex items-start justify-between gap-4">
+			<a href="/" aria-label={`${SITE.name} — accueil`} class="group flex items-center gap-2.5">
+				<Logo size={30} />
+				<span class="text-[0.95rem] font-semibold tracking-tight transition-colors group-hover:text-accent-strong">
+					{SITE.name}
+				</span>
+			</a>
+
+			<button
+				id="theme-toggle"
+				type="button"
+				aria-label="Basculer entre thème clair et sombre"
+				class="pill border border-line text-muted transition-colors hover:border-accent-strong hover:text-accent-strong"
+			>
+				<span data-theme-label>Sombre</span>
+			</button>
+		</div>
+
+		<p class="text-sm leading-relaxed text-muted">
+			Développeur Fullstack Senior et AI&nbsp;Engineer. Applications web, logiciels desktop en Rust,
+			IA appliquée — de l'architecture jusqu'à la production.
+		</p>
+
+		<p class="pill w-fit bg-accent text-accent-ink">
+			<span class="inline-block h-1.5 w-1.5 rounded-full bg-accent-ink"></span>
+			Ouvert aux opportunités
+		</p>
+	</div>
+
+	<div class="grid grid-cols-2 gap-4">
+		{figures.map((figure) => (
+			<div class="card flex flex-col justify-between p-5">
+				<p class="display text-4xl text-accent-strong">{figure.value}</p>
+				<p class="mt-2 text-sm font-medium text-text">{figure.unit}</p>
+				<p class="text-xs text-muted">{figure.note}</p>
+			</div>
+		))}
+	</div>
+
+	<nav aria-label="Navigation principale" class="card p-3">
+		<ul class="flex flex-wrap gap-1.5 lg:flex-col">
+			{navItems.map((item) => (
+				<li>
+					<a
+						href={item.href}
+						aria-current={isCurrent(item.href) ? 'page' : undefined}
+						class:list={[
+							'pill w-full transition-colors',
+							isCurrent(item.href)
+								? 'bg-slate text-slate-ink'
+								: 'text-muted hover:bg-surface-hi hover:text-text',
+						]}
+					>
+						{item.label}
+					</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+
+	<div class="card flex flex-col gap-3 p-5 lg:mt-auto">
+		<button
+			type="button"
+			data-copy={SITE.email}
+			class="flex w-full items-center justify-between gap-3 rounded-lg border border-line px-3 py-2.5 text-left text-xs text-muted transition-colors hover:border-accent-strong hover:text-text"
+		>
+			<span class="truncate">{SITE.email}</span>
+			<span class="label shrink-0" data-copy-label>Copier</span>
+		</button>
+
+		<a
+			href="/contact"
+			class="pill w-full justify-center bg-slate py-3 text-slate-ink transition-opacity hover:opacity-90"
+		>
+			Échangeons
+		</a>
+	</div>
+</aside>
+
+<script>
+	// Bascule de thème : clair par défaut, choix mémorisé.
+	const toggle = document.getElementById('theme-toggle');
+	const label = document.querySelector('[data-theme-label]');
+
+	const syncLabel = () => {
+		if (label) {
+			label.textContent = document.documentElement.dataset.theme === 'dark' ? 'Clair' : 'Sombre';
+		}
+	};
+
+	syncLabel();
+
+	toggle?.addEventListener('click', () => {
+		const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+		document.documentElement.dataset.theme = next;
+		try {
+			localStorage.setItem('theme', next);
+		} catch {}
+		syncLabel();
+	});
+
+	// Copie de l'adresse : un recruteur qui note une adresse à la main se trompe.
+	document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+		const feedback = button.querySelector('[data-copy-label]');
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(button.dataset.copy ?? '');
+				if (feedback) {
+					feedback.textContent = 'Copié';
+					window.setTimeout(() => (feedback.textContent = 'Copier'), 1800);
+				}
+			} catch {
+				// Presse-papiers refusé : l'adresse reste lisible et sélectionnable.
+			}
+		});
+	});
+</script>

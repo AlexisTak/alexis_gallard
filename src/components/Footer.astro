@@ -1,118 +1,58 @@
 ---
+import { SITE } from '../lib/site';
+
 const year = new Date().getFullYear();
 
-const pages = [
-	{ href: '/projets', label: 'Travail' },
-	{ href: '/expertises', label: 'Expertises' },
-	{ href: '/a-propos', label: 'Parcours' },
-	{ href: '/blog', label: 'Écrits' },
-	{ href: '/contact', label: 'Contact' },
-];
-
 const channels = [
-	{ href: 'mailto:alexis_gallard@outlook.fr', label: 'alexis_gallard@outlook.fr' },
+	{ href: `mailto:${SITE.email}`, label: SITE.email },
 	{ href: 'tel:0765723070', label: '07 65 72 30 70' },
-	{ href: 'https://www.linkedin.com/in/alexis-gallard', label: 'LinkedIn ↗', external: true },
-	{ href: 'https://github.com/AlexisTak', label: 'GitHub ↗', external: true },
+	{ href: SITE.profiles[0], label: 'LinkedIn ↗', external: true },
+	{ href: SITE.profiles[1], label: 'GitHub ↗', external: true },
 ];
-
-// La page Contact dit déjà tout cela, en plus grand : l'adresse y apparaîtrait
-// une troisième fois.
-const showCallToAction = !Astro.url.pathname.startsWith('/contact');
 ---
 
-<footer class="border-t border-line">
-	{
-		/* Dernière adresse avant de quitter la page : un visiteur qui arrive ici a
-		   lu, il ne doit pas avoir à remonter pour trouver comment écrire. */
-	}
-	{showCallToAction && (
-		<section class="mx-auto max-w-6xl px-6 pb-16 pt-20">
-			<p class="label flex items-center gap-3">
-				<span class="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-				Ouvert aux opportunités · Poitiers ou à distance
-			</p>
+<footer class="p-4 lg:pl-0">
+	<div class="card p-6 md:p-10">
+		<div class="flex flex-col gap-10 md:flex-row md:justify-between">
+			<div>
+				<p class="pill bg-accent text-accent-ink">Ouvert aux opportunités</p>
+				<a
+					href={`mailto:${SITE.email}`}
+					class="display mt-6 block max-w-[14ch] text-[clamp(1.6rem,4vw,2.8rem)] text-text transition-colors hover:text-accent-strong"
+				>
+					Parlons de votre équipe.
+				</a>
+			</div>
 
-			<a
-				href="mailto:alexis_gallard@outlook.fr"
-				class="display mt-8 block wrap-break-word text-[clamp(1.6rem,5.5vw,3.6rem)] text-text transition-colors hover:text-accent"
-			>
-				alexis_gallard@outlook.fr
-			</a>
-		</section>
-	)}
-
-	<div
-		class:list={[
-			'mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3 md:gap-16',
-			showCallToAction && 'border-t border-line',
-		]}
-	>
-		<nav aria-label="Pages du site">
-			<h2 class="label">Site</h2>
-			<ul class="mt-5 flex flex-col gap-2.5">
-				{pages.map((page) => (
-					<li>
-						<a href={page.href} class="text-text/80 transition-colors hover:text-accent">
-							{page.label}
-						</a>
-					</li>
-				))}
-			</ul>
-		</nav>
-
-		<div>
-			<h2 class="label">Contact</h2>
-			<ul class="mt-5 flex flex-col gap-2.5">
+			<ul class="flex flex-col gap-2 md:text-right">
 				{channels.map((channel) => (
 					<li>
 						<a
 							href={channel.href}
 							target={channel.external ? '_blank' : undefined}
 							rel={channel.external ? 'noopener' : undefined}
-							class="wrap-break-word text-text/80 transition-colors hover:text-accent"
+							class="text-muted transition-colors hover:text-accent-strong"
 						>
 							{channel.label}
 						</a>
 					</li>
 				))}
-			</ul>
-		</div>
-
-		<div>
-			<h2 class="label">Colophon</h2>
-			<p class="mt-5 max-w-[34ch] leading-relaxed text-text/70">
-				Site statique en Astro et Tailwind. Animations GSAP, champ de points en WebGL écrit à la
-				main plutôt qu'avec un moteur 3D.
-			</p>
-			<ul class="mt-5 flex flex-col gap-2.5">
-				<li>
-					<a
-						href="https://github.com/AlexisTak/alexis_gallard"
-						target="_blank"
-						rel="noopener"
-						class="text-text/80 transition-colors hover:text-accent"
-					>
-						Code source de ce site ↗
-					</a>
-				</li>
-				<li>
-					<a
-						href="/cv-alexis-gallard.pdf"
-						download
-						class="text-text/80 transition-colors hover:text-accent"
-					>
+				<li class="mt-2">
+					<a href="/cv-alexis-gallard.pdf" download class="text-muted transition-colors hover:text-accent-strong">
 						CV · PDF
 					</a>
 				</li>
 			</ul>
 		</div>
-	</div>
 
-	<div class="mx-auto flex max-w-6xl flex-col gap-4 border-t border-line px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
-		<p class="label tracking-[0.14em]!">
-			&copy; {year} Alexis Gallard · Développeur Fullstack Senior &amp; AI Engineer
-		</p>
-		<a href="#top" class="label transition-colors hover:text-accent!">Haut de page ↑</a>
+		<div class="mt-10 flex flex-col gap-3 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+			<p>&copy; {year} {SITE.name} · Développeur Fullstack Senior &amp; AI Engineer</p>
+			<p>
+				Astro, Tailwind et GSAP ·
+				<a href={SITE.repository} target="_blank" rel="noopener" class="hover:text-accent-strong">
+					code source ↗
+				</a>
+			</p>
+		</div>
 	</div>
 </footer>

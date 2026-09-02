@@ -45,7 +45,7 @@ const schemas = [
 	description={post.data.description}
 >
 	<article class="mx-auto max-w-3xl px-6 pb-24 pt-20 md:pt-28">
-		<a href="/blog" class="label transition-colors hover:!text-accent">← Écrits</a>
+		<a href="/blog" class="pill bg-bg text-muted transition-colors hover:text-accent-strong">← Écrits</a>
 
 		<h1 class="display mt-8 text-[clamp(2rem,5.5vw,3.6rem)] text-text">{post.data.title}</h1>
 		<time class="label mt-6 block" datetime={post.data.pubDate.toISOString()}>

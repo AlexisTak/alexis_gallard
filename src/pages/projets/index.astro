@@ -40,7 +40,7 @@ const schemas = [
 	/>
 
 	<Section label={`${projects.length} projets`}>
-		<div class="flex flex-col">
+		<div class="grid gap-4 md:grid-cols-2">
 			{projects.map((project, i) => (
 				<ProjectRow
 					slug={project.id}

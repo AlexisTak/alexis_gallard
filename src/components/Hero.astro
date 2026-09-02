@@ -1,43 +1,57 @@
 ---
+import Logo from './Logo.astro';
+
 interface Props {
-	eyebrow: string;
-	/** Phrase diffusée mot à mot, comme une réponse de modèle. */
 	statement: string;
 	support: string;
 }
 
-const { eyebrow, statement, support } = Astro.props;
+const { statement, support } = Astro.props;
+
+const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
 ---
 
-<section class="relative isolate overflow-hidden">
-	<canvas
-		data-field
+<section class="card relative overflow-hidden p-6 md:p-10 lg:p-14">
+	{/* Le monogramme tient la place que la référence donne au portrait : une
+	    présence en grand, coupée par le cadre. */}
+	<div
 		aria-hidden="true"
-		class="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-0"></canvas>
+		class="pointer-events-none absolute -right-12 -top-16 opacity-[0.07] md:-right-16 md:-top-20"
+	>
+		<Logo size={360} />
+	</div>
 
-	<div class="mx-auto max-w-6xl px-6 pb-24 pt-20 md:pb-36 md:pt-32">
-		<p class="label flex items-center gap-3" data-hero-item>
-			<span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
-			{eyebrow}
-		</p>
+	<div class="relative">
+		<p class="pill bg-slate text-slate-ink" data-hero-item>Poitiers · Nouvelle-Aquitaine</p>
 
-		<h1 class="display mt-10 text-[clamp(2rem,8vw,6.5rem)] text-text" data-hero-headline>
-			<span data-stream>{statement}</span><span aria-hidden="true" data-caret class="stream-caret"
-			></span>
+		<h1
+			class="display mt-8 max-w-[16ch] text-[clamp(2.4rem,7vw,5.2rem)] text-text"
+			data-hero-item
+		>
+			{statement}
 		</h1>
 
-		<p class="mt-10 max-w-xl text-lg leading-relaxed text-text/70" data-hero-item>
+		<p class="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted" data-hero-item>
 			{support}
 		</p>
 
-		<div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4" data-hero-item>
+		<ul class="mt-10 flex flex-wrap gap-2" data-hero-item>
+			{traits.map((trait) => (
+				<li class="pill border border-line text-muted">{trait}</li>
+			))}
+		</ul>
+
+		<div class="mt-10 flex flex-wrap items-center gap-3" data-hero-item>
 			<a
 				href="/contact"
-				class="label border border-accent bg-accent px-5 py-3 !text-accent-ink transition-colors hover:bg-transparent hover:!text-accent"
+				class="pill bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
 			>
 				Échangeons
 			</a>
-			<a href="/projets" class="label border-b border-line-hi pb-1 transition-colors hover:!text-text">
+			<a
+				href="/projets"
+				class="pill border border-line px-5 py-3 text-text transition-colors hover:border-accent-strong hover:text-accent-strong"
+			>
 				Voir le travail
 			</a>
 		</div>
@@ -45,112 +59,34 @@ const { eyebrow, statement, support } = Astro.props;
 </section>
 
 <style is:global>
-	.js-motion [data-hero-item],
-	.js-motion [data-hero-headline] {
+	.js-motion [data-hero-item] {
 		opacity: 0;
-	}
-
-	.stream-caret {
-		display: inline-block;
-		width: 0.5em;
-		height: 0.78em;
-		margin-left: 0.12em;
-		background-color: var(--c-accent);
-		vertical-align: baseline;
-		animation: caret-blink 1.1s steps(1) infinite;
-	}
-
-	@keyframes caret-blink {
-		0%,
-		49% {
-			opacity: 1;
-		}
-		50%,
-		100% {
-			opacity: 0;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.stream-caret {
-			display: none;
-		}
 	}
 </style>
 
 <script>
 	import gsap from 'gsap';
-	import { SplitText } from 'gsap/SplitText';
-	import { createHeroField } from '../scripts/hero-field';
 	import { prefersReducedMotion } from '../scripts/motion';
 
-	const canvas = document.querySelector<HTMLCanvasElement>('[data-field]');
-	const headline = document.querySelector<HTMLElement>('[data-hero-headline]');
-	const stream = document.querySelector<HTMLElement>('[data-stream]');
-	const caret = document.querySelector<HTMLElement>('[data-caret]');
 	const items = gsap.utils.toArray<HTMLElement>('[data-hero-item]');
 
 	if (prefersReducedMotion()) {
-		gsap.set([headline, ...items].filter(Boolean), { opacity: 1 });
-		gsap.set(caret, { display: 'none' });
+		gsap.set(items, { opacity: 1 });
 	} else {
-		gsap.registerPlugin(SplitText);
+		// Filet : si l'horloge n'avance jamais, le hero doit rester lisible.
+		const safety = window.setTimeout(() => gsap.set(items, { opacity: 1, y: 0 }), 2200);
 
-		// Le hero doit apparaître même si la séquence n'aboutit pas : les mots
-		// découpés par SplitText n'existent pas encore, d'où le nettoyage large.
-		const safety = window.setTimeout(() => {
-			gsap.set([headline, ...items].filter(Boolean), { opacity: 1, y: 0 });
-			if (headline) gsap.set(headline.querySelectorAll('*'), { clearProps: 'opacity,transform' });
-			gsap.set(caret, { opacity: 0 });
-		}, 2600);
-		const cancelSafety = () => window.clearTimeout(safety);
-
-		// Le champ ne démarre que sur un écran assez large : sur mobile il coûte
-		// de la batterie pour un décor qu'on ne regarde pas.
-		const field =
-			canvas && window.matchMedia('(min-width: 768px)').matches
-				? createHeroField(canvas)
-				: null;
-
-		if (field && canvas) {
-			gsap.to(canvas, { opacity: 1, duration: 1.6, ease: 'power2.out' });
-		}
-
-		// On attend les polices : découper le texte avant qu'elles arrivent
-		// donnerait des mots mal placés.
-		const ready = document.fonts?.ready ?? Promise.resolve();
-
-		ready.then(() => {
-			const split = stream ? new SplitText(stream, { type: 'words' }) : null;
-
-			const [eyebrow, ...rest] = items;
-			const timeline = gsap.timeline({
-				defaults: { ease: 'power3.out' },
-				onComplete: cancelSafety,
-			});
-
-			timeline
-				.fromTo(eyebrow, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6 })
-				.set(headline, { opacity: 1 })
-				.from(
-					split?.words ?? [],
-					{ opacity: 0, yPercent: 45, duration: 0.5, stagger: 0.055 },
-					'-=0.25',
-				)
-				.fromTo(rest, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, '-=0.9')
-				.to(
-					caret,
-					{
-						opacity: 0,
-						duration: 0.4,
-						// Le clignotement est une animation CSS : il faut la couper
-						// avant que GSAP ne prenne la main sur l'opacité.
-						onStart: () => caret && (caret.style.animation = 'none'),
-					},
-					'-=0.4',
-				)
-				// L'onde part quand la phrase est complète : la recherche suit la requête.
-				.add(() => field?.pulse());
-		});
+		gsap.fromTo(
+			items,
+			{ opacity: 0, y: 18 },
+			{
+				opacity: 1,
+				y: 0,
+				duration: 0.7,
+				ease: 'power3.out',
+				stagger: 0.09,
+				onComplete: () => window.clearTimeout(safety),
+			},
+		);
 	}
 </script>

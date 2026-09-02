@@ -6,7 +6,7 @@ export const prefersReducedMotion = () =>
 
 /**
  * Filet de sécurité : le contenu ne dépend jamais d'une animation qui aboutit.
- * Onglet ouvert en arrière-plan, rAF gelé, WebGL indisponible, erreur JS — au
+ * Onglet ouvert en arrière-plan, rAF gelé, erreur JS — au
  * bout du délai, l'état final est appliqué quoi qu'il arrive.
  */
 export function ensureVisible(targets: Element | Element[] | null, delay = 2500) {

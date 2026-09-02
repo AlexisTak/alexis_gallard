@@ -15,28 +15,28 @@ const { slug, title, subtitle, summary, stack, delay = 0 } = Astro.props;
 	href={`/projets/${slug}`}
 	data-reveal
 	data-reveal-delay={delay}
-	class="group block border-t border-line py-10 transition-colors duration-300 hover:border-accent"
+	class="group flex flex-col gap-5 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-strong md:p-8"
 >
-	<div class="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
+	<div class="flex items-start justify-between gap-4">
 		<div>
-			<h3
-				class="display text-[clamp(1.8rem,4.2vw,3rem)] text-text transition-colors duration-300 group-hover:text-accent"
-			>
+			<h3 class="display text-2xl text-text transition-colors group-hover:text-accent-strong md:text-3xl">
 				{title}
 			</h3>
-			<p class="mt-3 text-sm text-muted">{subtitle}</p>
+			<p class="mt-2 text-sm text-muted">{subtitle}</p>
 		</div>
-
-		<div class="flex flex-col gap-6">
-			<p class="max-w-[52ch] leading-relaxed text-text/80">{summary}</p>
-			<ul class="flex flex-wrap gap-x-4 gap-y-2">
-				{stack.map((tech) => <li class="label">{tech}</li>)}
-			</ul>
-			<span
-				class="label transition-colors group-hover:!text-accent"
-			>
-				Étude de cas ↗
-			</span>
-		</div>
+		<span
+			aria-hidden="true"
+			class="pill shrink-0 border border-line text-muted transition-colors group-hover:border-accent-strong group-hover:text-accent-strong"
+		>
+			↗
+		</span>
 	</div>
+
+	<p class="max-w-[56ch] leading-relaxed text-text/80">{summary}</p>
+
+	<ul class="mt-auto flex flex-wrap gap-2">
+		{stack.map((tech) => (
+			<li class="pill bg-bg text-muted">{tech}</li>
+		))}
+	</ul>
 </a>

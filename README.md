@@ -18,8 +18,7 @@ l'hébergement se réduit à servir des fichiers.
 | [Tailwind CSS 4](https://tailwindcss.com) | Styles | Configuration en CSS (`@theme`), pas de fichier JS de config |
 | [GSAP](https://gsap.com) | Animations | Timelines orchestrées et `ScrollTrigger` pour la section Travail épinglée |
 | [Lenis](https://lenis.darkroom.engineering) | Scroll interpolé | Interpole le scroll natif de la fenêtre, donc `position: sticky` continue de fonctionner |
-| WebGL | Champ de points du hero | Un quad plein écran et un fragment shader écrits à la main — ~3 Ko, contre ~150 Ko pour un moteur 3D dont rien ne serait utilisé |
-| [Fontsource](https://fontsource.org) | Polices | Archivo, Instrument Sans et JetBrains Mono auto-hébergées, aucune requête vers un tiers |
+| [Fontsource](https://fontsource.org) | Polices | Schibsted Grotesk et JetBrains Mono auto-hébergées, aucune requête vers un tiers |
 
 Budget JavaScript : environ 48 Ko gzip, chargés en différé.
 
@@ -31,9 +30,10 @@ src/
 ├── components/
 │   ├── Header.astro       navigation, bascule de thème
 │   ├── Footer.astro       relance de contact, plan du site, colophon
-│   ├── Hero.astro         séquence d'ouverture et champ WebGL
-│   ├── WorkReel.astro     section Travail épinglée, un projet par cran de scroll
-│   ├── Section.astro      section à label en gouttière
+│   ├── Sidebar.astro      carte de visite fixe : identité, chiffres, navigation
+│   ├── Hero.astro         accroche et séquence d'ouverture
+│   ├── Logo.astro         monogramme AG en SVG inline
+│   ├── Section.astro      section en carte, avec étiquette
 │   ├── PageHeader.astro   en-tête de page
 │   └── ProjectRow.astro   ligne de projet (listing /projets)
 ├── content/
@@ -56,8 +56,7 @@ src/
 │   └── contact.astro
 ├── scripts/
 │   ├── motion.ts          révélations au scroll, filet de sécurité
-│   ├── smooth-scroll.ts   initialisation de Lenis
-│   └── hero-field.ts      champ de points WebGL
+│   └── smooth-scroll.ts   initialisation de Lenis
 └── styles/
     └── global.css     jetons de couleur, thèmes, utilitaires
 ```
@@ -117,12 +116,18 @@ pour appliquer son propre défilement : si `requestAnimationFrame` ne tourne pas
 la page deviendrait impossible à faire défiler. Tant qu'aucune image n'est
 calculée, rien n'est installé et le scroll natif reste seul maître.
 
-**Sombre par défaut, clair sur choix explicite.** Le thème est appliqué par un
+**Clair par défaut, sombre sur choix explicite.** Le thème est appliqué par un
 script en ligne avant le premier rendu, donc sans flash, et mémorisé dans
-`localStorage`.
+`localStorage`. Les deux palettes dérivent des mêmes rôles : fond, surface,
+carte contrastée, encre, texte secondaire, accent.
 
-**`prefers-reduced-motion` coupe tout.** Séquence d'ouverture, révélations,
-scroll interpolé et champ WebGL.
+**Une carte de visite permanente.** À partir de `lg`, la barre latérale reste à
+l'écran pendant que le contenu défile : identité, chiffres clés, navigation,
+adresse copiable et appel à l'action y sont toujours accessibles. En dessous,
+elle redevient un en-tête empilé.
+
+**`prefers-reduced-motion` coupe tout.** Séquence d'ouverture, révélations et
+scroll interpolé.
 
 ## SEO et moteurs génératifs
 

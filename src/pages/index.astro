@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
-import WorkReel from '../components/WorkReel.astro';
+import ProjectRow from '../components/ProjectRow.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../lib/site';
 
@@ -85,66 +85,75 @@ const process = [
 	description="Développeur Fullstack Senior et AI Engineer. Applications web, logiciels desktop en Rust et IA appliquée (LLM, RAG, agents), de l'architecture à la production. Poitiers, Nouvelle-Aquitaine."
 >
 	<Hero
-		eyebrow="Ouvert aux opportunités · Poitiers · Nouvelle-Aquitaine"
 		statement="Je construis des applications IA qui tiennent en production."
 		support="Développeur Fullstack Senior et AI Engineer, 12 ans d'expérience. Applications web, logiciels desktop en Rust, intégration IA — LLM, RAG, agents — de l'architecture jusqu'à l'exploitation, infrastructure et déploiement inclus."
 	/>
 
-	<WorkReel projects={projects} />
+	<Section label="Travail" title="Trois projets qui tournent." id="travail">
+		<div class="grid gap-4 md:grid-cols-2">
+			{projects.map((project, i) => (
+				<ProjectRow
+					slug={project.id}
+					title={project.data.title}
+					subtitle={project.data.subtitle}
+					summary={project.data.summary}
+					stack={project.data.stack}
+					delay={i * 80}
+				/>
+			))}
+		</div>
 
+		<a
+			href="/projets"
+			class="pill mt-6 inline-flex border border-line px-5 py-3 text-text transition-colors hover:border-accent-strong hover:text-accent-strong"
+			data-reveal
+		>
+			Toutes les études de cas ↗
+		</a>
+	</Section>
 
-	<Section label="Méthode" id="methode">
-		<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
-			Six étapes, dans cet ordre.
-		</h2>
-
-		<ol class="mt-16 flex flex-col">
+	<Section label="Méthode" title="Six étapes, dans cet ordre." id="methode">
+		<ol class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{process.map((step, i) => (
 				<li
-					class="grid gap-4 border-t border-line py-8 md:grid-cols-[4rem_12rem_minmax(0,1fr)] md:gap-8"
+					class="flex flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6"
 					data-reveal
-					data-reveal-delay={i * 80}
+					data-reveal-delay={i * 60}
 				>
-					<span class="label text-accent!">{String(i + 1).padStart(2, '0')}</span>
-					<h3 class="text-lg font-medium text-text">{step.title}</h3>
-					<p class="max-w-[52ch] leading-relaxed text-text/70">{step.text}</p>
+					<span class="pill w-fit bg-accent text-accent-ink">
+						{String(i + 1).padStart(2, '0')}
+					</span>
+					<h3 class="text-lg font-semibold text-text">{step.title}</h3>
+					<p class="leading-relaxed text-muted">{step.text}</p>
 				</li>
 			))}
 		</ol>
 	</Section>
 
-	<Section label="Questions" id="questions">
-		<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
-			Ce qu'on me demande le plus.
-		</h2>
-
-		<dl class="mt-16 flex flex-col">
+	<Section label="Questions" title="Ce qu'on me demande le plus." id="questions">
+		<dl class="flex flex-col gap-4">
 			{faq.map((item, i) => (
 				<div
-					class="grid gap-3 border-t border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-12"
+					class="grid gap-3 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-10"
 					data-reveal
-					data-reveal-delay={i * 60}
+					data-reveal-delay={i * 50}
 				>
-					<dt class="max-w-[28ch] text-lg font-medium text-text">{item.question}</dt>
-					<dd class="max-w-[58ch] leading-relaxed text-text/70">{item.answer}</dd>
+					<dt class="max-w-[28ch] text-lg font-semibold text-text">{item.question}</dt>
+					<dd class="max-w-[58ch] leading-relaxed text-muted">{item.answer}</dd>
 				</div>
 			))}
 		</dl>
 	</Section>
 
-	<Section label="Suite" id="suite">
-		<h2 class="display max-w-[14ch] text-[clamp(2rem,6vw,4rem)]" data-reveal>
-			Une équipe à renforcer ?
-		</h2>
-		<p class="mt-8 max-w-[52ch] leading-relaxed text-text/70" data-reveal data-reveal-delay="80">
-			Ouvert aux opportunités, en Nouvelle-Aquitaine ou à distance.
-			Réponse sous 48 heures.
+	<Section label="Suite" title="Une équipe à renforcer ?" id="suite" invert>
+		<p class="max-w-[52ch] leading-relaxed text-slate-ink/80" data-reveal>
+			Ouvert aux opportunités, en Nouvelle-Aquitaine ou à distance. Réponse sous 48 heures.
 		</p>
 		<a
 			href="/contact"
-			class="label mt-12 inline-block border border-accent bg-accent px-5 py-3 text-accent-ink! transition-colors hover:bg-transparent hover:text-accent!"
+			class="pill mt-8 inline-flex bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
 			data-reveal
-			data-reveal-delay="160"
+			data-reveal-delay="80"
 		>
 			Échangeons
 		</a>

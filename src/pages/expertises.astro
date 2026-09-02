@@ -88,36 +88,40 @@ const schemas = [
 		lede="De l'architecture à l'exploitation. Ces trois domaines se recoupent en permanence : une intégration IA qui ne se déploie pas ne sert à rien, et une application qu'on ne sait pas superviser non plus."
 	/>
 
-	{domains.map((domain, i) => (
-		<Section label={String(i + 1).padStart(2, '0')}>
-			<div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-16" data-reveal>
-				<div>
-					<h2 class="display text-[clamp(1.9rem,5vw,3.2rem)] text-text">{domain.title}</h2>
-					<p class="mt-6 max-w-[52ch] leading-relaxed text-text/70">{domain.description}</p>
-				</div>
-				<div class="self-start border-l border-line pl-6">
-					<h3 class="label">Technologies</h3>
-					<ul class="mt-4 flex flex-wrap gap-x-4 gap-y-2 md:flex-col md:gap-2">
-						{domain.stack.map((tech) => (
-							<li class="text-sm text-text/80">{tech}</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		</Section>
-	))}
+	<Section label="Domaines">
+		<div class="grid gap-4">
+			{domains.map((domain, i) => (
+				<article
+					class="grid gap-6 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-10 md:p-8"
+					data-reveal
+					data-reveal-delay={i * 70}
+				>
+					<div>
+						<p class="pill w-fit bg-accent text-accent-ink">{String(i + 1).padStart(2, '0')}</p>
+						<h2 class="display mt-5 text-[clamp(1.6rem,3.5vw,2.4rem)] text-text">{domain.title}</h2>
+						<p class="mt-5 max-w-[52ch] leading-relaxed text-muted">{domain.description}</p>
+					</div>
+					<div class="self-start">
+						<h3 class="label">Technologies</h3>
+						<ul class="mt-4 flex flex-wrap gap-2">
+							{domain.stack.map((tech) => (
+								<li class="pill bg-bg text-muted">{tech}</li>
+							))}
+						</ul>
+					</div>
+				</article>
+			))}
+		</div>
+	</Section>
 
-	<Section label="Suite">
-		<h2 class="display max-w-[18ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
-			Un poste où ça compte ?
-		</h2>
-		<p class="mt-8 max-w-[52ch] leading-relaxed text-text/70" data-reveal data-reveal-delay="80">
+	<Section label="Suite" title="Un poste où ça compte ?" invert>
+		<p class="max-w-[52ch] leading-relaxed text-slate-ink/80" data-reveal>
 			Je suis ouvert aux opportunités, en Nouvelle-Aquitaine ou à distance. Dites-moi ce que
 			l'équipe construit.
 		</p>
 		<a
 			href="/contact"
-			class="label mt-12 inline-block border border-accent bg-accent px-5 py-3 text-accent-ink! transition-colors hover:bg-transparent hover:text-accent!"
+			class="pill mt-8 inline-flex bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
 			data-reveal
 			data-reveal-delay="160"
 		>

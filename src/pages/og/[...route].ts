@@ -57,30 +57,29 @@ const route = await OGImageRoute({
 		// Mêmes couleurs que le thème sombre du site : la vignette doit être
 		// reconnaissable comme une page de ce site, pas comme une carte générique.
 		bgGradient: [
-			[8, 9, 11],
-			[20, 22, 26],
+			[232, 226, 214],
+			[245, 241, 233],
 		],
-		border: { color: [240, 180, 41], width: 10, side: 'inline-start' },
+		border: { color: [240, 180, 41], width: 14, side: 'inline-start' },
 		padding: 96,
 		font: {
 			title: {
 				size: 88,
 				weight: 'Bold',
-				color: [232, 230, 225],
+				color: [22, 24, 28],
 				lineHeight: 1.1,
-				families: ['Archivo', 'Instrument Sans', 'sans-serif'],
+				families: ['Schibsted Grotesk', 'sans-serif'],
 			},
 			description: {
 				size: 36,
 				weight: 'Normal',
-				color: [122, 140, 163],
+				color: [109, 102, 89],
 				lineHeight: 1.4,
-				families: ['Instrument Sans', 'sans-serif'],
+				families: ['Schibsted Grotesk', 'sans-serif'],
 			},
 		},
 		fonts: [
-			'./node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2',
-			'./node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2',
+			'./node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2',
 		],
 		format: 'PNG',
 	}),

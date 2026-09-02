@@ -1,52 +1,68 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/archivo/wdth.css";
-@import "@fontsource-variable/instrument-sans/index.css";
+@import "@fontsource-variable/schibsted-grotesk/index.css";
 @import "@fontsource-variable/jetbrains-mono/index.css";
 
+/* ---------------------------------------------------------------
+   Atelier — fond argile, cartes claires, accent ambre.
+   Le clair est la direction principale ; le sombre reste disponible
+   pour qui le préfère, en dérivant les mêmes rôles.
+--------------------------------------------------------------- */
 
 :root {
-	color-scheme: dark;
-
-	--c-bg: #08090b;
-	--c-surface: #14161a;
-	--c-surface-hi: #1c1f25;
-	--c-line: rgba(232, 230, 225, 0.11);
-	--c-line-hi: rgba(232, 230, 225, 0.24);
-	--c-text: #e8e6e1;
-	--c-muted: #7a8ca3;
-	--c-accent: #f0b429;
-	--c-accent-ink: #08090b;
-}
-
-:root[data-theme="light"] {
 	color-scheme: light;
 
-	--c-bg: #eeedea;
-	--c-surface: #ffffff;
-	--c-surface-hi: #f6f5f3;
-	--c-line: rgba(20, 22, 26, 0.12);
-	--c-line-hi: rgba(20, 22, 26, 0.28);
-	--c-text: #14161a;
-	--c-muted: #5a6572;
-	--c-accent: #9a6b12;
-	--c-accent-ink: #ffffff;
+	--c-bg: #e8e2d6;
+	--c-surface: #f5f1e9;
+	--c-surface-hi: #fffdf8;
+	--c-slate: #1b2530;
+	--c-slate-ink: #f0ece2;
+	--c-line: rgba(27, 37, 48, 0.14);
+	--c-line-hi: rgba(27, 37, 48, 0.3);
+	--c-text: #16181c;
+	--c-muted: #6d6659;
+	/* Deux ambres : l'aplat pour les surfaces, le foncé pour le texte, qui
+	   sinon tomberait sous le rapport de contraste requis. */
+	--c-accent: #f0b429;
+	--c-accent-strong: #8f6410;
+	--c-accent-ink: #16181c;
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+
+	--c-bg: #14161a;
+	--c-surface: #1c2027;
+	--c-surface-hi: #242932;
+	--c-slate: #e8e2d6;
+	--c-slate-ink: #16181c;
+	--c-line: rgba(240, 236, 226, 0.14);
+	--c-line-hi: rgba(240, 236, 226, 0.3);
+	--c-text: #f0ece2;
+	--c-muted: #9a9385;
+	--c-accent: #f0b429;
+	--c-accent-strong: #f0b429;
+	--c-accent-ink: #16181c;
 }
 
 @theme {
-	--font-display: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, sans-serif;
-	--font-sans: "Instrument Sans Variable", "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
 	--font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
 	--color-bg: var(--c-bg);
 	--color-surface: var(--c-surface);
 	--color-surface-hi: var(--c-surface-hi);
+	--color-slate: var(--c-slate);
+	--color-slate-ink: var(--c-slate-ink);
 	--color-line: var(--c-line);
 	--color-line-hi: var(--c-line-hi);
 	--color-text: var(--c-text);
 	--color-muted: var(--c-muted);
 	--color-accent: var(--c-accent);
+	--color-accent-strong: var(--c-accent-strong);
 	--color-accent-ink: var(--c-accent-ink);
+
+	--radius-card: 1.25rem;
 }
 
 body {
@@ -61,6 +77,12 @@ body {
 	color: var(--c-accent-ink);
 }
 
+:focus-visible {
+	outline: 2px solid var(--c-accent-strong);
+	outline-offset: 3px;
+}
+
+/* Lenis pilote le défilement : le lissage natif du navigateur ferait doublon. */
 html.lenis,
 html.lenis body {
 	height: auto;
@@ -70,53 +92,52 @@ html.lenis body {
 	scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-	overscroll-behavior: contain;
-}
-
 .lenis.lenis-stopped {
 	overflow: hidden;
 }
 
-:focus-visible {
-	outline: 2px solid var(--c-accent);
-	outline-offset: 3px;
-}
-
+/* Titres : grotesque neutre, très serré, sans capitales forcées. */
 @utility display {
-	font-family: var(--font-display);
-	font-stretch: 118%;
-	font-weight: 800;
-	letter-spacing: -0.03em;
-	line-height: 0.94;
-	text-transform: uppercase;
-	overflow-wrap: break-word;
+	font-weight: 700;
+	letter-spacing: -0.035em;
+	line-height: 1.02;
+	text-wrap: balance;
 }
 
-@media (max-width: 640px) {
-	.display {
-		font-stretch: 100%;
-		letter-spacing: -0.02em;
-	}
+/* Étiquette en pilule : nomme une section ou un état. */
+@utility pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border-radius: 999px;
+	padding: 0.35rem 0.8rem;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	white-space: nowrap;
 }
 
 @utility label {
 	font-family: var(--font-mono);
 	font-size: 0.6875rem;
 	font-weight: 500;
-	letter-spacing: 0.18em;
+	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--c-muted);
 }
 
-.js-motion [data-reveal] {
-	opacity: 0;
-	transform: translateY(18px);
+/* Carte : l'unité de mise en page de tout le site. */
+@utility card {
+	border-radius: var(--radius-card);
+	background-color: var(--c-surface);
+	border: 1px solid var(--c-line);
 }
 
-.js-motion [data-rule] {
-	transform: scaleX(0);
-	transform-origin: left center;
+.js-motion [data-reveal] {
+	opacity: 0;
+	transform: translateY(16px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -127,8 +148,7 @@ html.lenis body {
 		transition-duration: 0.01ms !important;
 	}
 
-	.js-motion [data-reveal],
-	.js-motion [data-rule] {
+	.js-motion [data-reveal] {
 		opacity: 1;
 		transform: none;
 	}

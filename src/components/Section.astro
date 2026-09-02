@@ -1,19 +1,33 @@
 ---
 interface Props {
 	label: string;
+	title?: string;
 	id?: string;
-	/** Filet supérieur : coupé pour la première section suivant le hero. */
-	rule?: boolean;
+	/** Carte sombre : réservée aux moments où la page doit changer de registre. */
+	invert?: boolean;
 }
 
-const { label, id, rule = true } = Astro.props;
+const { label, title, id, invert = false } = Astro.props;
 ---
 
-<section id={id} class:list={['border-line', rule && 'border-t']}>
-	<div class="mx-auto grid max-w-6xl gap-10 px-6 py-24 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-16 md:py-32">
-		<p class="label self-start md:sticky md:top-28">{label}</p>
-		<div>
-			<slot />
-		</div>
+<section
+	id={id}
+	class:list={[
+		'card mt-4 p-6 md:p-10',
+		invert && 'border-transparent! bg-slate text-slate-ink',
+	]}
+>
+	<p class:list={['pill w-fit', invert ? 'bg-slate-ink/10 text-slate-ink' : 'bg-bg text-muted']}>
+		{label}
+	</p>
+
+	{title && (
+		<h2 class="display mt-6 max-w-[20ch] text-[clamp(1.8rem,4vw,3rem)]" data-reveal>
+			{title}
+		</h2>
+	)}
+
+	<div class="mt-8">
+		<slot />
 	</div>
 </section>
