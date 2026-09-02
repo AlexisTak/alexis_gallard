@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { SITE, SKILLS } from '../lib/site';
+import { SITE, SKILLS, stackSentence } from '../lib/site';
 
 /**
  * llms.txt — résumé du site en Markdown, à destination des moteurs génératifs.
@@ -80,8 +80,8 @@ ${
 }
 ## Ce site
 
-Site statique construit avec Astro et Tailwind CSS, sans bibliothèque
-d'animation : les transitions sont en CSS.
+Site statique construit avec ${stackSentence}, sans bibliothèque d'animation :
+les transitions sont en CSS.
 Code source : ${SITE.repository}
 `;
 

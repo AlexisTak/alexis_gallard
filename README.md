@@ -22,6 +22,10 @@ l'hébergement se réduit à servir des fichiers.
 Les animations sont en CSS, déclenchées par un `IntersectionObserver` de
 quelques lignes : aucune bibliothèque d'animation.
 
+Cette liste est aussi affirmée par le site lui-même — colophon du pied de page
+et `llms.txt` — depuis `STACK` dans `src/lib/site.ts`. En cas de changement de
+dépendance, mettre à jour cette constante puis ce tableau.
+
 Budget JavaScript : environ 5 Ko gzip, chargés en différé.
 
 ## Structure

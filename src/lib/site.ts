@@ -25,6 +25,25 @@ export const SITE = {
 	repository: 'https://github.com/AlexisTak/alexis_gallard',
 } as const;
 
+/**
+ * Stack du site lui-même — à ne pas confondre avec SKILLS, qui décrit les
+ * compétences d'Alexis. Décrite ici parce qu'elle est affirmée à trois
+ * endroits : le colophon du pied de page, llms.txt et le README. Recopiée à la
+ * main, elle finissait par citer une dépendance déjà retirée du projet.
+ */
+export const STACK = [
+	{ name: 'Astro', role: 'génération statique' },
+	{ name: 'Tailwind CSS', role: 'styles' },
+	{ name: 'Lenis', role: 'scroll interpolé' },
+] as const;
+
+/** Une ligne prête à afficher : « Astro, Tailwind CSS et Lenis ». */
+export const stackSentence = STACK.map((tool) => tool.name).reduce(
+	(sentence, name, index, all) =>
+		index === 0 ? name : index === all.length - 1 ? `${sentence} et ${name}` : `${sentence}, ${name}`,
+	'',
+);
+
 export const SKILLS = [
 	'Développement Fullstack',
 	'TypeScript',
