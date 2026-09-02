@@ -20,19 +20,30 @@ export function initReveals() {
 		return;
 	}
 
-	// Ce qui est deja visible au premier rendu n'a pas a etre anime : le fondu
-	// retarderait la lecture, et son etat intermediaire fait passer le texte
+	// Ce qui est déjà visible au premier rendu n'a pas à être animé : le fondu
+	// retarderait la lecture, et son état intermédiaire fait passer le texte
 	// sous le rapport de contraste requis.
+	//
+	// Toutes les mesures d'abord, toutes les écritures ensuite. Alterner les
+	// deux force le navigateur à recalculer la mise en page à chaque tour de
+	// boucle — quarante-sept millisecondes de travail inutile sur cette page.
 	const viewportHeight = window.innerHeight;
-	const pending = targets.filter((target) => {
-		const box = target.getBoundingClientRect();
-		if (box.top >= viewportHeight) return true;
+	const visible: HTMLElement[] = [];
+	const pending: HTMLElement[] = [];
+
+	for (const target of targets) {
+		(target.getBoundingClientRect().top < viewportHeight ? visible : pending).push(target);
+	}
+
+	visible.forEach((target) => {
 		target.style.transition = 'none';
 		reveal(target);
-		// Rendue au cadre suivant pour que les blocs animes plus tard gardent
-		// leur transition.
-		requestAnimationFrame(() => target.style.removeProperty('transition'));
-		return false;
+	});
+
+	// Transitions rendues au cadre suivant, pour que les blocs animés plus tard
+	// gardent la leur.
+	requestAnimationFrame(() => {
+		visible.forEach((target) => target.style.removeProperty('transition'));
 	});
 
 	if (pending.length === 0) return;
