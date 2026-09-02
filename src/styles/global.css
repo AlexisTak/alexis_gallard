@@ -85,6 +85,43 @@ html.lenis body {
 	outline-offset: 3px;
 }
 
+/* Portrait fondu dans la page : l'image entière est là, ses bords se dissolvent
+   dans le fond au lieu d'être coupés net. Le masque radial fait le travail
+   qu'un détourage ferait, sans traitement d'image. */
+@utility portrait-veil {
+	opacity: 0.58;
+	/* Le fond de la photo est plus clair que la page : on le rabat pour qu'il
+	   ne forme pas un bloc lumineux à côté du titre. */
+	filter: grayscale(1) contrast(1.08) brightness(0.92);
+	-webkit-mask-image: radial-gradient(
+		ellipse 54% 52% at 50% 40%,
+		#000 22%,
+		rgba(0, 0, 0, 0.45) 56%,
+		transparent 84%
+	);
+	mask-image: radial-gradient(
+		ellipse 54% 52% at 50% 40%,
+		#000 22%,
+		rgba(0, 0, 0, 0.45) 56%,
+		transparent 84%
+	);
+	transition:
+		opacity 0.6s ease,
+		filter 0.6s ease;
+}
+
+.portrait-veil:hover {
+	opacity: 0.8;
+	filter: grayscale(0.1) contrast(1) brightness(1);
+}
+
+/* Sur fond clair, le portrait doit gagner en densité, pas en transparence :
+   c'est l'ajustement inverse du thème sombre. */
+:root[data-theme='light'] .portrait-veil {
+	opacity: 0.75;
+	filter: grayscale(1) contrast(1.18) brightness(0.94);
+}
+
 /* Display : Archivo poussé en largeur, façon titre de générique. */
 @utility display {
 	font-family: var(--font-display);
