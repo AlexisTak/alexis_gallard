@@ -8,21 +8,21 @@ const offers = [
 		title: 'Application web ou desktop',
 		description:
 			"Applications et outils métiers sur mesure, du cadrage à la production. Sur le web : React/Next.js, backend Node.js ou Laravel, base de données, déploiement. En logiciel installé : Rust, avec Tauri quand l'interface web est un atout, ou une interface native quand il faut de la performance et aucune dépendance au navigateur.",
-		price: 'À partir de 4 000 €',
+		price: '550 €',
 		delay: '3 à 8 semaines',
 	},
 	{
 		title: 'Intégration IA',
 		description:
 			"LLM dans vos outils existants : recherche augmentée (RAG) sur vos documents internes, agents qui automatisent des tâches répétitives, arbitrage entre modèles propriétaires et open source selon vos contraintes de coût et de confidentialité.",
-		price: 'Sur devis · TJM 550 €',
+		price: '550 €',
 		delay: 'Cadrage offert · 45 min',
 	},
 	{
 		title: 'Audit technique',
 		description:
 			"Audit de code, d'architecture ou de sécurité — pentest applicatif, contrôle d'accès, exposition d'API — avec un rapport priorisé et des recommandations que votre équipe peut appliquer directement.",
-		price: 'À partir de 900 €',
+		price: '550 €',
 		delay: '3 à 5 jours',
 	},
 ];
@@ -30,12 +30,12 @@ const offers = [
 
 <Layout
 	title="Offres — Alexis Gallard"
-	description="Applications web et desktop (Rust, Tauri), intégration IA (LLM, RAG, agents) et audit technique. Offres, tarifs et délais."
+	description="Applications web et desktop (Rust, Tauri), intégration IA (LLM, RAG, agents) et audit technique. Offres, TJM et délais."
 >
 	<PageHeader
 		eyebrow="Offres"
 		title="Trois façons de travailler ensemble."
-		lede="Les fourchettes donnent un ordre de grandeur. Chaque devis est ajusté au périmètre réel après un premier échange."
+		lede="Même taux journalier quelle que soit la mission. Les durées ci-dessous sont des ordres de grandeur : chaque devis est ajusté au périmètre réel après un premier échange."
 	/>
 
 	{offers.map((offer, i) => (
@@ -47,7 +47,7 @@ const offers = [
 				</div>
 				<dl class="flex flex-col gap-6 self-start border-l border-line pl-6">
 					<div>
-						<dt class="label">Budget</dt>
+						<dt class="label">TJM</dt>
 						<dd class="mt-2 text-lg text-accent">{offer.price}</dd>
 					</div>
 					<div>
