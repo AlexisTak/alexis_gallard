@@ -12,7 +12,7 @@ const projects = defineCollection({
 		challenges: z.string(),
 		solution: z.string(),
 		results: z.string(),
-		link: z.string().url().optional(),
+		link: z.url().optional(),
 		featured: z.boolean().default(false),
 		order: z.number().default(0),
 	}),

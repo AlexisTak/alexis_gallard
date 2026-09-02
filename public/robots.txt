@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alexisgallard.dev/sitemap-index.xml
+Sitemap: https://alexisgallard.vercel.app/sitemap-index.xml
