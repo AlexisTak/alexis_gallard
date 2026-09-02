@@ -11,6 +11,9 @@ const { statement, support } = Astro.props;
 const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
 ---
 
+{/* Aucune révélation ici : ce bloc est le premier contenu peint, et souvent
+    l'élément retenu pour le LCP. Le masquer jusqu'à ce qu'un script le
+    dévoile ajoutait près de huit cents millisecondes sur mobile. */}
 <section class="card relative overflow-hidden p-6 md:p-10 lg:p-14">
 	{/* Le monogramme tient la place que la référence donne au portrait : une
 	    présence en grand, coupée par le cadre. */}
@@ -22,26 +25,25 @@ const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
 	</div>
 
 	<div class="relative">
-		<p class="pill bg-slate text-slate-ink" data-reveal data-reveal-delay="0">Poitiers · Nouvelle-Aquitaine</p>
+		<p class="pill bg-slate text-slate-ink">Poitiers · Nouvelle-Aquitaine</p>
 
 		<h1
 			class="display mt-8 max-w-[16ch] text-[clamp(2.4rem,7vw,5.2rem)] text-text"
-			data-reveal data-reveal-delay="90"
 		>
 			{statement}
 		</h1>
 
-		<p class="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted" data-reveal data-reveal-delay="180">
+		<p class="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted">
 			{support}
 		</p>
 
-		<ul class="mt-10 flex flex-wrap gap-2" data-reveal data-reveal-delay="270">
+		<ul class="mt-10 flex flex-wrap gap-2">
 			{traits.map((trait) => (
 				<li class="pill border border-line text-muted">{trait}</li>
 			))}
 		</ul>
 
-		<div class="mt-10 flex flex-wrap items-center gap-3" data-reveal data-reveal-delay="360">
+		<div class="mt-10 flex flex-wrap items-center gap-3">
 			<a
 				href="/contact"
 				class="pill bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
