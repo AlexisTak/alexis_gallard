@@ -67,6 +67,12 @@ const serviceSchema = {
 					document.documentElement.dataset.theme = stored;
 				}
 			} catch {}
+
+			// Autorise le masquage initial des blocs révélés uniquement si le JS
+			// est là pour les rendre à nouveau visibles.
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				document.documentElement.classList.add('js-motion');
+			}
 		</script>
 	</head>
 	<body class="flex min-h-screen flex-col bg-bg text-text">
@@ -77,26 +83,9 @@ const serviceSchema = {
 		<Footer />
 
 		<script>
-			const revealables = document.querySelectorAll('[data-reveal]');
-			const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			import { initReveals } from '../scripts/motion';
 
-			if (reduced || !('IntersectionObserver' in window)) {
-				revealables.forEach((el) => el.classList.add('is-visible'));
-			} else {
-				const observer = new IntersectionObserver(
-					(entries) => {
-						entries.forEach((entry) => {
-							if (!entry.isIntersecting) return;
-							const el = entry.target as HTMLElement;
-							const delay = Number(el.dataset.revealDelay ?? 0);
-							window.setTimeout(() => el.classList.add('is-visible'), delay);
-							observer.unobserve(el);
-						});
-					},
-					{ rootMargin: '0px 0px -12% 0px', threshold: 0.1 },
-				);
-				revealables.forEach((el) => observer.observe(el));
-			}
+			initReveals();
 		</script>
 	</body>
 </html>

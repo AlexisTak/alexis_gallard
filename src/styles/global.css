@@ -95,18 +95,17 @@ body {
 	color: var(--c-muted);
 }
 
-/* Révélation au scroll — une coupe, pas un effet. */
-[data-reveal] {
+/* Révélation au scroll, orchestrée par GSAP.
+   Le masquage initial n'existe que si le JS a pris la main : sans lui, la
+   page reste entièrement lisible. */
+.js-motion [data-reveal] {
 	opacity: 0;
 	transform: translateY(18px);
-	transition:
-		opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-reveal].is-visible {
-	opacity: 1;
-	transform: none;
+.js-motion [data-rule] {
+	transform: scaleX(0);
+	transform-origin: left center;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -117,7 +116,8 @@ body {
 		transition-duration: 0.01ms !important;
 	}
 
-	[data-reveal] {
+	.js-motion [data-reveal],
+	.js-motion [data-rule] {
 		opacity: 1;
 		transform: none;
 	}
