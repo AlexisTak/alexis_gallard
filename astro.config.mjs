@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://alexis-gallard.com/',
+	site: 'https://alexisgallard.vercel.app/',
 	integrations: [sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

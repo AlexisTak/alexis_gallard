@@ -138,7 +138,7 @@ depuis la page du run.
 Hébergé sur Vercel, qui compile et publie à chaque push sur `master` via son
 intégration GitHub — aucun workflow de déploiement n'est donc nécessaire.
 
-Domaine de production : [alexis-gallard.com](https://alexis-gallard.com).
+Domaine de production : [alexisgallard.vercel.app](https://alexisgallard.vercel.app).
 
 `vercel.json` fixe ce que la plateforme ne devine pas :
 
