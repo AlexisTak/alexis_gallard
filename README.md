@@ -16,11 +16,13 @@ l'hébergement se réduit à servir des fichiers.
 | :--- | :--- | :--- |
 | [Astro](https://astro.build) | Génération statique | HTML envoyé au navigateur, zéro JavaScript par défaut ; le JS n'arrive que sur les îlots qui en ont besoin |
 | [Tailwind CSS 4](https://tailwindcss.com) | Styles | Configuration en CSS (`@theme`), pas de fichier JS de config |
-| [GSAP](https://gsap.com) | Animations | Timelines orchestrées et `ScrollTrigger` pour la section Travail épinglée |
 | [Lenis](https://lenis.darkroom.engineering) | Scroll interpolé | Interpole le scroll natif de la fenêtre, donc `position: sticky` continue de fonctionner |
 | [Fontsource](https://fontsource.org) | Polices | Schibsted Grotesk et JetBrains Mono auto-hébergées, aucune requête vers un tiers |
 
-Budget JavaScript : environ 48 Ko gzip, chargés en différé.
+Les animations sont en CSS, déclenchées par un `IntersectionObserver` de
+quelques lignes : aucune bibliothèque d'animation.
+
+Budget JavaScript : environ 5 Ko gzip, chargés en différé.
 
 ## Structure
 

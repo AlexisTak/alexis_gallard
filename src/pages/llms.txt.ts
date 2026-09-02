@@ -80,7 +80,8 @@ ${
 }
 ## Ce site
 
-Site statique construit avec Astro, Tailwind CSS et GSAP.
+Site statique construit avec Astro et Tailwind CSS, sans bibliothèque
+d'animation : les transitions sont en CSS.
 Code source : ${SITE.repository}
 `;
 
