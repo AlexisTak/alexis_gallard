@@ -43,9 +43,9 @@ const domains = [
 		],
 	},
 	{
-		title: 'Infrastructure et sécurité',
+		title: 'Infrastructure et production',
 		description:
-			"Le versant qui décide si le reste tient : conteneurisation, CI/CD, déploiement et supervision en production. Côté sécurité, audit de code et d'architecture, pentest applicatif, contrôle d'accès et politiques RLS au niveau base plutôt qu'au niveau applicatif.",
+			"Le versant qui décide si le reste tient : conteneurisation, orchestration, CI/CD, infrastructure décrite en code. Puis le déploiement lui-même, la supervision et les alertes — pour savoir qu'une chose casse avant que l'utilisateur ne le signale.",
 		stack: [
 			'Docker',
 			'Kubernetes / Helm',
@@ -56,11 +56,7 @@ const domains = [
 			'Linux et self-hosting',
 			'AWS · Azure · Cloudflare',
 			'Prometheus / Grafana',
-			"Audit de code et d'architecture",
-			'Pentest applicatif',
-			"Contrôle d'accès et RLS",
-			'Hardening',
-			'OSINT',
+			'Observabilité et alerting',
 		],
 	},
 ];
@@ -68,12 +64,12 @@ const domains = [
 
 <Layout
 	title="Expertises — Alexis Gallard"
-	description="Applications web et desktop (Rust, Tauri), IA appliquée et automatisation (RAG, agents, fine-tuning), infrastructure et sécurité. Domaines d'intervention et technologies."
+	description="Applications web et desktop (Rust, Tauri), IA appliquée et automatisation (RAG, agents, fine-tuning), infrastructure et production. Domaines d'intervention et technologies."
 >
 	<PageHeader
 		eyebrow="Expertises"
 		title="Trois domaines, une même chaîne."
-		lede="De l'architecture à l'exploitation. Ces trois domaines se recoupent en permanence : une intégration IA qui ne se déploie pas ne sert à rien, et une application sans contrôle d'accès sérieux non plus."
+		lede="De l'architecture à l'exploitation. Ces trois domaines se recoupent en permanence : une intégration IA qui ne se déploie pas ne sert à rien, et une application qu'on ne sait pas superviser non plus."
 	/>
 
 	{domains.map((domain, i) => (
