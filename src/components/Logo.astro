@@ -1,0 +1,33 @@
+---
+interface Props {
+	/** Taille du monogramme en pixels. */
+	size?: number;
+	class?: string;
+}
+
+const { size = 28, class: className } = Astro.props;
+---
+
+{/* Inline plutôt qu'en <img> : le monogramme prend les couleurs du thème et ne
+    coûte pas une requête de plus. */}
+<svg
+	width={size}
+	height={size}
+	viewBox="0 0 64 64"
+	role="img"
+	aria-label="Alexis Gallard"
+	class={className}
+>
+	<rect width="64" height="64" rx="13" class="fill-accent" />
+	<g
+		fill="none"
+		stroke="var(--c-accent-ink)"
+		stroke-width="4.6"
+		stroke-linecap="square"
+		stroke-linejoin="miter"
+	>
+		<path d="M9 45.5 L16.4 20.5 L23.8 45.5" />
+		<path d="M12.4 37 H20.4" />
+		<path d="M52.5 26.4 A12 12 0 1 0 52.5 39.6 L52.5 33.3 L45.8 33.3" />
+	</g>
+</svg>
