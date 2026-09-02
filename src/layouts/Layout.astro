@@ -3,6 +3,9 @@ import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import { SITE, personSchema, websiteSchema, breadcrumbSchema } from '../lib/site';
+// Importée pour son URL seule : la police des titres est demandée dès le début
+// du chargement, au lieu d'attendre que le CSS soit analysé.
+import displayFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
 
 interface Props {
 	title: string;
@@ -62,6 +65,13 @@ const graph = {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="preload"
+			href={displayFont}
+			as="font"
+			type="font/woff2"
+			crossorigin="anonymous"
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />

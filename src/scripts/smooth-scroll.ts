@@ -1,6 +1,4 @@
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { prefersReducedMotion } from './motion';
 
 /**
@@ -8,7 +6,7 @@ import { prefersReducedMotion } from './motion';
  *
  * Lenis pilote le scroll natif de la fenêtre plutôt que de transformer un
  * conteneur : `position: sticky` et `fixed` continuent de fonctionner, ce dont
- * dépendent le header et les labels de section.
+ * dépend la carte de visite latérale.
  *
  * L'initialisation attend une première image : Lenis intercepte la molette et
  * applique son propre défilement, donc si `requestAnimationFrame` ne tourne
@@ -21,19 +19,19 @@ export function initSmoothScroll() {
 	requestAnimationFrame(() => {
 		const lenis = new Lenis({
 			duration: 1.05,
-			// Sortie exponentielle : rapide au relâchement, arrêt net, sans flottement.
+			// Sortie exponentielle : rapide au relâchement, arrêt net.
 			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 			smoothWheel: true,
-			// Le tactile garde son inertie native : la remplacer donne toujours
-			// une sensation de décalage sous le doigt.
+			// Le tactile garde son inertie native, qu'aucune interpolation
+			// n'égale sous le doigt.
 			syncTouch: false,
 		});
 
-		// Une seule horloge pour le scroll et les animations : sans cela,
-		// ScrollTrigger mesure des positions d'une image de retard.
-		lenis.on('scroll', ScrollTrigger.update);
-		gsap.ticker.add((time) => lenis.raf(time * 1000));
-		gsap.ticker.lagSmoothing(0);
+		const frame = (time: number) => {
+			lenis.raf(time);
+			requestAnimationFrame(frame);
+		};
+		requestAnimationFrame(frame);
 
 		// Les ancres passent par Lenis, sinon deux défilements se disputent la page.
 		document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
@@ -43,7 +41,7 @@ export function initSmoothScroll() {
 				const target = document.querySelector(id);
 				if (!target) return;
 				event.preventDefault();
-				lenis.scrollTo(target as HTMLElement, { offset: -80 });
+				lenis.scrollTo(target as HTMLElement, { offset: -24 });
 			});
 		});
 	});
