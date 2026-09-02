@@ -61,8 +61,6 @@ body {
 	color: var(--c-accent-ink);
 }
 
-/* Lenis prend la main sur le défilement : le scroll natif lissé du navigateur
-   entrerait en concurrence avec le sien. */
 html.lenis,
 html.lenis body {
 	height: auto;
@@ -85,7 +83,6 @@ html.lenis body {
 	outline-offset: 3px;
 }
 
-/* Display : Archivo poussé en largeur, façon titre de générique. */
 @utility display {
 	font-family: var(--font-display);
 	font-stretch: 118%;
@@ -96,7 +93,6 @@ html.lenis body {
 	overflow-wrap: break-word;
 }
 
-/* L'extension en largeur coûte trop cher sous 640px : on revient au chasse normale. */
 @media (max-width: 640px) {
 	.display {
 		font-stretch: 100%;
@@ -104,7 +100,6 @@ html.lenis body {
 	}
 }
 
-/* Utilitaire : labels de section, métadonnées, stacks. */
 @utility label {
 	font-family: var(--font-mono);
 	font-size: 0.6875rem;
@@ -114,9 +109,6 @@ html.lenis body {
 	color: var(--c-muted);
 }
 
-/* Révélation au scroll, orchestrée par GSAP.
-   Le masquage initial n'existe que si le JS a pris la main : sans lui, la
-   page reste entièrement lisible. */
 .js-motion [data-reveal] {
 	opacity: 0;
 	transform: translateY(18px);

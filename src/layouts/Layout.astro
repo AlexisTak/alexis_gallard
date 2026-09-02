@@ -22,16 +22,28 @@ const personSchema = {
 		'https://www.linkedin.com/in/alexis-gallard',
 		'https://github.com/AlexisTak',
 	],
-	knowsAbout: ['Fullstack', 'LLM', 'RAG', 'Agents IA', 'DevOps', 'Cybersécurité'],
-};
-
-const serviceSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'ProfessionalService',
-	name: 'Alexis Gallard — Développement Fullstack & IA',
-	areaServed: 'Poitiers, Nouvelle-Aquitaine, France',
-	description:
-		"Développement d'applications Fullstack et intégration IA (LLM, RAG, agents) pour PME et startups.",
+	email: 'mailto:alexis_gallard@outlook.fr',
+	telephone: '+33765723070',
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Poitiers',
+		addressRegion: 'Nouvelle-Aquitaine',
+		addressCountry: 'FR',
+	},
+	knowsAbout: [
+		'Développement Fullstack',
+		'TypeScript',
+		'React',
+		'Next.js',
+		'Node.js',
+		'Rust',
+		'Tauri',
+		'LLM',
+		'RAG',
+		'Agents IA',
+		'DevOps',
+		'Cybersécurité',
+	],
 };
 ---
 
@@ -57,7 +69,6 @@ const serviceSchema = {
 		<meta name="twitter:description" content={description} />
 
 		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-		<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 
 		<script is:inline>
 			// Applique le thème avant le premier rendu : pas de flash.
