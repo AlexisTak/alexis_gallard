@@ -55,7 +55,7 @@ ${projects
 
 ## Parcours
 
-- Depuis 04/2022 — Développeur Fullstack Senior et AI Engineer, indépendant
+- 04/2022 à 04/2026 — Développeur Fullstack Senior et AI Engineer, indépendant
 - 10/2014 à 01/2023 — Développeur Fullstack, Emmaüs Ruffec
 - 02/2016 à 09/2022 — Assistant technique, Auto École Solidaire (en parallèle)
 
