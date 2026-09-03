@@ -1,0 +1,10 @@
+# Sortie de compilation : Vercel la reconstruit. La televerser la rend visible
+# pour l'analyseur de classes de Tailwind, qui y extrait des utilitaires
+# fantomes absents d'une compilation locale — et rend le resultat non
+# reproductible d'un environnement a l'autre.
+dist
+.astro
+
+# Outillage local, sans role a la compilation.
+.claude
+docs
