@@ -15,12 +15,13 @@ const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
     l'élément retenu pour le LCP. Le masquer jusqu'à ce qu'un script le
     dévoile ajoutait près de huit cents millisecondes sur mobile. */}
 <section class="card relative overflow-hidden p-6 md:p-10 lg:p-14">
-	{/* Le monogramme tient la place que la référence donne au portrait. Il
-	    déborde par le haut, jamais par la droite : le glyphe occupe toute la
-	    largeur de son canevas, donc le moindre débord y tranche le G. */}
+	{/* Le monogramme tient la place que la référence donne au portrait. Le
+	    glyphe occupe toute la largeur de son canevas et se centre en hauteur :
+	    tout débord latéral y tranche le G, et un débord vertical trop franc
+	    décapite le A. Il reste donc entier, simplement dépassé par le cadre. */}
 	<div
 		aria-hidden="true"
-		class="pointer-events-none absolute right-0 -top-16 opacity-[0.07] md:right-2 md:-top-20"
+		class="pointer-events-none absolute right-0 -top-4 opacity-[0.07] md:right-2 md:-top-6"
 	>
 		<Logo size={360} plain />
 	</div>
