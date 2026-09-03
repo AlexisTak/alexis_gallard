@@ -5,10 +5,14 @@ import Section from '../components/Section.astro';
 import ProjectRow from '../components/ProjectRow.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../lib/site';
+import { careerStartYear, careerYears, jobById } from '../lib/experience';
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.order - b.data.order);
+
+const emmaus = jobById('emmaus');
+const independant = jobById('independant');
 
 const faq = [
 	{
@@ -33,8 +37,10 @@ const faq = [
 	},
 	{
 		question: "Combien d'années d'expérience a-t-il ?",
-		answer:
-			"Douze ans, depuis 2014. Neuf ans comme développeur Fullstack chez Emmaüs Ruffec, puis quatre ans en indépendant, de 2022 à 2026, sur des missions d'architecture, de développement et d'intégration d'IA.",
+		/* Phrase écrite à la main, chiffres calculés : la prose reste maîtrisée,
+		   les durées ne peuvent plus contredire la frise. Cette réponse est
+		   balisée en FAQPage, donc citable telle quelle par un moteur. */
+		answer: `${careerYears} ans, depuis ${careerStartYear}. ${emmaus.duration} comme développeur Fullstack chez ${emmaus.place}, puis ${independant.duration} en indépendant, de ${independant.startYear} à ${independant.endYear}, sur des missions d'architecture, de développement et d'intégration d'IA.`,
 	},
 ];
 

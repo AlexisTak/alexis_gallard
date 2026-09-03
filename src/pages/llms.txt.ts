@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { jobs } from '../lib/experience';
 import { SITE, SKILLS, stackSentence } from '../lib/site';
 
 /**
@@ -55,9 +56,12 @@ ${projects
 
 ## Parcours
 
-- 04/2022 à 04/2026 — Développeur Fullstack Senior et AI Engineer, indépendant
-- 10/2014 à 01/2023 — Développeur Fullstack, Emmaüs Ruffec
-- 02/2016 à 09/2022 — Assistant technique, Auto École Solidaire (en parallèle)
+${jobs
+	.map(
+		(job) =>
+			`- ${job.period} (${job.duration}) — ${job.role}, ${job.place}${job.note ? ` — ${job.note}` : ''}`,
+	)
+	.join('\n')}
 
 ## Pages
 

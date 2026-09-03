@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { SITE } from '../lib/site';
+import { careerYears } from '../lib/experience';
 
 const navItems = [
 	{ href: '/', label: 'Accueil' },
@@ -12,7 +13,7 @@ const navItems = [
 ];
 
 const figures = [
-	{ value: '12', unit: 'ans', note: "d'expérience" },
+	{ value: String(careerYears), unit: 'ans', note: "d'expérience" },
 	{ value: '3', unit: 'domaines', note: 'web, IA, infra' },
 ];
 
