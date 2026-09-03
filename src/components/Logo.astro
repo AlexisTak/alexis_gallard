@@ -24,7 +24,13 @@ const largeur = plain ? size : Math.round(size * 0.74);
     96 pixels agrandi à 360 donnait un filigrane visiblement flou en thème
     sombre, où le contraste est bien plus fort qu'en thème clair. Le filigrane
     n'a pas de variante double : elle serait plafonnée à la définition du
-    fichier source, donc identique au fichier simple. */}
+    fichier source, donc identique au fichier simple.
+
+    Ni `loading="lazy"` ni `fetchpriority="low"` sur le filigrane, contrairement
+    à ce que suggère son rôle décoratif : mesuré, il est l'élément retenu pour
+    le LCP de l'accueil, et le différer ajoutait six cent trente-sept
+    millisecondes d'attente avant même l'envoi de la requête sur un réseau
+    lent. Neuf kilo-octets ne valent pas ce report. */}
 {
 	plain ? (
 		<Image
@@ -32,8 +38,7 @@ const largeur = plain ? size : Math.round(size * 0.74);
 			alt=""
 			width={largeur}
 			quality={50}
-			loading="lazy"
-			fetchpriority="low"
+			loading="eager"
 			class:list={['block h-auto max-w-full', className]}
 		/>
 	) : (
