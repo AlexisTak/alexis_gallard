@@ -26,11 +26,11 @@ const largeur = plain ? size : Math.round(size * 0.74);
     n'a pas de variante double : elle serait plafonnée à la définition du
     fichier source, donc identique au fichier simple.
 
-    Ni `loading="lazy"` ni `fetchpriority="low"` sur le filigrane, contrairement
-    à ce que suggère son rôle décoratif : mesuré, il est l'élément retenu pour
-    le LCP de l'accueil, et le différer ajoutait six cent trente-sept
-    millisecondes d'attente avant même l'envoi de la requête sur un réseau
-    lent. Neuf kilo-octets ne valent pas ce report. */}
+    Chargement immédiat malgré le rôle décoratif : mesuré, ce filigrane est
+    l'élément retenu pour le LCP de l'accueil, et un élément mesuré ne se
+    diffère pas. À noter, pour ne pas s'en attribuer le mérite : sur réseau
+    lent, le différer ou non ne change rien de mesurable — le délai vient du
+    téléchargement du document et des polices, pas de l'attribut. */}
 {
 	plain ? (
 		<Image
