@@ -10,6 +10,7 @@ import { OGImageRoute } from 'astro-og-canvas';
  */
 
 const projects = await getCollection('projects');
+const posts = await getCollection('blog');
 
 const pages: Record<string, { title: string; description: string }> = {
 	index: {
@@ -36,12 +37,27 @@ const pages: Record<string, { title: string; description: string }> = {
 		title: 'Contact',
 		description: 'Ouvert aux opportunités · Poitiers ou à distance',
 	},
+	'mentions-legales': {
+		title: 'Mentions légales',
+		description: 'Éditeur, directeur de la publication et hébergeur',
+	},
+	confidentialite: {
+		title: 'Confidentialité',
+		description: 'Aucun cookie, aucun traceur, aucune mesure d’audience',
+	},
 };
 
 for (const project of projects) {
 	pages[`projets/${project.id}`] = {
 		title: project.data.title,
 		description: project.data.subtitle,
+	};
+}
+
+for (const post of posts) {
+	pages[`blog/${post.id}`] = {
+		title: post.data.title,
+		description: post.data.description,
 	};
 }
 
