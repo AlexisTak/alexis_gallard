@@ -1,7 +1,7 @@
 ---
 title: "RAG en production : ce qui casse entre la démo et le vrai trafic"
 description: "Un prototype RAG se monte en une après-midi. Le mettre en production demande de traiter le découpage, la récupération hybride, l'évaluation et le coût du contexte — quatre sujets que la démo masque."
-pubDate: 2026-09-03
+pubDate: 2026-07-22
 tags: ["RAG", "LLM", "IA appliquée", "architecture"]
 ---
 

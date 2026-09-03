@@ -1,7 +1,7 @@
 ---
 title: "Évaluer les sorties d'un LLM : sortir du « ça a l'air mieux »"
 description: "Sans jeu d'évaluation, chaque modification d'un prompt est un pari et chaque mise à jour du modèle une régression invisible. Comment construire une mesure utile en une journée."
-pubDate: 2026-09-03
+pubDate: 2026-08-12
 tags: ["LLM", "évaluation", "IA appliquée", "qualité"]
 ---
 

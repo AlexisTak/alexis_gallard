@@ -1,7 +1,7 @@
 ---
 title: "Modèle propriétaire ou open source : les quatre axes qui décident"
 description: "La question n'est pas de savoir lequel est meilleur, mais lequel est meilleur pour une contrainte donnée. Coût réel, confidentialité, latence et dépendance — et le calcul qui dit à partir de quand l'auto-hébergement devient rentable."
-pubDate: 2026-09-03
+pubDate: 2026-06-30
 tags: ["LLM", "open source", "architecture", "coût"]
 ---
 

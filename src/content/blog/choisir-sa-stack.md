@@ -1,7 +1,7 @@
 ---
 title: "Choisir sa stack sans suivre la mode"
 description: "Avant « quelle technologie », il y a « qui va maintenir ça dans deux ans ». Microservices, Rust, framework du moment : les critères qui tiennent quand l'enthousiasme retombe."
-pubDate: 2026-09-03
+pubDate: 2026-05-19
 tags: ["architecture", "Rust", "microservices", "décision technique"]
 ---
 

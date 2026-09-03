@@ -1,7 +1,7 @@
 ---
 title: "La sécurité au niveau de la base, pas du code"
 description: "Une règle d'accès écrite dans un contrôleur doit être répétée partout et peut être oubliée une fois. Écrite dans PostgreSQL, elle s'applique même au code qui a tort."
-pubDate: 2026-09-03
+pubDate: 2026-06-10
 tags: ["PostgreSQL", "sécurité", "architecture", "RLS"]
 ---
 
