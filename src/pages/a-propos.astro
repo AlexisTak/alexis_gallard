@@ -61,10 +61,38 @@ const formatPeriod = (start: string, end?: string) => {
 	return `${short(start)} → ${end ? short(end) : "aujourd'hui"}`;
 };
 
-const jobs = experience.map((job) => ({
-	...job,
-	period: formatPeriod(job.start, job.end),
-}));
+/** Nombre de mois entre deux repères AAAA-MM ; la date du jour fait office de fin. */
+const monthsBetween = (start: string, end?: string) => {
+	const [startYear, startMonth] = start.split('-').map(Number);
+	const now = new Date();
+	const [endYear, endMonth] = end
+		? end.split('-').map(Number)
+		: [now.getFullYear(), now.getMonth() + 1];
+	return (endYear - startYear) * 12 + (endMonth - startMonth);
+};
+
+/** « 8 ans 3 mois ». La durée est ce qu'un recruteur cherche et que deux dates
+    brutes l'obligent à calculer de tête. */
+const formatDuration = (start: string, end?: string) => {
+	const total = Math.max(monthsBetween(start, end), 1);
+	const years = Math.floor(total / 12);
+	const months = total % 12;
+	const parts = [];
+	if (years > 0) parts.push(`${years} an${years > 1 ? 's' : ''}`);
+	if (months > 0) parts.push(`${months} mois`);
+	return parts.join(' ');
+};
+
+/* Trié par date de fin décroissante, le poste en cours d'abord : c'est l'ordre
+   qu'on attend d'une frise, et il reste juste si un poste est ajouté. */
+const jobs = [...experience]
+	.sort((a, b) => (b.end ?? '9999').localeCompare(a.end ?? '9999') || b.start.localeCompare(a.start))
+	.map((job) => ({
+		...job,
+		period: formatPeriod(job.start, job.end),
+		duration: formatDuration(job.start, job.end),
+		current: !job.end,
+	}));
 
 const skillGroups = [
 	{
@@ -115,14 +143,37 @@ const schemas = [
 	/>
 
 	<Section label="Expérience">
-		<div class="flex flex-col">
+		{/* Frise plutôt que liste : le fil rend les chevauchements lisibles d'un
+		    coup d'œil, là où deux dates côte à côte obligent à les reconstituer.
+		    Le fil et les repères sont décoratifs, la structure reste une liste
+		    ordonnée pour qui navigue au lecteur d'écran. */}
+		<ol class="flex flex-col">
 			{jobs.map((job, i) => (
-				<div
-					class="grid gap-4 border-t border-line py-10 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
+				<li
+					class="relative grid gap-3 pb-12 pl-7 last:pb-0 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10 md:pl-9"
 					data-reveal
 					data-reveal-delay={i * 80}
 				>
-					<p class="label self-start whitespace-nowrap">{job.period}</p>
+					{i < jobs.length - 1 && (
+						<span aria-hidden="true" class="absolute left-[5px] top-5 h-full w-px bg-line" />
+					)}
+
+					<span
+						aria-hidden="true"
+						class:list={[
+							'absolute left-0 top-[7px] size-[11px] rounded-full border-2',
+							job.current ? 'border-accent-strong bg-accent' : 'border-line-hi bg-bg',
+						]}
+					/>
+
+					<div class="md:text-right">
+						<p class="label whitespace-nowrap text-text">{job.period}</p>
+						<p class="mt-1 text-xs text-muted">{job.duration}</p>
+						{job.current && (
+							<p class="pill mt-3 bg-accent text-accent-ink">En cours</p>
+						)}
+					</div>
+
 					<div>
 						<h2 class="text-xl font-medium text-text">{job.role}</h2>
 						<p class="mt-1 text-sm text-muted">{job.place}</p>
@@ -133,9 +184,9 @@ const schemas = [
 							))}
 						</ul>
 					</div>
-				</div>
+				</li>
 			))}
-		</div>
+		</ol>
 	</Section>
 
 	<Section label="Compétences">
