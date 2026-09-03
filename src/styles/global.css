@@ -153,6 +153,25 @@ html.lenis body {
 	white-space: nowrap;
 }
 
+/* Étiquette de liste : même registre que la pilule, mais destinée à des
+   libellés longs dans une colonne étroite. La pilule interdit la coupure de
+   ligne, ce qui convient à un mot isolé et déborde dès que le texte dépasse
+   la largeur disponible. Ici le retour à la ligne est permis, et le rayon est
+   réduit parce qu'une capsule entièrement arrondie sur deux lignes se lit mal. */
+@utility chip {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 0.75rem;
+	padding: 0.4rem 0.75rem;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	line-height: 1.45;
+	text-transform: uppercase;
+	text-wrap: balance;
+}
+
 @utility label {
 	font-family: var(--font-mono);
 	font-size: 0.6875rem;
