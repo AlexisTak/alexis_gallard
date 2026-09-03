@@ -26,6 +26,21 @@ export const SITE = {
 } as const;
 
 /**
+ * Jetons de vérification de propriété des outils pour webmasters.
+ *
+ * Publics par nature : ils apparaissent dans le HTML servi. Ils prouvent
+ * seulement qu'on contrôle le site, ils n'ouvrent aucun accès.
+ *
+ * La vérification par DNS serait préférable — elle survit à un changement
+ * d'hébergeur et couvre les sous-domaines — mais elle est impossible tant que
+ * le site vit sous `vercel.app`, dont les enregistrements appartiennent à
+ * Vercel. À reprendre par DNS le jour où un nom de domaine propre est en place.
+ */
+export const VERIFICATION = {
+	google: 'K67LhKvGV1shIeLO0zdHvLNREBjS9C7pWFUebnXDYs8',
+} as const;
+
+/**
  * Informations légales.
  *
  * L'adresse de l'hébergeur et la date de mise à jour apparaissent sur deux

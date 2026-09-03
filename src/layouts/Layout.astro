@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE, personSchema, websiteSchema, breadcrumbSchema } from '../lib/site';
+import { SITE, personSchema, websiteSchema, breadcrumbSchema, VERIFICATION } from '../lib/site';
 // Importée pour son URL seule : la police des titres est demandée dès le début
 // du chargement, au lieu d'attendre que le CSS soit analysé.
 import displayFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
@@ -92,6 +92,9 @@ const graph = {
 				: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
 		/>
 		<meta name="theme-color" content="oklch(91.42% 0.0174 84.59)" />
+
+		{/* Propriété du site auprès de Google Search Console. */}
+		<meta name="google-site-verification" content={VERIFICATION.google} />
 
 		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title} />
