@@ -1,6 +1,6 @@
 ---
 title: "Choisir sa stack sans suivre la mode"
-description: "Avant « quelle technologie », il y a « qui va maintenir ça dans deux ans ». Microservices, Rust, framework du moment : les critères qui tiennent quand l'enthousiasme retombe."
+description: "Avant « quelle technologie », il y a « qui va maintenir ça dans deux ans ». Les critères qui tiennent quand l'enthousiasme retombe."
 pubDate: 2026-05-19
 tags: ["architecture", "Rust", "microservices", "décision technique"]
 ---
@@ -58,7 +58,7 @@ Ce site est un cas d'application de ces critères. Le besoin : quelques pages de
 
 Un framework applicatif aurait fonctionné. Il aurait aussi imposé un runtime côté client, un état à hydrater et une surface de maintenance sans rapport avec le besoin. Le choix retenu — génération statique, JavaScript réduit au strict nécessaire — donne un site qui pèse moins de six kilo-octets de script, affiche son contenu principal en un peu plus de deux dixièmes de seconde sur mobile, et n'a aucune dépendance à surveiller en production.
 
-Ce n'est pas un choix élégant en soi. C'est le choix proportionné au problème. Le code est public, les mesures sont reproductibles.
+Ce n'est pas un choix élégant en soi. C'est le choix proportionné au problème — même si [y arriver a demandé de corriger une erreur de conception](/blog/lcp-perdu-sur-une-animation/). Le code est public, les mesures sont reproductibles.
 
 ## Ce que je regarde, dans l'ordre
 

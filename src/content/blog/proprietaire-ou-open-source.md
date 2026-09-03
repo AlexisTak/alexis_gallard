@@ -1,6 +1,6 @@
 ---
-title: "Modèle propriétaire ou open source : les quatre axes qui décident"
-description: "La question n'est pas de savoir lequel est meilleur, mais lequel est meilleur pour une contrainte donnée. Coût réel, confidentialité, latence et dépendance — et le calcul qui dit à partir de quand l'auto-hébergement devient rentable."
+title: "Modèle propriétaire ou open source ?"
+description: "Coût réel, confidentialité, latence, dépendance : les quatre axes qui décident, et le calcul qui dit quand l'auto-hébergement est rentable."
 pubDate: 2026-06-30
 tags: ["LLM", "open source", "architecture", "coût"]
 ---
@@ -51,7 +51,7 @@ La bonne réponse à ce risque n'est pas de choisir le camp « ouvert » par pri
 
 - Une couche d'abstraction fine entre le code métier et le fournisseur, qui ne cherche pas à unifier toutes les fonctionnalités mais seulement celles que vous utilisez réellement.
 - Aucune dépendance à une extension propriétaire — appels d'outils exotiques, formats de sortie spécifiques — sans une solution de repli écrite.
-- Le même jeu d'évaluation exécutable contre n'importe quel fournisseur. C'est lui qui rend la migration décidable au lieu d'être un pari.
+- [Le même jeu d'évaluation](/blog/evaluer-les-sorties-d-un-llm/) exécutable contre n'importe quel fournisseur. C'est lui qui rend la migration décidable au lieu d'être un pari.
 
 Cette réversibilité coûte peu à construire au départ et devient très chère à ajouter après coup.
 

@@ -1,6 +1,6 @@
 ---
-title: "800 ms de LCP perdues sur une animation, et la fausse piste que j'ai suivie"
-description: "Le contenu principal de ce site était masqué jusqu'à ce qu'un script le révèle. Récit d'un diagnostic, y compris de l'optimisation qui n'a rien changé avant que je trouve la vraie cause."
+title: "800 ms de LCP perdues sur une animation"
+description: "Le contenu principal de ce site était masqué jusqu'à ce qu'un script le révèle. Récit du diagnostic, fausse piste comprise."
 pubDate: 2026-09-03
 tags: ["performance", "Core Web Vitals", "LCP", "diagnostic"]
 ---
@@ -66,6 +66,6 @@ Mesure après correction : **223 millisecondes sur mobile**, et l'avertissement 
 
 ## Ce qui reste
 
-Le site tient aujourd'hui 100 sur 100 aux quatre catégories de l'audit, sur ordinateur comme sur mobile, avec un décalage cumulé nul et moins de six kilo-octets de JavaScript. Ces chiffres ne viennent pas d'une optimisation fine mais de deux décisions simples : ne rien masquer au chargement, et n'embarquer aucun script dont on ne peut pas justifier chaque kilo-octet.
+Le site tient aujourd'hui 100 sur 100 aux quatre catégories de l'audit, sur ordinateur comme sur mobile, avec un décalage cumulé nul et moins de six kilo-octets de JavaScript. Ces chiffres ne viennent pas d'une optimisation fine mais de deux décisions simples : ne rien masquer au chargement, et [n'embarquer aucun script dont on ne peut pas justifier chaque kilo-octet](/blog/choisir-sa-stack/).
 
 Le code est public. Les mesures se refont en cinq minutes avec l'outil d'audit de n'importe quel navigateur — c'est d'ailleurs la seule façon honnête de citer un chiffre de performance.

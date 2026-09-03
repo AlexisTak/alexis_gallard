@@ -1,6 +1,6 @@
 ---
-title: "Évaluer les sorties d'un LLM : sortir du « ça a l'air mieux »"
-description: "Sans jeu d'évaluation, chaque modification d'un prompt est un pari et chaque mise à jour du modèle une régression invisible. Comment construire une mesure utile en une journée."
+title: "Évaluer les sorties d'un LLM sans se mentir"
+description: "Sans jeu d'évaluation, changer un prompt est un pari et chaque mise à jour du modèle une régression invisible. Comment mesurer utilement."
 pubDate: 2026-08-12
 tags: ["LLM", "évaluation", "IA appliquée", "qualité"]
 ---
@@ -36,7 +36,7 @@ La tentation est de comparer la réponse produite à une réponse de référence
 Il vaut mieux mesurer ce que la tâche exige réellement, et cela se décompose presque toujours en critères vérifiables :
 
 - **La sortie est-elle bien formée ?** Si l'on attend du JSON avec trois champs obligatoires, c'est une vérification déterministe, gratuite, et elle attrape beaucoup plus d'erreurs qu'on ne le croit.
-- **Les faits cités figurent-ils dans les sources fournies ?** C'est la question la plus utile d'un système documentaire. Une réponse juste mais non appuyée signale que le modèle puise dans ses paramètres — ce qui marchera jusqu'au cas spécifique qui justifiait le projet.
+- **Les faits cités figurent-ils dans les sources fournies ?** C'est la question la plus utile d'un [système documentaire](/blog/rag-en-production/). Une réponse juste mais non appuyée signale que le modèle puise dans ses paramètres — ce qui marchera jusqu'au cas spécifique qui justifiait le projet.
 - **Le système a-t-il refusé quand il fallait refuser ?** Mesuré sur les cas limites construits pour cela.
 - **La contrainte métier est-elle respectée ?** Un montant reste dans une plage, une date est postérieure à une autre, un identifiant existe en base.
 
@@ -64,6 +64,6 @@ Une évaluation qu'on lance à la main sert deux fois puis tombe en désuétude.
 
 **Détecter la dérive d'un fournisseur.** Les modèles propriétaires évoluent ; un prompt calibré finement sur une version se dégrade parfois silencieusement sur la suivante. Sans évaluation, on l'apprend par un utilisateur.
 
-**Rendre un changement de modèle décidable.** Migrer vers un modèle moins cher, ou vers un modèle ouvert auto-hébergé, cesse d'être un pari : on mesure, on compare, on tranche sur des chiffres.
+**Rendre un changement de modèle décidable.** [Migrer vers un modèle moins cher, ou vers un modèle ouvert auto-hébergé](/blog/proprietaire-ou-open-source/), cesse d'être un pari : on mesure, on compare, on tranche sur des chiffres.
 
 C'est le point qui compte le plus. Une équipe sans évaluation est prisonnière de son fournisseur, non par contrat, mais parce qu'elle n'a aucun moyen de savoir ce qu'elle perdrait en partant.

@@ -73,7 +73,11 @@ ${
 		? `\n## Articles\n\n${posts
 				.map(
 					(post) =>
-						`- [${post.data.title}](${SITE.url}/blog/${post.id}/) — ${post.data.description}`,
+						`- ${post.data.pubDate.toISOString().slice(0, 10)}${
+							post.data.updatedDate
+								? `, mis à jour le ${post.data.updatedDate.toISOString().slice(0, 10)}`
+								: ''
+						} — [${post.data.title}](${SITE.url}/blog/${post.id}/) — ${post.data.description} Sujets : ${post.data.tags.join(', ')}.`,
 				)
 				.join('\n')}\n`
 		: ''

@@ -1,6 +1,6 @@
 ---
-title: "RAG en production : ce qui casse entre la démo et le vrai trafic"
-description: "Un prototype RAG se monte en une après-midi. Le mettre en production demande de traiter le découpage, la récupération hybride, l'évaluation et le coût du contexte — quatre sujets que la démo masque."
+title: "RAG en production : ce qui casse vraiment"
+description: "Découpage, récupération hybride, évaluation, coût du contexte : les quatre sujets que la démo masque et que la production impose."
 pubDate: 2026-07-22
 tags: ["RAG", "LLM", "IA appliquée", "architecture"]
 ---
@@ -35,7 +35,7 @@ Au-dessus, un réordonnanceur change la donne. Un modèle bi-encodeur compare un
 
 ## Sans évaluation, on optimise à l'aveugle
 
-C'est le point qui sépare un projet qui progresse d'un projet qui tourne en rond. Sans jeu d'évaluation, chaque modification est un pari : on change la taille des blocs, on trouve que « ça a l'air mieux », et on découvre trois semaines plus tard qu'on a dégradé une catégorie entière de questions.
+C'est le point qui sépare un projet qui progresse d'un projet qui tourne en rond, et il mérite [un article à lui seul](/blog/evaluer-les-sorties-d-un-llm/). Sans jeu d'évaluation, chaque modification est un pari : on change la taille des blocs, on trouve que « ça a l'air mieux », et on découvre trois semaines plus tard qu'on a dégradé une catégorie entière de questions.
 
 Le minimum viable tient en deux mesures, et il faut les séparer.
 
@@ -53,7 +53,7 @@ Trois leviers, par ordre d'efficacité décroissante :
 
 1. **Récupérer moins, mais mieux.** Le réordonnanceur permet de passer de dix passages à trois sans perte de qualité. C'est une réduction directe et sans contrepartie.
 2. **Mettre en cache le préfixe stable.** Consigne système, définitions, exemples : tout ce qui ne change pas d'une requête à l'autre doit être en tête du prompt et mis en cache par le fournisseur. La réduction sur cette portion est substantielle.
-3. **Router selon la difficulté.** Toutes les questions n'ont pas besoin du plus gros modèle. Une classification préalable, ou simplement un seuil sur le score de récupération, permet d'envoyer les cas simples vers un modèle plus petit.
+3. **Router selon la difficulté.** Toutes les questions n'ont pas besoin du plus gros modèle, ni même d'un [modèle propriétaire](/blog/proprietaire-ou-open-source/). Une classification préalable, ou simplement un seuil sur le score de récupération, permet d'envoyer les cas simples vers un modèle plus petit.
 
 ## Ce qu'on ajoute quand ça part en production
 

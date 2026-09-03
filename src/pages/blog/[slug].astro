@@ -4,17 +4,44 @@ import { getCollection, render } from 'astro:content';
 import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = (await getCollection('blog')).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+
 	return posts.map((post) => ({
 		params: { slug: post.id },
-		props: { post },
+		props: {
+			post,
+			/*
+			 * Deux suggestions par article, choisies sur les étiquettes communes
+			 * puis complétées par les plus récentes. Sans ces liens, chaque note
+			 * est une impasse : le lecteur repart, et un moteur ne voit qu'une
+			 * page isolée au lieu d'un ensemble cohérent sur un sujet.
+			 */
+			related: posts
+				.filter((other) => other.id !== post.id)
+				.map((other) => ({
+					post: other,
+					score: other.data.tags.filter((tag) => post.data.tags.includes(tag)).length,
+				}))
+				.sort(
+					(a, b) =>
+						b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf(),
+				)
+				.slice(0, 2)
+				.map((entry) => entry.post),
+		},
 	}));
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
 const { Content } = await render(post);
 
 const url = `${SITE.url}/blog/${post.id}/`;
+
+/* Approximation suffisante : les moteurs s'en servent pour situer la
+   profondeur d'un texte, pas pour le compter au mot près. */
+const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
 
 const schemas = [
 	{
@@ -23,12 +50,14 @@ const schemas = [
 		headline: post.data.title,
 		description: post.data.description,
 		datePublished: post.data.pubDate.toISOString(),
-		dateModified: post.data.pubDate.toISOString(),
+		dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
 		url,
 		author: { '@id': `${SITE.url}/#person` },
 		publisher: { '@id': `${SITE.url}/#person` },
 		inLanguage: SITE.lang,
 		keywords: post.data.tags.join(', '),
+		articleSection: post.data.tags[0],
+		wordCount,
 		isPartOf: { '@id': `${SITE.url}/blog/#blog` },
 	},
 ];
@@ -48,9 +77,17 @@ const schemas = [
 		<a href="/blog" class="pill bg-bg text-muted transition-colors hover:text-accent-strong">← Écrits</a>
 
 		<h1 class="display mt-8 text-[clamp(2rem,5.5vw,3.6rem)] text-text">{post.data.title}</h1>
-		<time class="label mt-6 block" datetime={post.data.pubDate.toISOString()}>
-			{post.data.pubDate.toLocaleDateString('fr-FR')}
-		</time>
+		<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+			<time class="label" datetime={post.data.pubDate.toISOString()}>
+				{post.data.pubDate.toLocaleDateString('fr-FR')}
+			</time>
+			{post.data.updatedDate && (
+				<time class="label text-accent-strong" datetime={post.data.updatedDate.toISOString()}>
+					· Mis à jour le {post.data.updatedDate.toLocaleDateString('fr-FR')}
+				</time>
+			)}
+			<span class="label">· {Math.max(1, Math.round(wordCount / 200))} min de lecture</span>
+		</div>
 
 		<div
 			class="mt-14 flex flex-col gap-6 text-lg leading-relaxed text-text/85 [&_a]:text-accent [&_a]:underline [&_code]:font-mono [&_code]:text-base [&_code]:text-accent [&_h2]:display [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:text-text [&_li]:ml-5 [&_li]:list-disc [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-line [&_pre]:bg-surface [&_pre]:p-5 [&_pre_code]:text-text"
@@ -78,5 +115,33 @@ const schemas = [
 				Partager sur LinkedIn
 			</a>
 		</footer>
+
+		{related.length > 0 && (
+			<nav aria-label="Autres articles" class="mt-14">
+				<p class="label">À lire ensuite</p>
+				<ul class="mt-4 flex flex-col">
+					{related.map((other) => (
+						<li>
+							<a
+								href={`/blog/${other.id}/`}
+								class="group grid gap-2 border-t border-line py-6 transition-colors hover:border-accent md:grid-cols-[7rem_minmax(0,1fr)] md:gap-8"
+							>
+								<time class="label self-start" datetime={other.data.pubDate.toISOString()}>
+									{other.data.pubDate.toLocaleDateString('fr-FR')}
+								</time>
+								<div>
+									<span class="block font-medium text-text transition-colors group-hover:text-accent">
+										{other.data.title}
+									</span>
+									<span class="mt-1 block text-base leading-relaxed text-muted">
+										{other.data.description}
+									</span>
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+		)}
 	</article>
 </Layout>

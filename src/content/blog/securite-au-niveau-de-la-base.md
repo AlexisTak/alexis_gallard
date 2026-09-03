@@ -1,6 +1,6 @@
 ---
 title: "La sécurité au niveau de la base, pas du code"
-description: "Une règle d'accès écrite dans un contrôleur doit être répétée partout et peut être oubliée une fois. Écrite dans PostgreSQL, elle s'applique même au code qui a tort."
+description: "Une règle d'accès écrite dans un contrôleur peut être oubliée une fois. Écrite dans PostgreSQL, elle s'applique même au code qui a tort."
 pubDate: 2026-06-10
 tags: ["PostgreSQL", "sécurité", "architecture", "RLS"]
 ---
@@ -41,7 +41,7 @@ Sans politique de ligne, la sécurité est une propriété de chaque chemin de c
 
 Avec une politique de ligne, la sécurité est une propriété de la table. Le nombre de chemins de code n'a plus d'importance. Une revue de code n'a plus à vérifier que chaque requête filtre : elle vérifie que la politique existe et qu'elle est juste, ce qui se fait une fois.
 
-C'est le même raisonnement que le typage statique. On ne demande pas à un système de types de rendre le code correct ; on lui demande de rendre une catégorie d'erreurs impossible à écrire.
+C'est le même raisonnement que le typage statique, et la même logique que celle qui guide [le choix d'une stack](/blog/choisir-sa-stack/). On ne demande pas à un système de types de rendre le code correct ; on lui demande de rendre une catégorie d'erreurs impossible à écrire.
 
 ## Ce que ça coûte
 

@@ -8,16 +8,11 @@ interface Job {
 	role: string;
 	place: string;
 	start: string;
-	/** Absent tant que le poste est en cours. */
 	end?: string;
 	note?: string;
 	points: string[];
 }
 
-/**
- * Périodes en AAAA-MM, comme sur le CV. `note` explique un chevauchement quand
- * il y en a un : deux postes tenus ensemble, ou une transition entre les deux.
- */
 const experience: Job[] = [
 	{
 		role: 'Développeur Fullstack Senior · AI Engineer',
@@ -83,8 +78,7 @@ const formatDuration = (start: string, end?: string) => {
 	return parts.join(' ');
 };
 
-/* Trié par date de fin décroissante, le poste en cours d'abord : c'est l'ordre
-   qu'on attend d'une frise, et il reste juste si un poste est ajouté. */
+
 const jobs = [...experience]
 	.sort((a, b) => (b.end ?? '9999').localeCompare(a.end ?? '9999') || b.start.localeCompare(a.start))
 	.map((job) => ({
@@ -143,10 +137,6 @@ const schemas = [
 	/>
 
 	<Section label="Expérience">
-		{/* Frise plutôt que liste : le fil rend les chevauchements lisibles d'un
-		    coup d'œil, là où deux dates côte à côte obligent à les reconstituer.
-		    Le fil et les repères sont décoratifs, la structure reste une liste
-		    ordonnée pour qui navigue au lecteur d'écran. */}
 		<ol class="flex flex-col">
 			{jobs.map((job, i) => (
 				<li
