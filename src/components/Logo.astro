@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-ag-transparent.png';
+
 interface Props {
-	/** Côté du logo en pixels. */
+	/** Largeur d'affichage du monogramme en pixels. */
 	size?: number;
 	/**
 	 * Sans la pastille sombre : réservé au filigrane, où le monogramme doit
@@ -12,29 +15,26 @@ interface Props {
 
 const { size = 28, plain = false, class: className } = Astro.props;
 
-/* Un seul fichier pour tous les usages, de 30 à 360 pixels. Le filigrane du
-   hero est à sept pour cent d'opacité : sa définition n'y est pas perceptible,
-   et servir une image de 512 pixels au-dessus de la ligne de flottaison
-   coûterait quarante kilo-octets sur la page qui porte le LCP. */
-const SOURCE = '/logo.png';
-const INTRINSEQUE = 96;
-
-/* Dimension calculée plutôt qu'un pourcentage : dans un conteneur centré dont
-   la piste est dimensionnée automatiquement, une hauteur en pourcentage n'a
-   aucune référence et s'effondre à zéro. */
-const interieur = Math.round(size * 0.74);
+/* Le monogramme est plus large que haut. Dans la pastille, c'est donc la
+   largeur qui contraint : on l'inscrit dans le carré en retirant la marge. */
+const largeur = plain ? size : Math.round(size * 0.74);
 ---
 
+{/* Astro produit une variante WebP à la définition demandée. Servir un PNG de
+    96 pixels agrandi à 360 donnait un filigrane visiblement flou en thème
+    sombre, où le contraste est bien plus fort qu'en thème clair. Le filigrane
+    n'a pas de variante double : elle serait plafonnée à la définition du
+    fichier source, donc identique au fichier simple. */}
 {
 	plain ? (
-		<img
-			src={SOURCE}
+		<Image
+			src={logo}
 			alt=""
-			width={INTRINSEQUE}
-			height={INTRINSEQUE}
-			decoding="async"
-			class:list={['block', className]}
-			style={`width:${size}px;height:${size}px`}
+			width={largeur}
+			quality={50}
+			loading="lazy"
+			fetchpriority="low"
+			class:list={['block h-auto max-w-full', className]}
 		/>
 	) : (
 		/* Pastille encre plutôt que fond transparent : le doré manque de
@@ -44,14 +44,7 @@ const interieur = Math.round(size * 0.74);
 			class:list={['inline-flex shrink-0 items-center justify-center rounded-[26%] bg-accent-ink', className]}
 			style={`width:${size}px;height:${size}px`}
 		>
-			<img
-				src={SOURCE}
-				alt=""
-				width={INTRINSEQUE}
-				height={INTRINSEQUE}
-				decoding="async"
-				style={`width:${interieur}px;height:${interieur}px;object-fit:contain`}
-			/>
+			<Image src={logo} alt="" width={largeur} densities={[1, 2]} loading="eager" />
 		</span>
 	)
 }
