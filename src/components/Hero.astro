@@ -1,5 +1,6 @@
 ---
-import Logo from './Logo.astro';
+import { getImage } from 'astro:assets';
+import logo from '../assets/logo-ag-transparent.png';
 
 interface Props {
 	statement: string;
@@ -9,23 +10,27 @@ interface Props {
 const { statement, support } = Astro.props;
 
 const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
+
+/* Même variante WebP que celle servie ailleurs : demandée ici à la main parce
+   que le filigrane est posé en image de fond et non par une balise. */
+const filigrane = await getImage({ src: logo, width: 413, format: 'webp', quality: 50 });
 ---
 
 {/* Aucune révélation ici : ce bloc est le premier contenu peint, et souvent
     l'élément retenu pour le LCP. Le masquer jusqu'à ce qu'un script le
     dévoile ajoutait près de huit cents millisecondes sur mobile. */}
 <section class="card relative overflow-hidden p-6 md:p-10 lg:p-14">
-	{/* Le monogramme tient la place que la référence donne au portrait. Le
-	    image est rognée au tracé, sans marge interne : la moindre valeur
-	    négative de position coupe donc le monogramme. La largeur est celle du
-	    fichier source — tout rééchantillonnage doublerait le poids du fichier
-	    servi sans rien apporter à l'écran. */}
-	<div
-		aria-hidden="true"
-		class="pointer-events-none absolute right-0 top-5 opacity-[0.07] md:right-2 md:top-4"
-	>
-		<Logo size={413} plain />
-	</div>
+	{/* Filigrane décoratif, absent sur mobile.
+
+	    Posé en image de fond et non par une balise : un `<img>` masqué par
+	    `display: none` est téléchargé quand même, une image de fond ne l'est
+	    pas. Sur téléphone, rien ne part donc sur le réseau.
+
+	    Le tracé est rogné sans marge interne, d'où le positionnement positif :
+	    la moindre valeur négative couperait le monogramme. Sa largeur est celle
+	    du fichier source — l'agrandir doublerait le poids servi sans rien
+	    apporter à l'écran. */}
+	<div aria-hidden="true" class="filigrane pointer-events-none absolute right-2 top-4"></div>
 
 	<div class="relative">
 		<p class="pill bg-slate text-slate-ink">Poitiers · Nouvelle-Aquitaine</p>
@@ -62,3 +67,21 @@ const traits = ['Architecture', 'IA appliquée', 'Production', 'Autonomie'];
 		</div>
 	</div>
 </section>
+
+<style define:vars={{ filigraneUrl: `url(${filigrane.src})`, filigraneLargeur: `${filigrane.attributes.width ?? 413}px` }}>
+	.filigrane {
+		display: none;
+	}
+
+	@media (min-width: 48rem) {
+		.filigrane {
+			display: block;
+			width: var(--filigraneLargeur);
+			aspect-ratio: 413 / 329;
+			background-image: var(--filigraneUrl);
+			background-size: contain;
+			background-repeat: no-repeat;
+			opacity: 0.07;
+		}
+	}
+</style>
