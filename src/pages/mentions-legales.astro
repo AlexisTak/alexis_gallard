@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import { SITE, LEGAL } from '../lib/site';
+
+const schemas = [
+	{
+		'@type': 'WebPage',
+		name: 'Mentions légales',
+		description: "Éditeur, directeur de la publication et hébergeur du site.",
+		dateModified: LEGAL.updatedAt,
+		about: { '@id': `${SITE.url}/#person` },
+	},
+];
+---
+
+<Layout
+	breadcrumbs={[{ name: 'Mentions légales', path: '/mentions-legales/' }]}
+	schemas={schemas}
+	title="Mentions légales — Alexis Gallard"
+	description="Éditeur, directeur de la publication et hébergeur du site alexisgallard.vercel.app."
+>
+	<PageHeader
+		eyebrow="Mentions légales"
+		title="Qui édite ce site."
+		lede="Informations exigées par l'article 6 de la loi pour la confiance dans l'économie numérique."
+	/>
+
+	<Section label="Éditeur">
+		<dl class="flex flex-col">
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Responsable</dt>
+				<dd class="text-lg text-text">{SITE.name}</dd>
+			</div>
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Qualité</dt>
+				<dd class="text-lg text-text">
+					Personne physique — éditeur et directeur de la publication
+				</dd>
+			</div>
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Localisation</dt>
+				<dd class="text-lg text-text">{SITE.city}, {SITE.region}, France</dd>
+			</div>
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Contact</dt>
+				<dd class="text-lg">
+					<a href={`mailto:${SITE.email}`} class="text-text transition-colors hover:text-accent-strong">
+						{SITE.email}
+					</a>
+				</dd>
+			</div>
+		</dl>
+
+		<p class="mt-8 max-w-[70ch] text-sm leading-relaxed text-muted">
+			Ce site est un portfolio personnel. Il ne propose ni vente, ni service payant, ni collecte de
+			commande. L'adresse postale complète de l'éditeur est communiquée à l'hébergeur et peut être
+			obtenue sur demande à l'adresse électronique ci-dessus.
+		</p>
+	</Section>
+
+	<Section label="Hébergeur">
+		<dl class="flex flex-col">
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Société</dt>
+				<dd class="text-lg text-text">{LEGAL.host.name}</dd>
+			</div>
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Adresse</dt>
+				<dd class="text-lg text-text">{LEGAL.host.address}</dd>
+			</div>
+			<div class="grid gap-2 border-t border-line py-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-12">
+				<dt class="label self-center">Site</dt>
+				<dd class="text-lg">
+					<a
+						href={LEGAL.host.url}
+						target="_blank"
+						rel="noopener"
+						class="text-text transition-colors hover:text-accent-strong"
+					>
+						vercel.com ↗
+					</a>
+				</dd>
+			</div>
+		</dl>
+	</Section>
+
+	<Section label="Propriété intellectuelle">
+		<div class="flex max-w-[70ch] flex-col gap-4 text-base leading-relaxed text-muted">
+			<p>
+				Les textes, la charte graphique et les contenus de ce site sont l'œuvre de {SITE.name}.
+				Leur reproduction sur un autre support, en tout ou partie, nécessite son accord écrit.
+			</p>
+			<p>
+				Le code source du site est public et consultable sur
+				<a
+					href={SITE.repository}
+					target="_blank"
+					rel="noopener"
+					class="text-text underline decoration-line underline-offset-4 transition-colors hover:text-accent-strong"
+				>
+					GitHub ↗
+				</a>.
+			</p>
+			<p>
+				Les noms de sociétés, de technologies et de produits cités appartiennent à leurs
+				détenteurs respectifs. Les liens vers des sites tiers sont fournis à titre de référence :
+				leur contenu n'engage que leurs éditeurs.
+			</p>
+		</div>
+	</Section>
+
+	<Section label="Données personnelles">
+		<div class="flex max-w-[70ch] flex-col gap-4 text-base leading-relaxed text-muted">
+			<p>
+				Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience. Le détail des
+				traitements et l'exercice de vos droits sont décrits dans la
+				<a
+					href="/confidentialite/"
+					class="text-text underline decoration-line underline-offset-4 transition-colors hover:text-accent-strong"
+				>
+					politique de confidentialité</a>.
+			</p>
+			<p class="text-sm">Dernière mise à jour : {LEGAL.updatedLabel}.</p>
+		</div>
+	</Section>
+</Layout>

@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import { SITE, LEGAL } from '../lib/site';
+
+/** Traitements réellement effectués. Rien n'est listé ici « au cas où » : une
+    politique qui annonce des traitements inexistants est aussi fausse qu'une
+    politique qui en cache. */
+const treatments = [
+	{
+		name: 'Journaux techniques du serveur',
+		data: 'Adresse IP, agent utilisateur, page demandée, horodatage',
+		purpose: 'Livrer les pages, assurer la sécurité et la disponibilité du site',
+		basis: 'Intérêt légitime — article 6.1.f du RGPD',
+		duration: "Selon la politique de l'hébergeur ; ces journaux ne me sont pas transmis",
+	},
+	{
+		name: 'Échanges que vous initiez',
+		data: 'Les informations que vous choisissez de communiquer : nom, adresse électronique, contenu du message',
+		purpose: 'Répondre à votre message et, le cas échéant, poursuivre un échange professionnel',
+		basis: 'Mesures précontractuelles et intérêt légitime — articles 6.1.b et 6.1.f',
+		duration: "Trois ans à compter du dernier contact, puis suppression",
+	},
+	{
+		name: "Préférence d'affichage",
+		data: 'Le choix du thème clair ou sombre',
+		purpose: "Retrouver votre réglage d'une visite à l'autre",
+		basis: "Exemption de consentement — préférence exprimée par vous-même",
+		duration: "Jusqu'à effacement par vos soins depuis votre navigateur",
+	},
+];
+
+const rights = [
+	['Accès', 'obtenir la confirmation que des données vous concernant sont traitées, et leur copie'],
+	['Rectification', 'faire corriger une information inexacte'],
+	['Effacement', 'demander la suppression de vos données'],
+	['Opposition', "vous opposer à un traitement fondé sur l'intérêt légitime"],
+	['Limitation', "geler l'utilisation de vos données le temps d'une vérification"],
+	['Portabilité', 'récupérer les données que vous avez fournies dans un format lisible'],
+];
+
+const schemas = [
+	{
+		'@type': 'WebPage',
+		name: 'Politique de confidentialité',
+		description:
+			"Traitements de données personnelles opérés par le site, bases légales, durées de conservation et exercice des droits.",
+		dateModified: LEGAL.updatedAt,
+		about: { '@id': `${SITE.url}/#person` },
+	},
+];
+---
+
+<Layout
+	breadcrumbs={[{ name: 'Confidentialité', path: '/confidentialite/' }]}
+	schemas={schemas}
+	title="Politique de confidentialité — Alexis Gallard"
+	description="Aucun cookie, aucun traceur, aucune mesure d'audience. Traitements réellement opérés, bases légales, durées de conservation et exercice de vos droits."
+>
+	<PageHeader
+		eyebrow="Confidentialité"
+		title="Ce site ne vous suit pas."
+		lede="Aucun cookie, aucun traceur, aucun outil de mesure d'audience, aucun script tiers. Voici ce qui est malgré tout traité, et pourquoi."
+	/>
+
+	<Section label="En résumé">
+		<ul class="flex max-w-[70ch] flex-col gap-3 text-base leading-relaxed text-muted">
+			<li class="flex gap-3">
+				<span aria-hidden="true" class="text-accent-strong">—</span>
+				<span>
+					<strong class="font-medium text-text">Aucun cookie n'est déposé</strong>, et aucune
+					bannière de consentement n'est donc nécessaire.
+				</span>
+			</li>
+			<li class="flex gap-3">
+				<span aria-hidden="true" class="text-accent-strong">—</span>
+				<span>
+					<strong class="font-medium text-text">Aucune mesure d'audience</strong> : ni Google
+					Analytics, ni équivalent, ni pixel, ni empreinte de navigateur.
+				</span>
+			</li>
+			<li class="flex gap-3">
+				<span aria-hidden="true" class="text-accent-strong">—</span>
+				<span>
+					<strong class="font-medium text-text">Aucun appel à un tiers</strong> : les polices de
+					caractères et l'ensemble des ressources sont servies depuis ce domaine. Votre adresse IP
+					n'est transmise à aucun service extérieur du fait de votre visite.
+				</span>
+			</li>
+			<li class="flex gap-3">
+				<span aria-hidden="true" class="text-accent-strong">—</span>
+				<span>
+					<strong class="font-medium text-text">Aucune publicité, aucun profilage</strong>, aucune
+					décision automatisée, aucune revente ou cession de données.
+				</span>
+			</li>
+		</ul>
+	</Section>
+
+	<Section label="Responsable du traitement">
+		<p class="max-w-[70ch] text-base leading-relaxed text-muted">
+			{SITE.name}, personne physique, {SITE.city}, France. Pour toute question relative à vos
+			données ou pour exercer vos droits :
+			<a
+				href={`mailto:${SITE.email}`}
+				class="text-text underline decoration-line underline-offset-4 transition-colors hover:text-accent-strong"
+			>
+				{SITE.email}</a>. Aucun délégué à la protection des données n'a été désigné, la
+			nomination n'étant pas requise au regard de la nature et du volume des traitements décrits
+			ci-dessous.
+		</p>
+	</Section>
+
+	<Section label="Traitements">
+		<div class="flex flex-col gap-8">
+			{treatments.map((treatment, index) => (
+				<article class="border-t border-line pt-6" data-reveal data-reveal-delay={index * 70}>
+					<h2 class="text-xl font-medium text-text">{treatment.name}</h2>
+					<dl class="mt-4 flex flex-col gap-3">
+						<div class="grid gap-1 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-8">
+							<dt class="label self-start">Données</dt>
+							<dd class="text-base leading-relaxed text-muted">{treatment.data}</dd>
+						</div>
+						<div class="grid gap-1 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-8">
+							<dt class="label self-start">Finalité</dt>
+							<dd class="text-base leading-relaxed text-muted">{treatment.purpose}</dd>
+						</div>
+						<div class="grid gap-1 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-8">
+							<dt class="label self-start">Base légale</dt>
+							<dd class="text-base leading-relaxed text-muted">{treatment.basis}</dd>
+						</div>
+						<div class="grid gap-1 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-8">
+							<dt class="label self-start">Conservation</dt>
+							<dd class="text-base leading-relaxed text-muted">{treatment.duration}</dd>
+						</div>
+					</dl>
+				</article>
+			))}
+		</div>
+	</Section>
+
+	<Section label="Stockage local">
+		<div class="flex max-w-[70ch] flex-col gap-4 text-base leading-relaxed text-muted">
+			<p>
+				Une seule valeur est écrite dans le stockage local de votre navigateur, sous la clé
+				<code class="rounded bg-bg px-1.5 py-0.5 font-mono text-sm text-text">theme</code>, lorsque
+				vous basculez entre l'affichage clair et sombre. Elle contient le mot
+				<code class="rounded bg-bg px-1.5 py-0.5 font-mono text-sm text-text">light</code> ou
+				<code class="rounded bg-bg px-1.5 py-0.5 font-mono text-sm text-text">dark</code>, reste sur
+				votre appareil et n'est jamais transmise nulle part.
+			</p>
+			<p>
+				Ce n'est pas un cookie et cela ne sert pas à vous identifier. Le stockage d'une préférence
+				que vous avez vous-même exprimée est dispensé de consentement préalable ; c'est pourquoi ce
+				site n'affiche aucune bannière. Vous pouvez l'effacer à tout moment en vidant les données
+				de site de votre navigateur.
+			</p>
+		</div>
+	</Section>
+
+	<Section label="Hébergement et transfert hors Union européenne">
+		<div class="flex max-w-[70ch] flex-col gap-4 text-base leading-relaxed text-muted">
+			<p>
+				Le site est hébergé par {LEGAL.host.name}, {LEGAL.host.address}. À ce titre, l'hébergeur
+				traite les journaux techniques décrits plus haut en qualité de sous-traitant, et ces
+				données peuvent être traitées aux États-Unis.
+			</p>
+			<p>
+				Ce transfert est encadré par l'adhésion de {LEGAL.host.name} au
+				<em>EU-U.S. Data Privacy Framework</em>, décision d'adéquation de la Commission européenne
+				du 10 juillet 2023, complétée par des clauses contractuelles types. Aucune autre donnée que
+				ces journaux techniques ne quitte l'Union européenne du fait de votre visite.
+			</p>
+		</div>
+	</Section>
+
+	<Section label="Vos droits">
+		<div class="flex flex-col gap-6">
+			<ul class="flex flex-col">
+				{rights.map(([name, description]) => (
+					<li class="grid gap-1 border-t border-line py-4 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-8">
+						<span class="label self-center">{name}</span>
+						<span class="text-base leading-relaxed text-muted">{description}</span>
+					</li>
+				))}
+			</ul>
+
+			<div class="flex max-w-[70ch] flex-col gap-4 text-base leading-relaxed text-muted">
+				<p>
+					Ces droits s'exercent par un simple message à
+					<a
+						href={`mailto:${SITE.email}`}
+						class="text-text underline decoration-line underline-offset-4 transition-colors hover:text-accent-strong"
+					>
+						{SITE.email}</a>. Une réponse vous parviendra dans un délai d'un mois. Une pièce
+					justificative d'identité ne vous sera demandée qu'en cas de doute raisonnable sur
+					l'identité du demandeur.
+				</p>
+				<p>
+					Si la réponse ne vous satisfait pas, vous pouvez introduire une réclamation auprès de la
+					Commission nationale de l'informatique et des libertés, 3 place de Fontenoy, TSA 80715,
+					75334 Paris Cedex 07, ou sur
+					<a
+						href="https://www.cnil.fr/fr/plaintes"
+						target="_blank"
+						rel="noopener"
+						class="text-text underline decoration-line underline-offset-4 transition-colors hover:text-accent-strong"
+					>
+						cnil.fr ↗
+					</a>.
+				</p>
+			</div>
+		</div>
+	</Section>
+
+	<Section label="Évolutions">
+		<p class="max-w-[70ch] text-base leading-relaxed text-muted">
+			Cette politique décrit le site tel qu'il fonctionne aujourd'hui. Tout ajout d'un formulaire,
+			d'une mesure d'audience ou d'un service tiers donnera lieu à sa mise à jour avant la mise en
+			ligne de la fonctionnalité concernée. Dernière mise à jour : {LEGAL.updatedLabel}.
+		</p>
+	</Section>
+</Layout>

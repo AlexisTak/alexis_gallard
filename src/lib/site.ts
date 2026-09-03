@@ -26,6 +26,25 @@ export const SITE = {
 } as const;
 
 /**
+ * Informations légales.
+ *
+ * L'adresse de l'hébergeur et la date de mise à jour apparaissent sur deux
+ * pages ; recopiées à la main, elles finiraient par diverger, et une mention
+ * légale qui se contredit d'une page à l'autre vaut pire que son absence.
+ */
+export const LEGAL = {
+	/** Format ISO, pour `dateModified` dans les données structurées. */
+	updatedAt: '2026-09-03',
+	/** Même date, écrite pour être lue. */
+	updatedLabel: '3 septembre 2026',
+	host: {
+		name: 'Vercel Inc.',
+		address: '440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis',
+		url: 'https://vercel.com',
+	},
+} as const;
+
+/**
  * Stack du site lui-même — à ne pas confondre avec SKILLS, qui décrit les
  * compétences d'Alexis. Décrite ici parce qu'elle est affirmée à trois
  * endroits : le colophon du pied de page, llms.txt et le README. Recopiée à la
