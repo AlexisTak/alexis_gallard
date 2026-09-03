@@ -53,7 +53,9 @@ const experience: Job[] = [
 
 const formatPeriod = (start: string, end?: string) => {
 	const short = (value: string) => value.split('-').reverse().join('/');
-	return `${short(start)} → ${end ? short(end) : "aujourd'hui"}`;
+	/* Un poste en cours n'a pas de borne de fin : « → aujourd'hui » laissait
+	   croire à une date, et la pastille « En cours » le dit déjà. */
+	return end ? `${short(start)} → ${short(end)}` : `Depuis ${short(start)}`;
 };
 
 /** Nombre de mois entre deux repères AAAA-MM ; la date du jour fait office de fin. */
