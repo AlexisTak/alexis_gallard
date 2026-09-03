@@ -28,9 +28,8 @@ export function initReveals() {
 	}
 
 	// Le premier appel décrit la page telle qu'elle s'ouvre : ce qui y est déjà
-	// visible s'affiche sans fondu. Animer ce que le visiteur regarde déjà
-	// retarde sa lecture, et l'état intermédiaire du fondu fait passer le texte
-	// sous le rapport de contraste requis.
+	// visible se place sans transition. Animer ce que le visiteur regarde déjà
+	// retarde sa lecture pour rien.
 	let isFirstPass = true;
 
 	const observer = new IntersectionObserver(

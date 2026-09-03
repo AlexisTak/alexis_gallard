@@ -41,42 +41,50 @@
    Atelier — fond argile, cartes claires, accent ambre.
    Le clair est la direction principale ; le sombre reste disponible
    pour qui le préfère, en dérivant les mêmes rôles.
+
+   Toutes les couleurs sont en OKLCH : clarté perçue, chroma, teinte.
+   Contrairement à l'hexadécimal, deux valeurs de même clarté y paraissent
+   également claires quelle que soit leur teinte, et éclaircir une couleur
+   se fait en touchant un seul nombre sans dérive de teinte. Les valeurs
+   ci-dessous sont converties à l'identique depuis l'ancienne palette :
+   le rendu ne change pas, seule l'écriture change.
 --------------------------------------------------------------- */
 
 :root {
 	color-scheme: light;
 
-	--c-bg: #e8e2d6;
-	--c-surface: #f5f1e9;
-	--c-surface-hi: #fffdf8;
-	--c-slate: #1b2530;
-	--c-slate-ink: #f0ece2;
-	--c-line: rgba(27, 37, 48, 0.14);
-	--c-line-hi: rgba(27, 37, 48, 0.3);
-	--c-text: #16181c;
-	--c-muted: #5f584c;
-	/* Deux ambres : l'aplat pour les surfaces, le foncé pour le texte, qui
-	   sinon tomberait sous le rapport de contraste requis. */
-	--c-accent: #f0b429;
-	--c-accent-strong: #8f6410;
-	--c-accent-ink: #16181c;
+	--c-bg: oklch(91.42% 0.0174 84.59);
+	--c-surface: oklch(95.9% 0.0115 84.58);
+	--c-surface-hi: oklch(99.42% 0.0069 88.64);
+	--c-slate: oklch(26.01% 0.0252 251.2);
+	--c-slate-ink: oklch(94.35% 0.014 88.69);
+	--c-line: oklch(26.01% 0.0252 251.2 / 0.14);
+	--c-line-hi: oklch(26.01% 0.0252 251.2 / 0.3);
+	--c-text: oklch(20.86% 0.0085 264.37);
+	--c-muted: oklch(46.34% 0.0209 81.24);
+	/* Deux ambres de même teinte : l'aplat pour les surfaces, et une clarté
+	   abaissée pour le texte, qui sinon tomberait sous le rapport de contraste
+	   requis. En OKLCH, l'écart tient dans le premier nombre. */
+	--c-accent: oklch(80.45% 0.1558 82.54);
+	--c-accent-strong: oklch(53.5% 0.1064 77.55);
+	--c-accent-ink: oklch(20.86% 0.0085 264.37);
 }
 
 :root[data-theme="dark"] {
 	color-scheme: dark;
 
-	--c-bg: #14161a;
-	--c-surface: #1c2027;
-	--c-surface-hi: #242932;
-	--c-slate: #e8e2d6;
-	--c-slate-ink: #16181c;
-	--c-line: rgba(240, 236, 226, 0.14);
-	--c-line-hi: rgba(240, 236, 226, 0.3);
-	--c-text: #f0ece2;
-	--c-muted: #9a9385;
-	--c-accent: #f0b429;
-	--c-accent-strong: #f0b429;
-	--c-accent-ink: #16181c;
+	--c-bg: oklch(19.98% 0.0086 264.36);
+	--c-surface: oklch(24.25% 0.0147 261.65);
+	--c-surface-hi: oklch(27.99% 0.0181 262.2);
+	--c-slate: oklch(91.42% 0.0174 84.59);
+	--c-slate-ink: oklch(20.86% 0.0085 264.37);
+	--c-line: oklch(94.35% 0.014 88.69 / 0.14);
+	--c-line-hi: oklch(94.35% 0.014 88.69 / 0.3);
+	--c-text: oklch(94.35% 0.014 88.69);
+	--c-muted: oklch(66.52% 0.0218 84.59);
+	--c-accent: oklch(80.45% 0.1558 82.54);
+	--c-accent-strong: oklch(80.45% 0.1558 82.54);
+	--c-accent-ink: oklch(20.86% 0.0085 264.37);
 }
 
 @theme {
@@ -188,16 +196,19 @@ html.lenis body {
 	border: 1px solid var(--c-line);
 }
 
+/* Révélation par déplacement seul, sans variation d'opacité.
+
+   Un fondu fait passer le texte sous le rapport de contraste requis pendant
+   toute sa durée : brièvement, mais réellement, et pour la personne dont la
+   vue en dépend. Un audit d'accessibilité déclenché au milieu de l'animation
+   le relève. Le glissement produit la même impression d'apparition sans jamais
+   dégrader la lisibilité. */
 .js-motion [data-reveal] {
-	opacity: 0;
 	transform: translateY(16px);
-	transition:
-		opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-		transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+	transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .js-motion [data-reveal].is-revealed {
-	opacity: 1;
 	transform: none;
 }
 
@@ -210,7 +221,6 @@ html.lenis body {
 	}
 
 	.js-motion [data-reveal] {
-		opacity: 1;
 		transform: none;
 		transition: none;
 	}

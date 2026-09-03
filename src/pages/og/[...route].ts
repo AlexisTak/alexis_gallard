@@ -72,8 +72,10 @@ const route = await OGImageRoute({
 		// Le monogramme signe la vignette : partagee sur LinkedIn ou dans une
 		// messagerie, elle doit etre reconnaissable avant meme d'etre lue.
 		logo: { path: './public/icon-192.png', size: [104] },
-		// Mêmes couleurs que le thème sombre du site : la vignette doit être
-		// reconnaissable comme une page de ce site, pas comme une carte générique.
+		// Seules couleurs du projet qui ne sont pas en OKLCH : astro-og-canvas
+		// dessine sur un canevas et n'accepte que des triplets RVB. Ce sont les
+		// équivalents exacts de --c-bg, --c-surface, --c-accent et --c-text.
+		// La vignette doit rester reconnaissable comme une page de ce site.
 		bgGradient: [
 			[232, 226, 214],
 			[245, 241, 233],
