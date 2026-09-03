@@ -1,33 +1,57 @@
 ---
 interface Props {
-	/** Taille du monogramme en pixels. */
+	/** Côté du logo en pixels. */
 	size?: number;
+	/**
+	 * Sans la pastille sombre : réservé au filigrane, où le monogramme doit
+	 * flotter seul sans poser de bloc de couleur.
+	 */
+	plain?: boolean;
 	class?: string;
 }
 
-const { size = 28, class: className } = Astro.props;
+const { size = 28, plain = false, class: className } = Astro.props;
+
+/* Un seul fichier pour tous les usages, de 30 à 360 pixels. Le filigrane du
+   hero est à sept pour cent d'opacité : sa définition n'y est pas perceptible,
+   et servir une image de 512 pixels au-dessus de la ligne de flottaison
+   coûterait quarante kilo-octets sur la page qui porte le LCP. */
+const SOURCE = '/logo.png';
+const INTRINSEQUE = 96;
+
+/* Dimension calculée plutôt qu'un pourcentage : dans un conteneur centré dont
+   la piste est dimensionnée automatiquement, une hauteur en pourcentage n'a
+   aucune référence et s'effondre à zéro. */
+const interieur = Math.round(size * 0.74);
 ---
 
-{/* Inline plutôt qu'en <img> : le monogramme prend les couleurs du thème et ne
-    coûte pas une requête de plus. */}
-<svg
-	width={size}
-	height={size}
-	viewBox="0 0 64 64"
-	role="img"
-	aria-label="Alexis Gallard"
-	class={className}
->
-	<rect width="64" height="64" rx="13" class="fill-accent" />
-	<g
-		fill="none"
-		stroke="var(--c-accent-ink)"
-		stroke-width="4.6"
-		stroke-linecap="square"
-		stroke-linejoin="miter"
-	>
-		<path d="M9 45.5 L16.4 20.5 L23.8 45.5" />
-		<path d="M12.4 37 H20.4" />
-		<path d="M52.5 26.4 A12 12 0 1 0 52.5 39.6 L52.5 33.3 L45.8 33.3" />
-	</g>
-</svg>
+{
+	plain ? (
+		<img
+			src={SOURCE}
+			alt=""
+			width={INTRINSEQUE}
+			height={INTRINSEQUE}
+			decoding="async"
+			class:list={['block', className]}
+			style={`width:${size}px;height:${size}px`}
+		/>
+	) : (
+		/* Pastille encre plutôt que fond transparent : le doré manque de
+		   contraste sur la carte crème, et `--c-accent-ink` est le seul jeton
+		   identique en thème clair et sombre, donc la pastille ne s'inverse pas. */
+		<span
+			class:list={['inline-flex shrink-0 items-center justify-center rounded-[26%] bg-accent-ink', className]}
+			style={`width:${size}px;height:${size}px`}
+		>
+			<img
+				src={SOURCE}
+				alt=""
+				width={INTRINSEQUE}
+				height={INTRINSEQUE}
+				decoding="async"
+				style={`width:${interieur}px;height:${interieur}px;object-fit:contain`}
+			/>
+		</span>
+	)
+}

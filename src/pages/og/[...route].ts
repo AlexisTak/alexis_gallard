@@ -53,7 +53,9 @@ const route = await OGImageRoute({
 	getImageOptions: (_path, page) => ({
 		title: page.title,
 		description: page.description,
-		logo: undefined,
+		// Le monogramme signe la vignette : partagee sur LinkedIn ou dans une
+		// messagerie, elle doit etre reconnaissable avant meme d'etre lue.
+		logo: { path: './public/icon-192.png', size: [104] },
 		// Mêmes couleurs que le thème sombre du site : la vignette doit être
 		// reconnaissable comme une page de ce site, pas comme une carte générique.
 		bgGradient: [
