@@ -16,7 +16,7 @@ const faq = [
  { question: 'Faut-il déjà avoir un cahier des charges ?', answer: 'Non. Un problème concret, un processus qui vous fait perdre du temps ou une idée à valider suffisent pour engager la discussion. Nous précisons ensuite le périmètre, les livrables et les critères qui permettront de décider de la suite.' },
  { question: 'Mes données doivent-elles passer par un service externe ?', answer: 'Cela dépend de la solution retenue. Je peux étudier des modèles ouverts et un hébergement dans votre environnement. Nous comparons confidentialité, qualité, coût et maintenance avant de choisir.' },
  { question: 'Comment se déroule une mission freelance ?', answer: 'Nous définissons le périmètre, les responsabilités et les modalités de collaboration dans une proposition adaptée. Le travail avance par étapes vérifiables, avec des points de suivi, de la documentation et un transfert de connaissances selon les livrables convenus.' },
- { question: 'Travaillez-vous à distance ?', answer: 'Oui. Je suis basé à Poitiers et j’interviens à distance, ainsi qu’en Nouvelle-Aquitaine selon les besoins de la mission. Nous convenons ensemble du rythme des échanges.' },
+ { question: 'Travaillez-vous à distance ?', answer: 'Oui. J’accompagne des clients partout en France, à distance. Je suis basé à Poitiers et nous convenons ensemble des modalités et du rythme des échanges.' },
 ];
 
 const schemas = [
@@ -32,7 +32,7 @@ const schemas = [
 ];
 
 ---
-<Layout schemas={schemas} title="Alexis Gallard — Freelance IA & full-stack à Poitiers" description="Freelance IA et full-stack à Poitiers. Applications web, agents et RAG : des outils utiles, avec sécurité et maîtrise de vos données dès la conception.">
+<Layout schemas={schemas} title="Alexis Gallard — Freelance IA & full-stack en France" description="Freelance IA et full-stack pour vos projets partout en France. Applications web, agents et RAG, avec sécurité et maîtrise de vos données.">
 <div class="redesign">
 <nav class="panel section-nav" aria-label="Sections de l’accueil"><a href="#pourquoi">Pourquoi moi</a><a href="#cas">Projets</a><a href="#offres">Accompagnements</a><a href="#methode">Méthode</a><a href="#contact">Votre projet ↗</a></nav>
 <section id="accueil" class="panel section hero">
@@ -41,7 +41,7 @@ const schemas = [
   <h1>{positioning.headingParts[0]} <em>{positioning.headingParts[1]}</em> {positioning.headingParts[2]}</h1>
   <p class="lede">{positioning.subtitle}</p>
   <div class="hero-actions"><a class="btn primary" href="#contact">Parlons de votre besoin ↗</a><a class="btn secondary" href="#cas">Découvrir mes projets ↓</a></div>
-  <div class="hero-foot">{careerYears} ans d’expérience · Depuis {careerStartYear}<br />Poitiers · Missions à distance</div>
+  <div class="hero-foot">{careerYears} ans d’expérience · Depuis {careerStartYear}<br />Partout en France · À distance</div>
  </div>
 <div class="visual" aria-label="Du besoin à un outil utilisable"><div class="visual-top"><span>Approche d'ingénierie</span><span class="live">Pilotage mesurable</span></div><div class="stack"><div class="step"><span class="num">01</span><b>Besoin métier</b><small>Valeur</small></div><div class="step"><span class="num">02</span><b>Web · IA · Sécurité</b><small>Maîtrise</small></div><div class="step"><span class="num">03</span><b>Production & évaluation</b><small>Fiabilité</small></div></div><div class="flow-label"><strong>Un besoin clair. Des étapes vérifiables.</strong><br>Qualité des réponses · Sécurité · Coût · Latence · Exploitation<div class="bar"><i></i><i></i><i></i></div></div></div>
       </section>
@@ -93,7 +93,7 @@ const schemas = [
 
 <div class="redesign"><section class="panel section contact" id="contact">
  <div><div class="kicker">Et votre projet ?</div><h2>Parlons de ce que vous voulez rendre plus simple.</h2><p>Un processus à automatiser, une application à créer ou des données à mieux exploiter ? Présentez-moi votre contexte et ce qui vous bloque. Nous verrons ensemble quelle première étape est pertinente.</p><a class="link" href="/contact/">Choisir un moyen de contact ↗</a></div>
- <div class="contact-card"><p class="contact-label">Votre point de départ</p><p>Quelques lignes suffisent : votre activité, le problème à résoudre et votre échéance si vous en avez une.</p><a class="btn primary" href={`mailto:${SITE.email}?subject=${encodeURIComponent('Parlons de mon projet')}&body=${encodeURIComponent('Bonjour Alexis,\n\nMon activité :\nLe problème à résoudre :\nLe résultat attendu :\nMon échéance (si connue) :\n')}`}>Présentez-moi votre projet ↗</a><a class="email" href={`mailto:${SITE.email}`}>{SITE.email}</a><button class="copy" data-copy={SITE.email} type="button"><span data-copy-label aria-live="polite">Copier</span> l’adresse</button><div class="preview-note">Poitiers · Nouvelle-Aquitaine · À distance</div></div>
+ <div class="contact-card"><p class="contact-label">Votre point de départ</p><p>Quelques lignes suffisent : votre activité, le problème à résoudre et votre échéance si vous en avez une.</p><a class="btn primary" href={`mailto:${SITE.email}?subject=${encodeURIComponent('Parlons de mon projet')}&body=${encodeURIComponent('Bonjour Alexis,\n\nMon activité :\nLe problème à résoudre :\nLe résultat attendu :\nMon échéance (si connue) :\n')}`}>Présentez-moi votre projet ↗</a><a class="email" href={`mailto:${SITE.email}`}>{SITE.email}</a><button class="copy" data-copy={SITE.email} type="button"><span data-copy-label aria-live="polite">Copier</span> l’adresse</button><div class="preview-note">Missions partout en France · À distance</div></div>
 </section></div>
 <script>
 

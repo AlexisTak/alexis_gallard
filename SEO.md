@@ -6,7 +6,7 @@ Le domaine canonique configuré reste `https://alexisgallard.vercel.app`. L’ad
 
 Améliorations intégrées :
 
-- Titres de l’accueil et des expertises précisant le positionnement freelance IA / full-stack et Poitiers, en accord avec le contenu visible.
+- Titres de l’accueil et des expertises précisant le positionnement freelance IA / full-stack et une zone d’intervention nationale, en accord avec le contenu visible.
 - URL canonique normalisée et utilisée aussi par Open Graph ; paramètres de requête exclus.
 - Image de partage valide pour la 404 et exclusion explicite de cette page du sitemap.
 - Identité Person reliée à l’association Biscuits IA et à son rôle de fondateur, sans inventer une adresse commerciale, une certification ou des avis.

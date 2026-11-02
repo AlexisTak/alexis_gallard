@@ -28,7 +28,7 @@ export async function GET() {
 - Fonction : ${SITE.jobTitle}
 - Expérience : ${careerYears} ans, depuis ${careerStartYear}
 - Localisation : ${SITE.city}, ${SITE.region}, France
-- Disponibilité : disponible pour des missions, à distance ou sur place en Nouvelle-Aquitaine
+- Disponibilité : missions partout en France, à distance
 - Contact : ${SITE.email}
 - LinkedIn : ${SITE.profiles[0]}
 - GitHub : ${SITE.profiles[1]}

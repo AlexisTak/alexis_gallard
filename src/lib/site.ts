@@ -16,7 +16,7 @@ export const SITE = {
 	lang: 'fr',
 	jobTitle: 'Développeur freelance IA & Fullstack Senior',
 	/** Formulation à la troisième personne : c'est celle qu'un moteur reprend. */
-	summary: `Alexis Gallard est développeur full-stack et ingénieur IA freelance, avec ${careerYears} ans d’expérience. Il conçoit des applications web, des agents IA et des systèmes RAG avec une attention particulière à la sécurité, aux solutions open source et à la maîtrise des données. Fondateur de Biscuits IA, il démocratise l’IA auprès des associations, TPE et collectivités. Basé à Poitiers, il intervient en Nouvelle-Aquitaine et à distance.`,
+	summary: `Alexis Gallard est développeur full-stack et ingénieur IA freelance, avec ${careerYears} ans d’expérience. Il conçoit des applications web, des agents IA et des systèmes RAG avec une attention particulière à la sécurité, aux solutions open source et à la maîtrise des données. Fondateur de Biscuits IA, il démocratise l’IA auprès des associations, TPE et collectivités. Basé à Poitiers, il accompagne des clients partout en France, à distance.`,
 	email: 'contact@alexis-gallard.fr',
 	phone: '+33765723070',
 	city: 'Poitiers',

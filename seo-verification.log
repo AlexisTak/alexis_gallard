@@ -2,11 +2,10 @@ npm notice run alexis-gallard@0.0.1 verify
 npm notice run npm run check && npm run build && npm run check:links && npm run check:seo
 npm notice run alexis-gallard@0.0.1 check
 npm notice run astro check
-02:27:53 [vite] Re-optimizing dependencies because vite config has changed
-02:27:54 [content] Syncing content
-02:27:54 [content] Synced content
-02:27:54 [types] Generated 835ms
-02:27:54 [check] Getting diagnostics for Astro files in C:\Users\sweetosky\Documents\htdoc\alexis_gallard...
+02:30:56 [content] Syncing content
+02:30:56 [content] Synced content
+02:30:56 [types] Generated 647ms
+02:30:56 [check] Getting diagnostics for Astro files in C:\Users\sweetosky\Documents\htdoc\alexis_gallard...
 [96msrc/content.config.ts[0m:[93m39[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
 
 [7m39[0m   tags: z.array(z.string()).default([]),
@@ -111,80 +110,80 @@ Result (33 files):
 
 npm notice run alexis-gallard@0.0.1 build
 npm notice run astro build
-02:28:03 [content] Syncing content
-02:28:03 [content] Synced content
-02:28:03 [types] Generated 688ms
-02:28:03 [build] output: "static"
-02:28:03 [build] mode: "static"
-02:28:03 [build] directory: C:\Users\sweetosky\Documents\htdoc\alexis_gallard\dist\
-02:28:03 [build] Collecting build info...
-02:28:03 [build] ✓ Completed in 735ms.
-02:28:04 [build] Building static entrypoints...
-02:28:04 [vite] ✓ built in 481ms
-02:28:04 [vite] ✓ built in 45ms
-02:28:04 [build] Rearranging server assets...
+02:31:05 [content] Syncing content
+02:31:05 [content] Synced content
+02:31:05 [types] Generated 668ms
+02:31:05 [build] output: "static"
+02:31:05 [build] mode: "static"
+02:31:05 [build] directory: C:\Users\sweetosky\Documents\htdoc\alexis_gallard\dist\
+02:31:05 [build] Collecting build info...
+02:31:05 [build] ✓ Completed in 722ms.
+02:31:05 [build] Building static entrypoints...
+02:31:05 [vite] ✓ built in 489ms
+02:31:06 [vite] ✓ built in 45ms
+02:31:06 [build] Rearranging server assets...
 
  generating static routes 
-02:28:04   ├─ /404.html (+32ms) 
-02:28:04   ├─ /a-propos/index.html (+9ms) 
-02:28:04   ├─ /blog/lcp-perdu-sur-une-animation/index.html (+7ms) 
-02:28:04   ├─ /blog/evaluer-les-sorties-d-un-llm/index.html (+4ms) 
-02:28:04   ├─ /blog/rag-en-production/index.html (+4ms) 
-02:28:04   ├─ /blog/proprietaire-ou-open-source/index.html (+5ms) 
-02:28:04   ├─ /blog/securite-au-niveau-de-la-base/index.html (+7ms) 
-02:28:04   ├─ /blog/choisir-sa-stack/index.html (+4ms) 
-02:28:04   ├─ /blog/index.html (+8ms) 
-02:28:04   ├─ /confidentialite/index.html (+7ms) 
-02:28:04   ├─ /contact/index.html (+5ms) 
-02:28:04   ├─ /expertises/index.html (+8ms) 
-02:28:04   ├─ /llms.txt (+4ms) 
-02:28:04   ├─ /mentions-legales/index.html (+6ms) 
-02:28:04   ├─ /og/index.png[astro-og-canvas] Loading ./node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2
+02:31:06   ├─ /404.html (+21ms) 
+02:31:06   ├─ /a-propos/index.html (+10ms) 
+02:31:06   ├─ /blog/lcp-perdu-sur-une-animation/index.html (+7ms) 
+02:31:06   ├─ /blog/evaluer-les-sorties-d-un-llm/index.html (+5ms) 
+02:31:06   ├─ /blog/rag-en-production/index.html (+4ms) 
+02:31:06   ├─ /blog/proprietaire-ou-open-source/index.html (+3ms) 
+02:31:06   ├─ /blog/securite-au-niveau-de-la-base/index.html (+3ms) 
+02:31:06   ├─ /blog/choisir-sa-stack/index.html (+5ms) 
+02:31:06   ├─ /blog/index.html (+6ms) 
+02:31:06   ├─ /confidentialite/index.html (+7ms) 
+02:31:06   ├─ /contact/index.html (+7ms) 
+02:31:06   ├─ /expertises/index.html (+7ms) 
+02:31:06   ├─ /llms.txt (+6ms) 
+02:31:06   ├─ /mentions-legales/index.html (+6ms) 
+02:31:06   ├─ /og/index.png[astro-og-canvas] Loading ./node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2
 [astro-og-canvas] Loaded 1 font families:
 Schibsted Grotesk
- (+98ms) 
-02:28:04   ├─ /og/expertises.png (+4ms) 
-02:28:04   ├─ /og/a-propos.png (+4ms) 
-02:28:04   ├─ /og/projets.png (+4ms) 
-02:28:04   ├─ /og/blog.png (+5ms) 
-02:28:04   ├─ /og/contact.png (+4ms) 
-02:28:04   ├─ /og/mentions-legales.png (+3ms) 
-02:28:04   ├─ /og/confidentialite.png (+4ms) 
-02:28:04   ├─ /og/projets/agentic-os.png (+3ms) 
-02:28:04   ├─ /og/projets/anti-pepins.png (+3ms) 
-02:28:04   ├─ /og/projets/biscuits-ia.png (+3ms) 
-02:28:04   ├─ /og/projets/la-minute-de-code.png (+3ms) 
-02:28:04   ├─ /og/projets/zero-secret.png (+3ms) 
-02:28:04   ├─ /og/blog/choisir-sa-stack.png (+3ms) 
-02:28:04   ├─ /og/blog/evaluer-les-sorties-d-un-llm.png (+3ms) 
-02:28:04   ├─ /og/blog/lcp-perdu-sur-une-animation.png (+3ms) 
-02:28:04   ├─ /og/blog/proprietaire-ou-open-source.png (+3ms) 
-02:28:04   ├─ /og/blog/rag-en-production.png (+3ms) 
-02:28:04   ├─ /og/blog/securite-au-niveau-de-la-base.png (+3ms) 
-02:28:04   ├─ /projets/agentic-os/index.html (+4ms) 
-02:28:04   ├─ /projets/anti-pepins/index.html (+3ms) 
-02:28:04   ├─ /projets/biscuits-ia/index.html (+4ms) 
-02:28:04   ├─ /projets/la-minute-de-code/index.html (+3ms) 
-02:28:04   ├─ /projets/zero-secret/index.html (+3ms) 
-02:28:04   ├─ /projets/index.html (+5ms) 
-02:28:04   ├─ /rss.xml (+83ms) 
-02:28:05   ├─ /index.html (+7ms) 
-02:28:05 ✓ Completed in 444ms.
+ (+92ms) 
+02:31:06   ├─ /og/expertises.png (+5ms) 
+02:31:06   ├─ /og/a-propos.png (+3ms) 
+02:31:06   ├─ /og/projets.png (+3ms) 
+02:31:06   ├─ /og/blog.png (+3ms) 
+02:31:06   ├─ /og/contact.png (+132ms) 
+02:31:06   ├─ /og/mentions-legales.png (+3ms) 
+02:31:06   ├─ /og/confidentialite.png (+3ms) 
+02:31:06   ├─ /og/projets/agentic-os.png (+3ms) 
+02:31:06   ├─ /og/projets/anti-pepins.png (+3ms) 
+02:31:06   ├─ /og/projets/biscuits-ia.png (+3ms) 
+02:31:06   ├─ /og/projets/la-minute-de-code.png (+2ms) 
+02:31:06   ├─ /og/projets/zero-secret.png (+2ms) 
+02:31:06   ├─ /og/blog/choisir-sa-stack.png (+3ms) 
+02:31:06   ├─ /og/blog/evaluer-les-sorties-d-un-llm.png (+2ms) 
+02:31:06   ├─ /og/blog/lcp-perdu-sur-une-animation.png (+3ms) 
+02:31:06   ├─ /og/blog/proprietaire-ou-open-source.png (+3ms) 
+02:31:06   ├─ /og/blog/rag-en-production.png (+3ms) 
+02:31:06   ├─ /og/blog/securite-au-niveau-de-la-base.png (+3ms) 
+02:31:06   ├─ /projets/agentic-os/index.html (+5ms) 
+02:31:06   ├─ /projets/anti-pepins/index.html (+3ms) 
+02:31:06   ├─ /projets/biscuits-ia/index.html (+3ms) 
+02:31:06   ├─ /projets/la-minute-de-code/index.html (+3ms) 
+02:31:06   ├─ /projets/zero-secret/index.html (+3ms) 
+02:31:06   ├─ /projets/index.html (+7ms) 
+02:31:06   ├─ /rss.xml (+99ms) 
+02:31:06   ├─ /index.html (+7ms) 
+02:31:06 ✓ Completed in 576ms.
 
  generating optimized images 
-02:28:05   ▶ /_astro/agentic-os.CYqldkOm_1Mp2KD.webp (reused cache entry) (+2ms) (1/7)
-02:28:05   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1Xdzpw.webp (reused cache entry) (+2ms) (2/7)
-02:28:05   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1KUNez.webp (reused cache entry) (+2ms) (3/7)
-02:28:05   ▶ /_astro/agentic-os.CYqldkOm_xYbWh.webp (reused cache entry) (+2ms) (4/7)
-02:28:05   ▶ /_astro/agentic-os.CYqldkOm_ZI7qvD.webp (reused cache entry) (+1ms) (5/7)
-02:28:05   ▶ /_astro/agentic-os.CYqldkOm_ZyCNs2.webp (reused cache entry) (+1ms) (6/7)
-02:28:05   ▶ /_astro/agentic-os.CYqldkOm_LmPDU.webp (reused cache entry) (+1ms) (7/7)
-02:28:05 ✓ Completed in 9ms.
+02:31:06   ▶ /_astro/agentic-os.CYqldkOm_1Mp2KD.webp (reused cache entry) (+2ms) (1/7)
+02:31:06   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1Xdzpw.webp (reused cache entry) (+3ms) (2/7)
+02:31:06   ▶ /_astro/agentic-os.CYqldkOm_xYbWh.webp (reused cache entry) (+2ms) (3/7)
+02:31:06   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1KUNez.webp (reused cache entry) (+2ms) (4/7)
+02:31:06   ▶ /_astro/agentic-os.CYqldkOm_ZI7qvD.webp (reused cache entry) (+2ms) (5/7)
+02:31:06   ▶ /_astro/agentic-os.CYqldkOm_ZyCNs2.webp (reused cache entry) (+1ms) (6/7)
+02:31:06   ▶ /_astro/agentic-os.CYqldkOm_LmPDU.webp (reused cache entry) (+1ms) (7/7)
+02:31:06 ✓ Completed in 10ms.
 
-02:28:05 [build] ✓ Completed in 1.06s.
-02:28:05 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
-02:28:05 [build] 20 page(s) built in 1.84s
-02:28:05 [build] Complete!
+02:31:06 [build] ✓ Completed in 1.19s.
+02:31:06 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+02:31:06 [build] 20 page(s) built in 1.94s
+02:31:06 [build] Complete!
 npm notice run alexis-gallard@0.0.1 check:links
 npm notice run node scripts/check-links.mjs
 470 liens internes vérifiés dans 20 pages, aucun cassé.

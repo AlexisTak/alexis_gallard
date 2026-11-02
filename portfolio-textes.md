@@ -14,7 +14,7 @@ Je relie le développement web, les agents IA et la sécurité pour traiter le p
 
 Les solutions souveraines et open source occupent une place importante dans mon travail. Je vous aide à arbitrer entre confidentialité, budget et contraintes d’exploitation, pour choisir un hébergement et des composants adaptés à votre situation.
 
-Je suis aussi fondateur de Biscuits IA, une association qui démocratise l’IA auprès des associations, des TPE et des collectivités. Cet engagement nourrit ma façon de travailler : expliquer clairement, partir des usages et transmettre les connaissances. Basé à Poitiers, j’interviens en Nouvelle-Aquitaine et à distance. Mon objectif est de vous laisser un outil utile, documenté et une équipe capable de le reprendre.
+Je suis aussi fondateur de Biscuits IA, une association qui démocratise l’IA auprès des associations, des TPE et des collectivités. Cet engagement nourrit ma façon de travailler : expliquer clairement, partir des usages et transmettre les connaissances. Basé à Poitiers, j’accompagne des clients partout en France, à distance. Mon objectif est de vous laisser un outil utile, documenté et une équipe capable de le reprendre.
 
 ## 3. Projets
 

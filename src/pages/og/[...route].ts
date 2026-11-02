@@ -35,7 +35,7 @@ const pages: Record<string, { title: string; description: string }> = {
 	},
 	contact: {
 		title: 'Contact',
-		description: 'Disponible pour des missions · Poitiers ou à distance',
+		description: 'Missions freelance partout en France · À distance',
 	},
 	'mentions-legales': {
 		title: 'Mentions légales',
