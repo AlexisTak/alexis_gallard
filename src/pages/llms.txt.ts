@@ -8,7 +8,7 @@ import { SITE, SKILLS, stackSentence } from '../lib/site';
  * Un modèle qui répond à « qui est Alexis Gallard » travaille sur ce qu'il
  * arrive à extraire d'une page HTML pleine de balises et de scripts. Ce fichier
  * lui donne la version factuelle, à la troisième personne, avec les liens vers
- * les pages qui font autorité — le pendant de robots.txt pour les LLM.
+ * les pages sources. Ce résumé est informatif : il ne contrôle ni le crawl ni le classement.
  *
  * Convention : https://llmstxt.org
  */

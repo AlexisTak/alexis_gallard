@@ -1,0 +1,193 @@
+npm notice run alexis-gallard@0.0.1 verify
+npm notice run npm run check && npm run build && npm run check:links && npm run check:seo
+npm notice run alexis-gallard@0.0.1 check
+npm notice run astro check
+02:27:53 [vite] Re-optimizing dependencies because vite config has changed
+02:27:54 [content] Syncing content
+02:27:54 [content] Synced content
+02:27:54 [types] Generated 835ms
+02:27:54 [check] Getting diagnostics for Astro files in C:\Users\sweetosky\Documents\htdoc\alexis_gallard...
+[96msrc/content.config.ts[0m:[93m39[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m39[0m   tags: z.array(z.string()).default([]),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m39[0m:[93m9[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m39[0m   tags: z.array(z.string()).default([]),
+[7m  [0m [93m        ~[0m
+[96msrc/content.config.ts[0m:[93m38[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m38[0m   updatedDate: z.date().optional(),
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m36[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m36[0m   pubDate: z.date(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m35[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m35[0m   description: z.string().max(155),
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m34[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m34[0m   title: z.string().max(60),
+[7m  [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m33[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m33[0m  schema: z.object({
+[7m  [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m20[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m20[0m   order: z.number().default(0),
+[7m  [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m19[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m19[0m   featured: z.boolean().default(false),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m18[0m:[93m9[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m18[0m   role: z.string().optional(),
+[7m  [0m [93m        ~[0m
+[96msrc/content.config.ts[0m:[93m17[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m17[0m   status: z.enum(['En cours', 'Réalisé', 'Projet associatif']).optional(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m16[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m16[0m   linkLabel: z.string().optional(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m15[0m:[93m9[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m15[0m   link: z.url().optional(),
+[7m  [0m [93m        ~[0m
+[96msrc/content.config.ts[0m:[93m14[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m14[0m   results: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m13[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m13[0m   solution: z.string(),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m12[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m12[0m   challenges: z.string(),
+[7m  [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m11[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m11[0m   context: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m10[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m10[0m   summary: z.string().max(200),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m9[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m9[0m   stack: z.array(z.string()),
+[7m [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m9[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m9[0m   stack: z.array(z.string()),
+[7m [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m8[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m8[0m   subtitle: z.string(),
+[7m [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m7[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m7[0m   title: z.string(),
+[7m [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m6[0m:[93m10[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m6[0m  schema: z.object({
+[7m [0m [93m         ~[0m
+[96msrc/content.config.ts[0m:[93m1[0m:[93m28[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m1[0m import { defineCollection, z } from 'astro:content';
+[7m [0m [93m                           ~[0m
+
+Result (33 files): 
+- 0 errors
+- 0 warnings
+- 24 hints
+
+npm notice run alexis-gallard@0.0.1 build
+npm notice run astro build
+02:28:03 [content] Syncing content
+02:28:03 [content] Synced content
+02:28:03 [types] Generated 688ms
+02:28:03 [build] output: "static"
+02:28:03 [build] mode: "static"
+02:28:03 [build] directory: C:\Users\sweetosky\Documents\htdoc\alexis_gallard\dist\
+02:28:03 [build] Collecting build info...
+02:28:03 [build] ✓ Completed in 735ms.
+02:28:04 [build] Building static entrypoints...
+02:28:04 [vite] ✓ built in 481ms
+02:28:04 [vite] ✓ built in 45ms
+02:28:04 [build] Rearranging server assets...
+
+ generating static routes 
+02:28:04   ├─ /404.html (+32ms) 
+02:28:04   ├─ /a-propos/index.html (+9ms) 
+02:28:04   ├─ /blog/lcp-perdu-sur-une-animation/index.html (+7ms) 
+02:28:04   ├─ /blog/evaluer-les-sorties-d-un-llm/index.html (+4ms) 
+02:28:04   ├─ /blog/rag-en-production/index.html (+4ms) 
+02:28:04   ├─ /blog/proprietaire-ou-open-source/index.html (+5ms) 
+02:28:04   ├─ /blog/securite-au-niveau-de-la-base/index.html (+7ms) 
+02:28:04   ├─ /blog/choisir-sa-stack/index.html (+4ms) 
+02:28:04   ├─ /blog/index.html (+8ms) 
+02:28:04   ├─ /confidentialite/index.html (+7ms) 
+02:28:04   ├─ /contact/index.html (+5ms) 
+02:28:04   ├─ /expertises/index.html (+8ms) 
+02:28:04   ├─ /llms.txt (+4ms) 
+02:28:04   ├─ /mentions-legales/index.html (+6ms) 
+02:28:04   ├─ /og/index.png[astro-og-canvas] Loading ./node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2
+[astro-og-canvas] Loaded 1 font families:
+Schibsted Grotesk
+ (+98ms) 
+02:28:04   ├─ /og/expertises.png (+4ms) 
+02:28:04   ├─ /og/a-propos.png (+4ms) 
+02:28:04   ├─ /og/projets.png (+4ms) 
+02:28:04   ├─ /og/blog.png (+5ms) 
+02:28:04   ├─ /og/contact.png (+4ms) 
+02:28:04   ├─ /og/mentions-legales.png (+3ms) 
+02:28:04   ├─ /og/confidentialite.png (+4ms) 
+02:28:04   ├─ /og/projets/agentic-os.png (+3ms) 
+02:28:04   ├─ /og/projets/anti-pepins.png (+3ms) 
+02:28:04   ├─ /og/projets/biscuits-ia.png (+3ms) 
+02:28:04   ├─ /og/projets/la-minute-de-code.png (+3ms) 
+02:28:04   ├─ /og/projets/zero-secret.png (+3ms) 
+02:28:04   ├─ /og/blog/choisir-sa-stack.png (+3ms) 
+02:28:04   ├─ /og/blog/evaluer-les-sorties-d-un-llm.png (+3ms) 
+02:28:04   ├─ /og/blog/lcp-perdu-sur-une-animation.png (+3ms) 
+02:28:04   ├─ /og/blog/proprietaire-ou-open-source.png (+3ms) 
+02:28:04   ├─ /og/blog/rag-en-production.png (+3ms) 
+02:28:04   ├─ /og/blog/securite-au-niveau-de-la-base.png (+3ms) 
+02:28:04   ├─ /projets/agentic-os/index.html (+4ms) 
+02:28:04   ├─ /projets/anti-pepins/index.html (+3ms) 
+02:28:04   ├─ /projets/biscuits-ia/index.html (+4ms) 
+02:28:04   ├─ /projets/la-minute-de-code/index.html (+3ms) 
+02:28:04   ├─ /projets/zero-secret/index.html (+3ms) 
+02:28:04   ├─ /projets/index.html (+5ms) 
+02:28:04   ├─ /rss.xml (+83ms) 
+02:28:05   ├─ /index.html (+7ms) 
+02:28:05 ✓ Completed in 444ms.
+
+ generating optimized images 
+02:28:05   ▶ /_astro/agentic-os.CYqldkOm_1Mp2KD.webp (reused cache entry) (+2ms) (1/7)
+02:28:05   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1Xdzpw.webp (reused cache entry) (+2ms) (2/7)
+02:28:05   ▶ /_astro/logo-ag-transparent.BFpJ1iFT_1KUNez.webp (reused cache entry) (+2ms) (3/7)
+02:28:05   ▶ /_astro/agentic-os.CYqldkOm_xYbWh.webp (reused cache entry) (+2ms) (4/7)
+02:28:05   ▶ /_astro/agentic-os.CYqldkOm_ZI7qvD.webp (reused cache entry) (+1ms) (5/7)
+02:28:05   ▶ /_astro/agentic-os.CYqldkOm_ZyCNs2.webp (reused cache entry) (+1ms) (6/7)
+02:28:05   ▶ /_astro/agentic-os.CYqldkOm_LmPDU.webp (reused cache entry) (+1ms) (7/7)
+02:28:05 ✓ Completed in 9ms.
+
+02:28:05 [build] ✓ Completed in 1.06s.
+02:28:05 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+02:28:05 [build] 20 page(s) built in 1.84s
+02:28:05 [build] Complete!
+npm notice run alexis-gallard@0.0.1 check:links
+npm notice run node scripts/check-links.mjs
+470 liens internes vérifiés dans 20 pages, aucun cassé.
+npm notice run alexis-gallard@0.0.1 check:seo
+npm notice run node scripts/check-seo.mjs
+20 pages : titres, descriptions, canoniques, images OG, H1, JSON-LD et exclusion 404 vérifiés.

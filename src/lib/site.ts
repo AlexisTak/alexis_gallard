@@ -16,7 +16,7 @@ export const SITE = {
 	lang: 'fr',
 	jobTitle: 'Développeur freelance IA & Fullstack Senior',
 	/** Formulation à la troisième personne : c'est celle qu'un moteur reprend. */
-	summary: `Alexis Gallard est développeur freelance IA et full-stack senior, avec ${careerYears} ans d'expérience. Il conçoit des applications web et des solutions IA — agents, RAG, LLM — du cadrage à la mise en production, avec une attention particulière à la sécurité, à la maîtrise des données et à l'autonomie des équipes. Fondateur de Biscuits IA, il s'engage pour une IA accessible aux associations, TPE et collectivités. Basé à Poitiers, il intervient en Nouvelle-Aquitaine et à distance.`,
+	summary: `Alexis Gallard est développeur full-stack et ingénieur IA freelance, avec ${careerYears} ans d’expérience. Il conçoit des applications web, des agents IA et des systèmes RAG avec une attention particulière à la sécurité, aux solutions open source et à la maîtrise des données. Fondateur de Biscuits IA, il démocratise l’IA auprès des associations, TPE et collectivités. Basé à Poitiers, il intervient en Nouvelle-Aquitaine et à distance.`,
 	email: 'contact@alexis-gallard.fr',
 	phone: '+33765723070',
 	city: 'Poitiers',
@@ -127,19 +127,16 @@ export const personSchema = {
 	},
 	knowsAbout: [...SKILLS],
 	knowsLanguage: ['fr', 'en'],
-	seeks: {
-		'@type': 'Demand',
-		name: 'Missions freelance de développement web, d’architecture logicielle et d’IA appliquée',
-		availableAtOrFrom: {
-			'@type': 'Place',
-			address: {
-				'@type': 'PostalAddress',
-				addressLocality: SITE.city,
-				addressRegion: SITE.region,
-				addressCountry: SITE.country,
-			},
-		},
-	},
+	memberOf: { '@id': `${SITE.url}/#biscuits-ia` },
+};
+
+export const biscuitsSchema = {
+ '@type': 'Organization',
+ '@id': `${SITE.url}/#biscuits-ia`,
+ name: 'Biscuits IA',
+ description: 'Association qui démocratise l’IA auprès des associations, TPE et collectivités.',
+ url: `${SITE.url}/projets/biscuits-ia/`,
+ founder: { '@id': `${SITE.url}/#person` },
 };
 
 export const websiteSchema = {

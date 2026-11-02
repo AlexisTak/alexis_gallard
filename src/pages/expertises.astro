@@ -67,6 +67,9 @@ const schemas = [
 			position: index + 1,
 			item: {
 				'@type': 'Service',
+				'@id': `${SITE.url}/expertises/#service-${index + 1}`,
+				url: `${SITE.url}/expertises/#service-${index + 1}`,
+				areaServed: { '@type': 'Country', name: 'France' },
 				name: domain.title,
 				description: domain.description,
 				provider: { '@id': `${SITE.url}/#person` },
@@ -79,7 +82,7 @@ const schemas = [
 <Layout
 	breadcrumbs={[{ name: 'Expertises', path: '/expertises/' }]}
 	schemas={schemas}
-	title="Expertises — Alexis Gallard"
+	title="Freelance IA & full-stack à Poitiers — Alexis Gallard"
 	description="Applications web et desktop (Rust, Tauri), IA appliquée et automatisation (RAG, agents), infrastructure et production."
 >
 	<PageHeader
@@ -91,7 +94,7 @@ const schemas = [
 	<Section label="Domaines">
 		<div class="grid gap-4">
 			{domains.map((domain, i) => (
-				<article
+				<article id={`service-${i + 1}`}
 					class="grid gap-6 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-10 md:p-8"
 					data-reveal
 					data-reveal-delay={i * 70}
@@ -114,7 +117,15 @@ const schemas = [
 		</div>
 	</Section>
 
-	<Section label="Suite" title="Un besoin à transformer en outil ?" invert>
+	<Section label="En pratique" title="Des choix techniques mis en contexte.">
+ <p class="max-w-[60ch] leading-relaxed text-muted">Basé à Poitiers, j’accompagne les entreprises en Nouvelle-Aquitaine et à distance en France. Ces projets illustrent ma démarche, avec leur périmètre et leur état d’avancement.</p>
+ <ul class="mt-6 flex flex-col gap-4 text-accent-strong">
+ <li><a class="underline" href="/projets/zero-secret/">Zero-Secret : accès temporaires et sécurité — prototype en cours</a></li>
+ <li><a class="underline" href="/projets/agentic-os/">Agentic OS : orchestration et validation humaine — en cours</a></li>
+ <li><a class="underline" href="/projets/la-minute-de-code/">La Minute de Code : site vitrine Astro réalisé</a></li>
+ </ul>
+ </Section>
+ <Section label="Suite" title="Un besoin à transformer en outil ?" invert>
 		<p class="max-w-[52ch] leading-relaxed text-slate-ink/80" data-reveal>
 			Présentez-moi votre contexte, votre objectif et vos contraintes. Nous définirons ensemble une mission adaptée, en Nouvelle-Aquitaine ou à distance.
 		</p>

@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# Les moteurs generatifs sont autorises explicitement : etre cite correctement
-# vaut mieux qu'etre resume de travers a partir de sources tierces.
+# Politique de crawl existante conservee. Autoriser un robot ne garantit
+# ni indexation ni citation ; les usages varient selon le fournisseur.
 User-agent: GPTBot
 Allow: /
 

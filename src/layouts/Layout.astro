@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE, personSchema, websiteSchema, breadcrumbSchema, VERIFICATION } from '../lib/site';
+import { SITE, personSchema, websiteSchema, breadcrumbSchema, biscuitsSchema, VERIFICATION } from '../lib/site';
 // Importée pour son URL seule : la police des titres est demandée dès le début
 // du chargement, au lieu d'attendre que le CSS soit analysé.
 import displayFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
@@ -29,10 +29,12 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL(SITE.url);
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+const pathname = Astro.url.pathname;
+const canonicalPath = pathname.endsWith('/') || /\.[a-z0-9]+$/i.test(pathname) ? pathname : `${pathname}/`;
+const canonicalUrl = new URL(canonicalPath, siteUrl);
 
 // Une image par page, generee a la compilation : /og/<chemin>.png
-const ogSlug = Astro.url.pathname.replace(/^\/|\/$/g, '') || 'index';
+const ogSlug = noindex ? 'index' : Astro.url.pathname.replace(/^\/|\/$/g, '') || 'index';
 const ogImage = new URL(`/og/${ogSlug}.png`, siteUrl);
 
 // Un seul graphe plutot que plusieurs blocs isoles : les schemas se referencent
@@ -42,6 +44,7 @@ const graph = {
 	'@graph': [
 		websiteSchema,
 		personSchema,
+		biscuitsSchema,
 		{
 			'@type': 'WebPage',
 			'@id': `${canonicalUrl}#webpage`,
@@ -51,7 +54,7 @@ const graph = {
 			inLanguage: SITE.lang,
 			isPartOf: { '@id': `${SITE.url}/#website` },
 			about: { '@id': `${SITE.url}/#person` },
-			primaryImageOfPage: ogImage.toString(),
+			primaryImageOfPage: { '@type': 'ImageObject', url: ogImage.toString(), width: 1200, height: 630 },
 		},
 		breadcrumbSchema(breadcrumbs),
 		...schemas,
@@ -111,8 +114,9 @@ const graph = {
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={title} />
 
-		<script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />
 
 		<script is:inline>
 			// Applique le thème avant le premier rendu : pas de flash.

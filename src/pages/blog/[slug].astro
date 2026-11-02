@@ -52,6 +52,8 @@ const schemas = [
 		datePublished: post.data.pubDate.toISOString(),
 		dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
 		url,
+		mainEntityOfPage: { '@id': `${url}#webpage` },
+		image: `${SITE.url}/og/blog/${post.id}.png`,
 		author: { '@id': `${SITE.url}/#person` },
 		publisher: { '@id': `${SITE.url}/#person` },
 		inLanguage: SITE.lang,
@@ -78,6 +80,7 @@ const schemas = [
 
 		<h1 class="display mt-8 text-[clamp(2rem,5.5vw,3.6rem)] text-text">{post.data.title}</h1>
 		<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+			<a class="label underline underline-offset-4" href="/a-propos/" rel="author">Par {SITE.name}</a>
 			<time class="label" datetime={post.data.pubDate.toISOString()}>
 				{post.data.pubDate.toLocaleDateString('fr-FR')}
 			</time>
@@ -93,6 +96,7 @@ const schemas = [
 			class="mt-14 flex flex-col gap-6 text-lg leading-relaxed text-text/85 [&_a]:text-accent [&_a]:underline [&_code]:font-mono [&_code]:text-base [&_code]:text-accent [&_h2]:display [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:text-text [&_li]:ml-5 [&_li]:list-disc [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-line [&_pre]:bg-surface [&_pre]:p-5 [&_pre_code]:text-text"
 		>
 			<Content />
+			<aside class="mt-8 rounded-xl border border-line p-6 text-base"><p>Vous souhaitez appliquer ces principes à votre projet ?</p><a href="/expertises/">Découvrir mes accompagnements web et IA</a> · <a href="/contact/">Parlons de votre besoin</a></aside>
 		</div>
 
 		{/* Un lien, pas un widget. Les boutons officiels des réseaux chargent

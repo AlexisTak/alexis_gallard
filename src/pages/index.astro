@@ -22,7 +22,7 @@ const faq = [
 const schemas = [
 	{
 		'@type': 'FAQPage',
-		'@id': `${SITE.url}/#faq`,
+		'@id': `${SITE.url}/#questions`,
 		mainEntity: faq.map((item) => ({
 			'@type': 'Question',
 			name: item.question,
@@ -32,7 +32,7 @@ const schemas = [
 ];
 
 ---
-<Layout schemas={schemas} title="Alexis Gallard — Freelance IA, full-stack & sécurité" description="Freelance IA et full-stack à Poitiers. Applications web, agents et RAG : des outils utiles, avec sécurité et maîtrise de vos données dès la conception.">
+<Layout schemas={schemas} title="Alexis Gallard — Freelance IA & full-stack à Poitiers" description="Freelance IA et full-stack à Poitiers. Applications web, agents et RAG : des outils utiles, avec sécurité et maîtrise de vos données dès la conception.">
 <div class="redesign">
 <nav class="panel section-nav" aria-label="Sections de l’accueil"><a href="#pourquoi">Pourquoi moi</a><a href="#cas">Projets</a><a href="#offres">Accompagnements</a><a href="#methode">Méthode</a><a href="#contact">Votre projet ↗</a></nav>
 <section id="accueil" class="panel section hero">

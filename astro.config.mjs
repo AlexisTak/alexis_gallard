@@ -9,7 +9,7 @@ export default defineConfig({
 	site: 'https://alexisgallard.vercel.app/',
 	integrations: [
 		sitemap({
-			filter: (page) => !page.includes('/og/'),
+			filter: (page) => !page.includes('/og/') && !/\/404(?:\.html|\/)?$/.test(page),
 		}),
 	],
 	vite: {
