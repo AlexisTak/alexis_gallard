@@ -4,11 +4,13 @@ import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 import { SITE } from '../lib/site';
 
+const projectEmail = `mailto:${SITE.email}?subject=${encodeURIComponent('Parlons de mon projet')}&body=${encodeURIComponent('Bonjour Alexis,\n\nVoici le contexte de mon projet :\n\nLe résultat que je souhaite obtenir :\n\nMes contraintes (données, outils existants, budget) :\n\nMon échéance, si elle est définie :\n\nÀ bientôt,')}`;
+
 const channels = [
 	{
 		label: 'Email',
-		value: 'alexis_gallard@outlook.fr',
-		href: 'mailto:alexis_gallard@outlook.fr',
+		value: SITE.email,
+		href: `mailto:${SITE.email}`,
 	},
 	{
 		label: 'Téléphone',
@@ -42,13 +44,20 @@ const schemas = [
 	breadcrumbs={[{ name: 'Contact', path: '/contact/' }]}
 	schemas={schemas}
 	title="Contact — Alexis Gallard"
-	description="Développeur Fullstack Senior et AI Engineer, ouvert aux opportunités. Email, téléphone, LinkedIn et GitHub."
+	description="Parlez de votre projet web ou IA avec Alexis Gallard, développeur freelance senior. Cadrage, architecture, développement et maîtrise des données."
 >
 	<PageHeader
 		eyebrow="Contact"
-		title="Parlons-en."
-		lede="Un poste, une mission, ou simplement une question technique. Réponse sous 48 heures."
+		title="Votre projet commence par une conversation."
+		lede="Vous avez un besoin métier, un produit à construire ou une application à faire évoluer ? Décrivez-moi votre contexte. Vous n’avez pas besoin d’un cahier des charges complet pour commencer."
 	/>
+
+	<Section label="Premier échange" title="Comprendre votre besoin, puis définir la suite.">
+		<p class="max-w-[65ch] leading-relaxed text-muted">Nous échangeons sur le résultat attendu, vos outils existants et vos contraintes. Je vous aide à préciser ce qui mérite d’être construit, ce qui peut être réutilisé et les points à valider avant de vous engager.</p>
+		<p class="mt-4 max-w-[65ch] leading-relaxed text-muted">Si nous décidons d’avancer ensemble, nous définissons le périmètre, les livrables et les conditions de collaboration. Je reste votre interlocuteur pour les choix techniques, le développement et la transmission à votre équipe.</p>
+		<a href={projectEmail} class="pill mt-6 inline-flex whitespace-normal bg-accent px-5 py-3 text-accent-ink">Présenter mon projet ↗</a>
+		<p class="mt-3 text-sm text-muted">Ouvre votre messagerie avec une trame que vous pouvez modifier avant l’envoi.</p>
+	</Section>
 
 	<Section label="Écrire">
 		<ul class="flex flex-col">
@@ -61,7 +70,7 @@ const schemas = [
 						class="group grid gap-2 py-6 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12"
 					>
 						<span class="label self-center">{channel.label}</span>
-						<span class="text-xl text-text transition-colors group-hover:text-accent">
+						<span class="break-words text-xl text-text transition-colors group-hover:text-accent-strong">
 							{channel.value}{channel.external && ' ↗'}
 						</span>
 					</a>

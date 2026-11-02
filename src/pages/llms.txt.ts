@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { jobs } from '../lib/experience';
+import { careerStartYear, careerYears, jobs } from '../lib/experience';
 import { SITE, SKILLS, stackSentence } from '../lib/site';
 
 /**
@@ -26,9 +26,9 @@ export async function GET() {
 
 - Nom : ${SITE.name}
 - Fonction : ${SITE.jobTitle}
-- Expérience : 12 ans, depuis 2014
+- Expérience : ${careerYears} ans, depuis ${careerStartYear}
 - Localisation : ${SITE.city}, ${SITE.region}, France
-- Disponibilité : ouvert aux opportunités, sur place ou à distance
+- Disponibilité : disponible pour des missions, à distance ou sur place en Nouvelle-Aquitaine
 - Contact : ${SITE.email}
 - LinkedIn : ${SITE.profiles[0]}
 - GitHub : ${SITE.profiles[1]}
@@ -44,12 +44,14 @@ ${projects
 		(project) =>
 			`### ${project.data.title}\n\n` +
 			`${project.data.subtitle}. ${project.data.summary}\n\n` +
-			`- Technologies : ${project.data.stack.join(', ')}\n` +
+			(project.data.status ? `- Statut : ${project.data.status}\n` : '') +
+			(project.data.role ? `- Rôle : ${project.data.role}\n` : '') +
+			(project.data.stack.length ? `- Technologies : ${project.data.stack.join(', ')}\n` : '') +
 			`- Contexte : ${project.data.context}\n` +
 			`- Défis : ${project.data.challenges}\n` +
 			`- Solution : ${project.data.solution}\n` +
-			`- Résultats : ${project.data.results}\n` +
-			(project.data.link ? `- En production : ${project.data.link}\n` : '') +
+			`- ${project.data.status === 'En cours' ? 'État du projet' : 'Résultat'} : ${project.data.results}\n` +
+			(project.data.link ? `- ${project.data.linkLabel ?? 'Lien du projet'} : ${project.data.link}\n` : '') +
 			`- Étude de cas : ${SITE.url}/projets/${project.id}/`,
 	)
 	.join('\n\n')}

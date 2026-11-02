@@ -1,47 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
-import ProjectRow from '../components/ProjectRow.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../lib/site';
-import { careerStartYear, careerYears, jobById } from '../lib/experience';
+import { careerStartYear, careerYears } from '../lib/experience';
+import { positioning } from '../lib/positioning';
+import ProjectVisual from '../components/ProjectVisual.astro';
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.order - b.data.order);
 
-const emmaus = jobById('emmaus');
-const independant = jobById('independant');
-
 const faq = [
-	{
-		question: 'Quels postes recherche Alexis Gallard ?',
-		answer:
-			"Des postes de développeur Fullstack Senior, d'AI Engineer ou d'architecte logiciel, en CDI. Les contextes qui l'intéressent sont ceux où une application doit réellement tenir en production : trafic réel, données sensibles, contraintes d'exploitation.",
-	},
-	{
-		question: 'Où est-il basé et travaille-t-il à distance ?',
-		answer:
-			"Il est basé à Poitiers, en Nouvelle-Aquitaine. Il travaille sur place dans la région, et à distance partout ailleurs — il a mené des projets entiers en distanciel, du cadrage à la mise en production.",
-	},
-	{
-		question: 'Quelle est son expérience en intelligence artificielle ?',
-		answer:
-			"Depuis 2022, il intègre des LLM dans des applications réelles : pipelines RAG sur des corpus internes, agents outillés, fine-tuning LoRA, et déploiement de modèles open source auto-hébergés quand les données ne doivent pas sortir de l'entreprise. Anti-Pépins, sa plateforme de détection d'arnaques, combine un moteur de règles et un LLM.",
-	},
-	{
-		question: 'Quelles technologies maîtrise-t-il ?',
-		answer:
-			"Côté web, TypeScript avec React, Next.js et Vue.js, et des backends Node.js, NestJS ou Laravel. Côté logiciel installé, Rust avec Tauri ou une interface native. Côté infrastructure, Docker, Kubernetes, Terraform et des chaînes CI/CD complètes. Bases de données PostgreSQL, MySQL, MongoDB et Redis.",
-	},
-	{
-		question: "Combien d'années d'expérience a-t-il ?",
-		/* Phrase écrite à la main, chiffres calculés : la prose reste maîtrisée,
-		   les durées ne peuvent plus contredire la frise. Cette réponse est
-		   balisée en FAQPage, donc citable telle quelle par un moteur. */
-		answer: `${careerYears} ans, depuis ${careerStartYear}. ${emmaus.duration} comme développeur Fullstack chez ${emmaus.place}, puis ${independant.duration} en indépendant, de ${independant.startYear} à ${independant.endYear}, sur des missions d'architecture, de développement et d'intégration d'IA.`,
-	},
+ { question: 'Pour quels besoins pouvez-vous intervenir ?', answer: 'Je vous accompagne pour créer ou faire évoluer une application web, intégrer un assistant sur vos documents, automatiser un processus avec des agents IA ou revoir une architecture. Nous commençons par le besoin métier et les contraintes de votre équipe.' },
+ { question: 'Faut-il déjà avoir un cahier des charges ?', answer: 'Non. Un problème concret, un processus qui vous fait perdre du temps ou une idée à valider suffisent pour engager la discussion. Nous précisons ensuite le périmètre, les livrables et les critères qui permettront de décider de la suite.' },
+ { question: 'Mes données doivent-elles passer par un service externe ?', answer: 'Cela dépend de la solution retenue. Je peux étudier des modèles ouverts et un hébergement dans votre environnement. Nous comparons confidentialité, qualité, coût et maintenance avant de choisir.' },
+ { question: 'Comment se déroule une mission freelance ?', answer: 'Nous définissons le périmètre, les responsabilités et les modalités de collaboration dans une proposition adaptée. Le travail avance par étapes vérifiables, avec des points de suivi, de la documentation et un transfert de connaissances selon les livrables convenus.' },
+ { question: 'Travaillez-vous à distance ?', answer: 'Oui. Je suis basé à Poitiers et j’interviens à distance, ainsi qu’en Nouvelle-Aquitaine selon les besoins de la mission. Nous convenons ensemble du rythme des échanges.' },
 ];
 
 const schemas = [
@@ -56,87 +31,52 @@ const schemas = [
 	},
 ];
 
-// Un vrai ordre : chaque étape conditionne la suivante. La numérotation dit quelque chose.
-const process = [
-	{
-		title: 'Cadrage',
-		text: "On clarifie le besoin réel, les contraintes techniques et budgétaires, et ce qui servira à mesurer le succès.",
-	},
-	{
-		title: 'Architecture',
-		text: 'Choix technique justifié plutôt que par défaut : la bonne stack pour le problème, pas la plus impressionnante sur le papier.',
-	},
-	{
-		title: 'Développement',
-		text: "Livraisons itératives, tests unitaires et d'intégration écrits avec le code, revues régulières. On voit le projet avancer, pas seulement le résultat final.",
-	},
-	{
-		title: 'Intégration continue',
-		text: "Chaque commit passe par la CI : tests, analyse statique, build. Une branche qui casse la suite ne part pas plus loin, et le déploiement cesse d'être un moment risqué.",
-	},
-	{
-		title: 'Pré-production',
-		text: "Un environnement identique à la production, aux données près : recette fonctionnelle, tests de bout en bout, vérification des migrations et des montées de charge avant que quiconque en dépende.",
-	},
-	{
-		title: 'Production',
-		text: 'Déploiement, supervision, alertes sur ce qui compte, et transfert de compétences quand une équipe reprend la main ensuite.',
-	},
-];
 ---
-
-<Layout
-	schemas={schemas}
-	title="Alexis Gallard — Développeur Fullstack Senior & AI Engineer"
-	description="Développeur Fullstack Senior et AI Engineer à Poitiers. Applications web, logiciels desktop en Rust et IA appliquée : LLM, RAG, agents."
->
-	<Hero
-		statement="Je construis des applications IA qui tiennent en production."
-		support="Développeur Fullstack Senior et AI Engineer, 12 ans d'expérience. Applications web, logiciels desktop en Rust, intégration IA — LLM, RAG, agents — de l'architecture jusqu'à l'exploitation, infrastructure et déploiement inclus."
-	/>
-
-	<Section label="Travail" title="Trois projets qui tournent." id="travail">
-		<div class="grid gap-4 md:grid-cols-2">
-			{projects.map((project, i) => (
-				<ProjectRow
-					slug={project.id}
-					title={project.data.title}
-					subtitle={project.data.subtitle}
-					summary={project.data.summary}
-					stack={project.data.stack}
-					delay={i * 80}
-				/>
-			))}
-		</div>
-
-		<a
-			href="/projets"
-			class="pill mt-6 inline-flex border border-line px-5 py-3 text-text transition-colors hover:border-accent-strong hover:text-accent-strong"
-			data-reveal
-		>
-			Toutes les études de cas ↗
-		</a>
-	</Section>
-
-	<Section label="Méthode" title="Six étapes, dans cet ordre." id="methode">
-		<ol class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-			{process.map((step, i) => (
-				<li
-					class="flex flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-surface-hi p-6"
-					data-reveal
-					data-reveal-delay={i * 60}
-				>
-					<span class="pill w-fit bg-accent text-accent-ink">
-						{String(i + 1).padStart(2, '0')}
-					</span>
-					<h3 class="text-lg font-semibold text-text">{step.title}</h3>
-					<p class="leading-relaxed text-muted">{step.text}</p>
-				</li>
-			))}
-		</ol>
-	</Section>
-
-	<Section label="Questions" title="Ce qu'on me demande le plus." id="questions">
+<Layout schemas={schemas} title="Alexis Gallard — Freelance IA, full-stack & sécurité" description="Freelance IA et full-stack à Poitiers. Applications web, agents et RAG : des outils utiles, avec sécurité et maîtrise de vos données dès la conception.">
+<div class="redesign">
+<nav class="panel section-nav" aria-label="Sections de l’accueil"><a href="#pourquoi">Pourquoi moi</a><a href="#cas">Projets</a><a href="#offres">Accompagnements</a><a href="#methode">Méthode</a><a href="#contact">Votre projet ↗</a></nav>
+<section id="accueil" class="panel section hero">
+ <div>
+  <span class="eyebrow"><span class="dot"></span>Freelance · Full-stack · IA · Sécurité</span>
+  <h1>{positioning.headingParts[0]} <em>{positioning.headingParts[1]}</em> {positioning.headingParts[2]}</h1>
+  <p class="lede">{positioning.subtitle}</p>
+  <div class="hero-actions"><a class="btn primary" href="#contact">Parlons de votre besoin ↗</a><a class="btn secondary" href="#cas">Découvrir mes projets ↓</a></div>
+  <div class="hero-foot">{careerYears} ans d’expérience · Depuis {careerStartYear}<br />Poitiers · Missions à distance</div>
+ </div>
+<div class="visual" aria-label="Du besoin à un outil utilisable"><div class="visual-top"><span>Approche d'ingénierie</span><span class="live">Pilotage mesurable</span></div><div class="stack"><div class="step"><span class="num">01</span><b>Besoin métier</b><small>Valeur</small></div><div class="step"><span class="num">02</span><b>Web · IA · Sécurité</b><small>Maîtrise</small></div><div class="step"><span class="num">03</span><b>Production & évaluation</b><small>Fiabilité</small></div></div><div class="flow-label"><strong>Un besoin clair. Des étapes vérifiables.</strong><br>Qualité des réponses · Sécurité · Coût · Latence · Exploitation<div class="bar"><i></i><i></i><i></i></div></div></div>
+      </section>
+<section class="panel section" id="pourquoi">
+ <div class="sec-top"><div><div class="kicker">Pourquoi travailler avec moi</div><h2>Une vision d’ensemble.<br />Un travail que vous pouvez reprendre.</h2></div><p>Vous cherchez quelqu’un qui comprend votre besoin, fait les choix techniques et vous aide à en garder la maîtrise.</p></div>
+ <div class="issues">{positioning.reasons.map((reason, i) => (
+  <article class="issue"><span class="i">0{i + 1}</span><h3>{reason.title}</h3><p>{reason.text}</p><a class="proof-link" href={reason.href}>{reason.proof} ↗</a></article>
+ ))}</div>
+</section>
+<section class="panel section" id="cas">
+ <div class="sec-top"><div><div class="kicker">Projets sélectionnés</div><h2>Des besoins concrets.<br />Des choix techniques expliqués.</h2></div><p>Un site livré, deux prototypes en cours : voici comment j’aborde la clarté d’un produit, le contrôle des agents et la sécurité des accès.</p></div>
+ <div class="case-grid">{projects.map(project => (
+  <article class="case">
+   <ProjectVisual slug={project.id} />
+   <div class="case-body"><span class="project-status">{project.data.status}</span><h3><a href={`/projets/${project.id}/`}>{project.data.title} ↗</a></h3><p>{project.data.summary}</p><span class="project-role">{project.data.role}</span><a class="case-link" href={`/projets/${project.id}/`}>Le problème, ma démarche, l’avancement ↗</a></div>
+  </article>
+ ))}</div>
+ <a class="btn secondary project-more" href="/projets/">Voir tous mes projets ↗</a>
+</section>
+<section class="panel section" id="offres">
+ <div class="sec-top"><div><div class="kicker">Comment je peux vous aider</div><h2>Un point de départ adapté à votre besoin.</h2></div><p>Vous avez une idée à valider, un outil à construire ou une équipe à accompagner ? Nous cadrons une mission avec des livrables précis.</p></div>
+ <div class="offers">
+  <article class="offer"><span class="tag">01 · Décider</span><h3>Clarifier votre projet</h3><p>Vous avez un besoin, plusieurs pistes et des questions techniques. Je vous aide à choisir une prochaine étape réaliste avant d’engager le développement.</p><ul><li>Analyse de l’existant et des contraintes</li><li>Options techniques et compromis expliqués</li><li>Risques, priorités et feuille de route</li></ul><a class="link" href="#contact">Cadrons votre besoin ↗</a></article>
+  <article class="offer featured"><span class="tag">02 · Construire</span><h3>Développer un outil utile</h3><p>Application web, assistant documentaire ou automatisation : je relie l’interface, les données et les services pour répondre à un usage précis.</p><ul><li>Développement full-stack et intégrations</li><li>RAG ou agents IA quand ils sont pertinents</li><li>Validation sur vos cas d’usage</li></ul><a class="link" href="#contact">Parlons de votre outil ↗</a></article>
+  <article class="offer"><span class="tag">03 · Faire durer</span><h3>Préparer la mise en production</h3><p>Votre prototype fonctionne. Il faut maintenant organiser les accès, le déploiement et le suivi, puis préparer sa reprise par votre équipe.</p><ul><li>Revue d’architecture et sécurité des accès</li><li>Tests, déploiement et observabilité</li><li>Documentation et transfert de connaissances</li></ul><a class="link" href="#contact">Préparons la suite ↗</a></article>
+ </div><p class="disclaimer">Sur devis, après définition du périmètre, des livrables et des modalités de collaboration.</p>
+</section>
+<section class="panel section" id="usages"><div class="sec-top"><div><div class="kicker">Applications concrètes</div><h2>Partir du cas d'usage. Choisir la technologie ensuite.</h2></div><p>Quelques exemples de missions à cadrer selon les données, les utilisateurs et le niveau de risque.</p></div><div class="usecases"><div class="tabs" role="tablist" aria-label="Exemples de cas d'usage"><button type="button" role="tab" aria-selected="true" data-case="knowledge">Recherche documentaire <span>↗</span></button><button type="button" role="tab" aria-selected="false" data-case="agents">Automatisation agentique <span>↗</span></button><button type="button" role="tab" aria-selected="false" data-case="private">LLM privé <span>↗</span></button></div><div class="scenario" id="scenario" role="tabpanel" tabindex="0" aria-live="polite"><small id="case-label">RAG · Bases documentaires</small><h3 id="case-title">Retrouver la bonne information, avec ses sources.</h3><p id="case-copy">Concevoir un moteur de recherche augmenté pour des équipes métiers : ingestion des documents, contrôle des accès, citations vérifiables et mesures de pertinence sur des questions réelles.</p><div class="outcome" id="case-outcome"><strong>Ce qu'on évalue :</strong> pertinence des réponses, traçabilité des sources, sécurité et coût par requête.</div></div></div></section>
+<section class="panel section" id="methode"><div class="sec-top"><div><div class="kicker">Méthode</div><h2>Vous savez où nous allons, à chaque étape.</h2></div><p>Chaque phase débouche sur un livrable et une décision. Vous gardez de la visibilité sur le périmètre, les arbitrages et la suite.</p></div><div class="method"><article><b>01</b><h3>Diagnostiquer</h3><p>Cas d'usage, données disponibles, risques, contraintes et indicateurs de réussite.</p></article><article><b>02</b><h3>Concevoir</h3><p>Architecture, choix des modèles, stratégie de sécurité et plan de tests.</p></article><article><b>03</b><h3>Valider</h3><p>Prototype, évaluations mesurées, analyse des coûts et limites.</p></article><article><b>04</b><h3>Industrialiser</h3><p>Intégration, supervision, documentation et transfert de compétences.</p></article></div></section>
+<section class="panel section feature" id="apropos">
+ <div><div class="kicker">Alexis Gallard</div><h2>La technique au service de ceux qui l’utilisent.</h2><p>{positioning.about[0]}</p><a class="btn primary" href="/a-propos/">Mon parcours et ma façon de travailler ↗</a></div>
+ <div><span class="founder-label">Fondateur de Biscuits IA</span><p>Je porte aussi une association qui démocratise l’IA auprès des associations, des TPE et des collectivités. Expliquer simplement, adapter les outils aux moyens disponibles et transmettre font partie de ma façon de travailler.</p><a class="association-link" href="/projets/biscuits-ia/">Découvrir cet engagement ↗</a></div>
+</section>
+</div>
+	<Section label="Questions" title="Avant de travailler ensemble." id="questions">
 		<dl class="flex flex-col gap-4">
 			{faq.map((item, i) => (
 				<div
@@ -151,17 +91,878 @@ const process = [
 		</dl>
 	</Section>
 
-	<Section label="Suite" title="Une équipe à renforcer ?" id="suite" invert>
-		<p class="max-w-[52ch] leading-relaxed text-slate-ink/80" data-reveal>
-			Ouvert aux opportunités, en Nouvelle-Aquitaine ou à distance. Réponse sous 48 heures.
-		</p>
-		<a
-			href="/contact"
-			class="pill mt-8 inline-flex bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
-			data-reveal
-			data-reveal-delay="80"
-		>
-			Échangeons
-		</a>
-	</Section>
+<div class="redesign"><section class="panel section contact" id="contact">
+ <div><div class="kicker">Et votre projet ?</div><h2>Parlons de ce que vous voulez rendre plus simple.</h2><p>Un processus à automatiser, une application à créer ou des données à mieux exploiter ? Présentez-moi votre contexte et ce qui vous bloque. Nous verrons ensemble quelle première étape est pertinente.</p><a class="link" href="/contact/">Choisir un moyen de contact ↗</a></div>
+ <div class="contact-card"><p class="contact-label">Votre point de départ</p><p>Quelques lignes suffisent : votre activité, le problème à résoudre et votre échéance si vous en avez une.</p><a class="btn primary" href={`mailto:${SITE.email}?subject=${encodeURIComponent('Parlons de mon projet')}&body=${encodeURIComponent('Bonjour Alexis,\n\nMon activité :\nLe problème à résoudre :\nLe résultat attendu :\nMon échéance (si connue) :\n')}`}>Présentez-moi votre projet ↗</a><a class="email" href={`mailto:${SITE.email}`}>{SITE.email}</a><button class="copy" data-copy={SITE.email} type="button"><span data-copy-label aria-live="polite">Copier</span> l’adresse</button><div class="preview-note">Poitiers · Nouvelle-Aquitaine · À distance</div></div>
+</section></div>
+<script>
+
+    const caseData: Record<string, {label: string; title: string; copy: string; outcome: string}>={knowledge:{label:'RAG · Bases documentaires',title:'Retrouver la bonne information, avec ses sources.',copy:'Concevoir un moteur de recherche augmenté pour des équipes métiers : ingestion des documents, contrôle des accès, citations vérifiables et mesures de pertinence sur des questions réelles.',outcome:'pertinence des réponses, traçabilité des sources, sécurité et coût par requête.'},agents:{label:'Agents · Workflows métier',title:'Automatiser les tâches répétitives, sans perdre le contrôle.',copy:'Relier des agents à des outils métiers avec des permissions limitées, des validations humaines sur les actions sensibles et des traces de chaque opération.',outcome:'taux de réussite des tâches, faux positifs, qualité des validations et temps économisé.'},private:{label:'LLM · Hébergement maîtrisé',title:'Exploiter des modèles ouverts dans votre environnement.',copy:'Étudier l’hébergement d’un LLM dans une infrastructure privée ou hybride, selon les exigences de confidentialité, de charge et de maintenance.',outcome:'qualité par cas d’usage, latence, capacité, sécurité et coût total d’exploitation.'}};
+
+const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-case]'));
+function selectTab(button: HTMLButtonElement) {
+ const data = caseData[button.dataset.case ?? 'knowledge'];
+ tabs.forEach(tab => { tab.setAttribute('aria-selected', String(tab === button)); tab.tabIndex = tab === button ? 0 : -1; });
+ for (const [id, value] of Object.entries({'case-label': data.label, 'case-title': data.title, 'case-copy': data.copy})) {
+  const el = document.getElementById(id); if (el) el.textContent = value;
+ }
+ const outcome = document.getElementById('case-outcome');
+ if (outcome) outcome.textContent = 'Ce qu’on évalue : ' + data.outcome;
+ document.getElementById('scenario')?.setAttribute('aria-labelledby', button.id);
+}
+tabs.forEach((button, index) => {
+ button.id = 'usage-' + button.dataset.case;
+ button.setAttribute('aria-controls', 'scenario');
+ button.tabIndex = index === 0 ? 0 : -1;
+ button.addEventListener('click', () => selectTab(button));
+ button.addEventListener('keydown', event => {
+  let next = index;
+  if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+  else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+  else if (event.key === 'Home') next = 0;
+  else if (event.key === 'End') next = tabs.length - 1;
+  else return;
+  event.preventDefault(); tabs[next].focus(); selectTab(tabs[next]);
+ });
+});
+if (tabs[0]) selectTab(tabs[0]);
+
+</script>
 </Layout>
+<style>
+.proof-link{display:block;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;line-height:1.6;text-decoration:underline;text-underline-offset:4px}
+.project-status{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:99px;font:600 10px var(--mono);color:var(--muted)}
+.project-role{display:block;font-size:11px;color:var(--muted);margin:16px 0}
+.case-link{display:block;border-top:1px solid var(--line);padding-top:16px;font-size:12px;font-weight:600;line-height:1.6}
+.founder-label{font:600 11px var(--mono);color:#f8ca57;text-transform:uppercase;letter-spacing:.08em}
+.association-link{display:inline-block;margin-top:16px;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+.redesign .offer ul{margin-top:24px}
+.redesign .contact-card .btn{margin-top:20px;white-space:normal}
+
+.redesign{
+  --paper:var(--c-bg);
+  --panel:var(--c-surface);
+  --panel2:var(--c-surface-hi);
+  --ink:var(--c-text);
+  --muted:var(--c-muted);
+  --line:var(--c-line);
+  --gold:var(--c-accent);
+  --mono:var(--font-mono);
+  --sans:var(--font-sans)}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px}
+
+    .redesign{
+  min-width:0}
+.section{
+  margin-bottom:16px;
+  padding:clamp(27px,4.4vw,74px)}
+.hero{
+  min-height:690px;
+  display:grid;
+  grid-template-columns:minmax(0,1.14fr) minmax(315px,.86fr);
+  align-items:center;
+  gap:38px;
+  overflow:hidden;
+  position:relative}
+.eyebrow{
+  display:inline-flex;
+  gap:10px;
+  align-items:center;
+  font:700 10px var(--mono);
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:#7e6327}
+.eyebrow .dot{
+  width:8px;
+  height:8px;
+  background:var(--gold);
+  border:2px solid var(--ink);
+  border-radius:50%}
+.hero h1{
+  font-size:clamp(43px,5.15vw,84px);
+  line-height:1.03;
+  letter-spacing:-.075em;
+  max-width:850px;
+  margin:25px 0}
+.hero h1 em{
+  font-style:normal;
+  color:#b18731}
+.lede{
+  font-size:clamp(15px,1.18vw,19px);
+  line-height:1.7;
+  max-width:610px;
+  color:#596169;
+  margin:0}
+.hero-actions,.actions{
+  display:flex;
+  gap:11px;
+  flex-wrap:wrap;
+  margin-top:30px}
+.btn{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  border:1px solid transparent;
+  border-radius:999px;
+  padding:15px 20px;
+  font:800 11px var(--mono);
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  transition:transform .2s,background .2s;
+  cursor:pointer}
+.btn:hover{
+  transform:translateY(-2px)}
+.btn.primary{
+  background:var(--gold);
+  color:#20272f}
+.btn.primary:hover{
+  background:#ffca42}
+.btn.secondary{
+  border-color:var(--line);
+  background:transparent}
+.btn.dark{
+  background:var(--ink);
+  color:white}
+.hero-foot{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:48px;
+  color:#6f7578;
+  font:700 10px var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.12em}
+.hero-foot span{
+  height:1px;
+  width:30px;
+  background:#a9a69d}
+
+    .visual{
+  min-height:485px;
+  background:var(--ink);
+  border-radius:24px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 18px 45px #1f27301a}
+.visual:before{
+  content:"";
+  position:absolute;
+  inset:-35% -60%;
+  background:radial-gradient(circle at 50% 52%,#f5b92b22,transparent 33%),repeating-linear-gradient(0deg,transparent 0 40px,#ffffff07 41px 42px);
+  transform:rotate(-16deg);
+  pointer-events:none}
+.visual-top{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font:700 10px var(--mono);
+  color:#bec5c6;
+  letter-spacing:.12em;
+  text-transform:uppercase}
+.live{
+  color:#b3d5ad;
+  display:flex;
+  align-items:center;
+  gap:6px}
+.live:before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#a3d6a1;
+  box-shadow:0 0 0 4px #a3d6a126}
+.stack{
+  position:relative;
+  margin:60px 0 38px;
+  display:grid;
+  gap:17px}
+.step{
+  display:grid;
+  grid-template-columns:30px 1fr auto;
+  align-items:center;
+  gap:12px;
+  border:1px solid #4b545c;
+  border-radius:13px;
+  background:#29333b;
+  padding:14px 15px;
+  color:white}
+.step:nth-child(2){
+  transform:translateX(14px);
+  border-color:#ad8731}
+.step:nth-child(3){
+  transform:translateX(28px)}
+.step .num{
+  font:700 11px var(--mono);
+  color:#f9c848}
+.step b{
+  font-size:14px;
+  font-weight:680}
+.step small{
+  font:600 9px var(--mono);
+  color:#a5b0b2;
+  text-transform:uppercase}
+.flow-label{
+  position:relative;
+  color:#9ca7a9;
+  font:600 10px var(--mono);
+  line-height:1.65;
+  border-top:1px solid #43505b;
+  padding-top:20px;
+  letter-spacing:.03em}
+.flow-label strong{
+  color:white;
+  font-weight:650}
+.bar{
+  display:flex;
+  gap:5px;
+  margin-top:24px}
+.bar i{
+  display:block;
+  height:6px;
+  border-radius:99px;
+  background:#f5b92b;
+  flex:2}
+.bar i:nth-child(2){
+  background:#768875;
+  flex:1.15}
+.bar i:nth-child(3){
+  background:#4a6160;
+  flex:.8}
+
+    .signal{
+  display:grid;
+  grid-template-columns:1.1fr 1fr 1fr;
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--panel);
+  margin-bottom:16px}
+.signal div{
+  padding:23px 30px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  border-right:1px solid var(--line)}
+.signal div:last-child{
+  border:0}
+.signal strong{
+  font:800 17px var(--mono);
+  color:#987125;
+  letter-spacing:-.045em}
+.signal span{
+  color:#5c646a;
+  font-size:13px;
+  line-height:1.45}
+
+    .sec-top{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  align-items:flex-end;
+  margin-bottom:37px}
+.kicker{
+  font:800 11px var(--mono);
+  color:#a2761f;
+  text-transform:uppercase;
+  letter-spacing:.16em}
+.sec-top h2,.feature h2,.contact h2{
+  font-size:clamp(34px,3.25vw,56px);
+  letter-spacing:-.066em;
+  line-height:1.13;
+  margin:13px 0 0;
+  max-width:750px}
+.sec-top p{
+  line-height:1.7;
+  color:#677076;
+  max-width:360px;
+  margin:0 0 2px;
+  font-size:14px}
+.issues{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px}
+.issue{
+  padding:27px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:16px;
+  min-height:240px}
+.issue .i{
+  font:700 12px var(--mono);
+  color:#9b762d}
+.issue h3{
+  font-size:21px;
+  line-height:1.2;
+  letter-spacing:-.04em;
+  margin:35px 0 12px}
+.issue p{
+  font-size:13px;
+  line-height:1.65;
+  color:#667077;
+  margin:0}
+
+    .offers{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px}
+.offer{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:26px;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel2);
+  min-height:425px;
+  position:relative}
+.offer.featured{
+  background:var(--ink);
+  color:#f8f6f1;
+  border-color:var(--ink)}
+.offer .tag{
+  font:700 10px var(--mono);
+  color:#9b762d;
+  letter-spacing:.1em;
+  text-transform:uppercase}
+.offer.featured .tag{
+  color:#f8ca57}
+.offer h3{
+  font-size:28px;
+  line-height:1.1;
+  letter-spacing:-.052em;
+  margin:20px 0 10px}
+.offer p{
+  font-size:13px;
+  line-height:1.67;
+  color:#667077;
+  margin:0}
+.offer.featured p{
+  color:#bfc7c8}
+.offer .price{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.04em;
+  margin:29px 0 10px}
+.offer .price small{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0;
+  color:#879096}
+.offer ul{
+  list-style:none;
+  margin:0 0 26px;
+  padding:0;
+  display:grid;
+  gap:9px}
+.offer li{
+  font-size:12px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start}
+.offer li:before{
+  content:"↗";
+  color:#b38931}
+.offer.featured li:before{
+  color:#f5c24a}
+.offer .link{
+  margin-top:auto;
+  padding-top:18px;
+  border-top:1px solid #cfcac0;
+  font:800 10px var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  display:flex;
+  justify-content:space-between}
+.offer.featured .link{
+  border-color:#4c565e}
+.disclaimer{
+  font-size:11px;
+  color:#737b7e;
+  line-height:1.6;
+  margin:19px 0 0}
+
+    .case-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px}
+.case{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden}
+.case-art{
+  height:166px;
+  position:relative;
+  background:#25313b;
+  display:grid;
+  place-items:center;
+  overflow:hidden}
+.case:nth-child(2) .case-art{
+  background:#e4d9b9}
+.case:nth-child(3) .case-art{
+  background:#9bb2aa}
+.case-art:before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0 20px,#ffffff12 21px 22px);
+  transform:rotate(16deg)}
+.case-art .symbol{
+  position:relative;
+  font-size:70px;
+  color:#f4bc40;
+  font-weight:800;
+  letter-spacing:-.13em}
+.case:nth-child(2) .symbol{
+  color:#2b3539}
+.case:nth-child(3) .symbol{
+  color:#203432}
+.case-body{
+  padding:22px}
+.case .small-label{
+  font:700 10px var(--mono);
+  color:#9d772c;
+  text-transform:uppercase;
+  letter-spacing:.1em}
+.case h3{
+  font-size:21px;
+  letter-spacing:-.05em;
+  margin:10px 0}
+.case p{
+  font-size:13px;
+  color:#60696e;
+  line-height:1.7;
+  margin:0 0 18px;
+  min-height:68px}
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px}
+.pills span{
+  border:1px solid var(--line);
+  border-radius:99px;
+  font:700 9px var(--mono);
+  padding:7px 8px;
+  color:#59646a}
+.no-clients{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:22px;
+  font-size:12px;
+  color:#727b7c}
+
+    .usecases{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:22px}
+.tabs{
+  display:grid;
+  gap:9px;
+  align-content:start}
+.tabs button{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:12px;
+  padding:16px;
+  text-align:left;
+  font-weight:700;
+  color:#5b646a;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center}
+.tabs button[aria-selected="true"]{
+  background:var(--ink);
+  color:white;
+  border-color:var(--ink)}
+.scenario{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:16px;
+  padding:30px;
+  min-height:335px}
+.scenario small{
+  font:700 10px var(--mono);
+  color:#997225;
+  text-transform:uppercase;
+  letter-spacing:.13em}
+.scenario h3{
+  font-size:30px;
+  letter-spacing:-.05em;
+  margin:20px 0 15px;
+  line-height:1.18}
+.scenario p{
+  font-size:14px;
+  line-height:1.75;
+  color:#5b666c;
+  max-width:640px}
+.scenario .outcome{
+  border-left:3px solid #eab735;
+  padding-left:16px;
+  margin-top:25px;
+  font-size:13px;
+  line-height:1.6;
+  color:#455057}
+.scenario strong{
+  color:#26313a}
+
+    .method{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden}
+.method article{
+  padding:25px;
+  border-right:1px solid var(--line);
+  background:var(--panel2)}
+.method article:last-child{
+  border:0}
+.method b{
+  font:800 12px var(--mono);
+  color:#a57c27}
+.method h3{
+  font-size:20px;
+  letter-spacing:-.045em;
+  margin:35px 0 12px}
+.method p{
+  font-size:12px;
+  color:#666f73;
+  line-height:1.7;
+  margin:0}
+
+    .feature{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:40px;
+  align-items:center;
+  background:var(--ink);
+  color:#f8f7f3}
+.feature .kicker{
+  color:#e9bd5d}
+.feature p{
+  color:#b9c1c3;
+  line-height:1.75;
+  font-size:15px}
+.feature ul{
+  list-style:none;
+  padding:0;
+  margin:20px 0;
+  display:grid;
+  gap:14px}
+.feature li{
+  border-bottom:1px solid #44515a;
+  padding:0 0 15px;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between}
+.feature li:after{
+  content:"↗";
+  color:#f0c04f}
+.feature .btn{
+  margin-top:20px}
+
+    .contact{
+  background:#f8f6f1;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:36px;
+  align-items:center}
+.contact p{
+  color:#606a70;
+  line-height:1.7;
+  max-width:600px}
+.contact-card{
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  padding:26px}
+.contact-label{
+  font:700 10px var(--mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#7c6a47}
+.email{
+  overflow-wrap:anywhere;
+  font-size:clamp(16px,1.7vw,22px);
+  font-weight:750;
+  letter-spacing:-.03em;
+  margin:14px 0 24px}
+.copy{
+  border:0;
+  border-radius:99px;
+  background:var(--ink);
+  color:#fff;
+  padding:12px 17px;
+  cursor:pointer;
+  font:700 10px var(--mono);
+  text-transform:uppercase}
+.preview-note{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  color:#717a7d;
+  line-height:1.65}
+
+    @media(max-width:1350px){
+  .hero{
+  grid-template-columns:1fr .85fr;
+  gap:22px}
+.visual{
+  min-height:430px}
+.hero h1{
+  font-size:clamp(44px,5vw,65px)}
+.section{
+  padding:clamp(24px,3.7vw,52px)}
+.offers,.issues,.case-grid{
+  gap:10px}
+}
+
+    @media(max-width:1050px){
+  .hero{
+  min-height:610px}
+.offers,.issues,.case-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))}
+.offer{
+  padding:20px}
+.offer h3{
+  font-size:25px}
+}
+
+    @media(max-width:760px){
+  .hero,.feature,.contact{
+  grid-template-columns:1fr}
+.hero{
+  min-height:0}
+.hero h1{
+  font-size:clamp(44px,10vw,72px)}
+.visual{
+  min-height:400px}
+.section{
+  padding:28px}
+.sec-top{
+  display:block}
+.sec-top p{
+  margin-top:16px}
+.offers,.issues,.case-grid{
+  grid-template-columns:1fr}
+.offer{
+  min-height:0}
+.offer h3{
+  font-size:28px}
+.offer ul{
+  margin-bottom:22px}
+.issue{
+  min-height:0}
+.issue h3{
+  margin-top:24px}
+.case p{
+  min-height:0}
+.signal{
+  grid-template-columns:1fr}
+.signal div{
+  border-right:0;
+  border-bottom:1px solid var(--line)}
+.signal div:last-child{
+  border-bottom:0}
+.usecases{
+  grid-template-columns:1fr}
+.tabs{
+  grid-template-columns:1fr 1fr}
+.method{
+  grid-template-columns:1fr 1fr}
+.method article:nth-child(2){
+  border-right:0}
+.method article:nth-child(-n+2){
+  border-bottom:1px solid var(--line)}
+.feature{
+  gap:14px}
+.hero-foot{
+  margin-top:28px}
+}
+
+    @media(max-width:460px){
+  .section{
+  padding:24px 20px}
+.hero h1{
+  font-size:44px}
+.visual{
+  padding:19px;
+  min-height:370px}
+.step{
+  grid-template-columns:22px 1fr;
+  gap:6px}
+.step small{
+  display:none}
+.step:nth-child(2){
+  transform:translateX(6px)}
+.step:nth-child(3){
+  transform:translateX(12px)}
+.tabs{
+  grid-template-columns:1fr}
+.method{
+  grid-template-columns:1fr}
+.method article{
+  border-right:0;
+  border-bottom:1px solid var(--line)!important}
+.method article:last-child{
+  border:0!important}
+.hero-actions .btn{
+  width:100%}
+}
+
+    @media(prefers-reduced-motion:reduce){
+  html{
+  scroll-behavior:auto}
+*,*:before,*:after{
+  transition:none!important}
+}
+
+
+.redesign p,.redesign li{
+  line-height:1.7}
+
+.hero h1{
+  font-weight:750}
+.redesign h2{
+  font-weight:700}
+.redesign h3{
+  font-weight:650}
+
+.redesign .hero{
+  grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr);
+  min-height:640px}
+
+.redesign .hero h1{
+  font-size:clamp(40px,4.6vw,76px)}
+
+.email{
+  display:block}
+.project-more{
+  margin-top:24px}
+.redesign section{
+  scroll-margin-top:24px}
+
+.section-nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+  padding:14px 18px}
+
+.section-nav a{
+  font:600 11px var(--font-mono);
+  padding:8px 12px;
+  border-radius:999px}
+
+.section-nav a:hover{
+  background:var(--c-accent);
+  color:var(--c-accent-ink)}
+
+.redesign .lede,.redesign .sec-top p,.redesign .issue p,.redesign .offer p,.redesign .offer ul,.redesign .case p,.redesign .scenario p,.redesign .method p,.redesign .contact p,.redesign .preview-note{
+  color:var(--c-muted)}
+
+.redesign .btn.primary{
+  color:var(--c-accent-ink)}
+
+.redesign .feature{
+  background:#1f2730;
+  color:#f8f7f3}
+.redesign .feature p{
+  color:#c7ced0}
+
+.redesign .visual{
+  background:#1f2730;
+  color:#1f2730}
+.redesign .scenario strong{
+  color:var(--c-text)}
+
+.redesign .tabs button{
+  cursor:pointer}
+.redesign .tabs button[aria-selected="true"]{
+  color:var(--c-bg)}
+
+.redesign .offer.featured{
+  background:#1f2730;
+  color:#f8f6f1;
+  border-color:#1f2730}
+
+.redesign .offer.featured p,.redesign .offer.featured ul{
+  color:#c7ced0}
+
+.redesign .contact{
+  background:var(--panel)}
+
+.redesign .copy{
+  color:var(--c-bg)}
+
+.redesign .hero-foot,.redesign .signal span,.redesign .pills span,.redesign .tabs button,.redesign .scenario .outcome,.redesign .disclaimer{
+  color:var(--c-muted)}
+
+.redesign .hero h1 em,.redesign .eyebrow,.redesign .kicker,.redesign .issue .i,.redesign .offer .tag,.redesign .small-label,.redesign .scenario small,.redesign .method b{
+  color:var(--c-accent-strong)}
+
+.redesign .offer.featured .tag,.redesign .feature .kicker{
+  color:#f8ca57}
+
+.redesign .usecases{
+  grid-template-columns:minmax(200px,.8fr) minmax(0,1.2fr)}
+
+.redesign .visual-top{
+  flex-wrap:wrap;
+  gap:16px}
+
+@media(max-width:760px){
+  .redesign .usecases{
+  grid-template-columns:1fr}
+.hero-foot{
+  flex-wrap:wrap}
+.hero-foot span{
+  display:none}
+}
+
+
+@media(min-width:1024px) and (max-width:1250px){
+  .redesign .hero{
+  grid-template-columns:1fr}
+.redesign .visual{
+  min-height:350px}
+.redesign .offers,.redesign .case-grid{
+  grid-template-columns:1fr}
+.redesign .issues{
+  grid-template-columns:1fr}
+.redesign .method{
+  grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:760px){
+  .redesign .hero{
+  grid-template-columns:1fr;
+  min-height:0}
+.redesign .hero h1{
+  font-size:clamp(38px,9vw,64px)}
+}
+
+@media(max-width:400px){
+  .redesign .btn{
+  white-space:normal}
+.redesign .eyebrow{
+  font-size:9px;
+  letter-spacing:.08em}
+.redesign .hero h1{
+  font-size:38px}
+}
+
+
+</style>
+

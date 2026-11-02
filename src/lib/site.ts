@@ -6,17 +6,18 @@
  * et une contradiction entre balisage et contenu vaut pire que leur absence.
  */
 
+import { careerYears } from './experience';
+
 export const SITE = {
 	name: 'Alexis Gallard',
 	shortName: 'Alexis Gallard',
 	url: 'https://alexisgallard.vercel.app',
 	locale: 'fr_FR',
 	lang: 'fr',
-	jobTitle: 'Développeur Fullstack Senior · AI Engineer',
+	jobTitle: 'Développeur freelance IA & Fullstack Senior',
 	/** Formulation à la troisième personne : c'est celle qu'un moteur reprend. */
-	summary:
-		"Alexis Gallard est développeur Fullstack Senior et AI Engineer, avec 12 ans d'expérience. Il conçoit des applications web, des logiciels desktop en Rust et des intégrations d'IA appliquée — LLM, RAG, agents — de l'architecture jusqu'à l'exploitation. Il est basé à Poitiers, en Nouvelle-Aquitaine.",
-	email: 'alexis_gallard@outlook.fr',
+	summary: `Alexis Gallard est développeur freelance IA et full-stack senior, avec ${careerYears} ans d'expérience. Il conçoit des applications web et des solutions IA — agents, RAG, LLM — du cadrage à la mise en production, avec une attention particulière à la sécurité, à la maîtrise des données et à l'autonomie des équipes. Fondateur de Biscuits IA, il s'engage pour une IA accessible aux associations, TPE et collectivités. Basé à Poitiers, il intervient en Nouvelle-Aquitaine et à distance.`,
+	email: 'contact@alexis-gallard.fr',
 	phone: '+33765723070',
 	city: 'Poitiers',
 	region: 'Nouvelle-Aquitaine',
@@ -49,9 +50,9 @@ export const VERIFICATION = {
  */
 export const LEGAL = {
 	/** Format ISO, pour `dateModified` dans les données structurées. */
-	updatedAt: '2026-09-03',
+	updatedAt: '2026-10-21',
 	/** Même date, écrite pour être lue. */
-	updatedLabel: '3 septembre 2026',
+	updatedLabel: '21 octobre 2026',
 	host: {
 		name: 'Vercel Inc.',
 		address: '440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis',
@@ -91,6 +92,9 @@ export const SKILLS = [
 	'Rust',
 	'Tauri',
 	'Go',
+	'Java · Spring Boot',
+	'Quarkus',
+	'Angular',
 	'Python',
 	'Architecture microservices',
 	'LLM',
@@ -125,7 +129,7 @@ export const personSchema = {
 	knowsLanguage: ['fr', 'en'],
 	seeks: {
 		'@type': 'Demand',
-		name: "Poste de développeur Fullstack Senior ou AI Engineer",
+		name: 'Missions freelance de développement web, d’architecture logicielle et d’IA appliquée',
 		availableAtOrFrom: {
 			'@type': 'Place',
 			address: {

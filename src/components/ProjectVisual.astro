@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import agenticOs from '../assets/projects/agentic-os.png';
+interface Props { slug: string; }
+const { slug } = Astro.props;
+---
+
+{slug === 'agentic-os' ? (
+	<figure class="project-visual agentic">
+		<Image src={agenticOs} alt="Visuel de conception d’Agentic OS : projets, agents, garde-fous et tests sous supervision humaine." widths={[400, 720, 1024]} sizes="(max-width: 760px) 100vw, 40vw" width={720} format="webp" loading="lazy" />
+		<figcaption>Visuel de conception · données illustratives</figcaption>
+	</figure>
+) : slug === 'zero-secret' ? (
+	<div class="project-visual zero" aria-label="Parcours d’accès Zero-Secret : identité, autorisation, accès temporaire et audit.">
+		<span class="visual-label">Zero-Secret / Architecture d’accès</span>
+		<p class="visual-title">Le bon accès.<br /><em>Le temps nécessaire.</em></p>
+		<ol class="access-flow">
+			<li><span>01</span>Identité</li><li><span>02</span>Politique</li><li><span>03</span>Accès JIT</li><li><span>04</span>Audit</li>
+		</ol>
+		<span class="visual-note">Prototype · WebAuthn / FIDO2 · Go / Rust</span>
+	</div>
+) : (
+	<div class="project-visual coffee" aria-label="La Minute de Code, site vitrine d’une communauté tech.">
+		<span class="visual-label">La Minute de Code / Communauté tech</span>
+		<span class="coffee-icon" aria-hidden="true">☕</span>
+		<p class="visual-title">Du code, du café.<br />Et du lien.</p>
+		<span class="visual-note">Site vitrine · Astro</span>
+	</div>
+)}
+
+<style>
+.project-visual { margin: 0; height: 290px; overflow: hidden; position: relative; }
+.zero { display: flex; flex-direction: column; justify-content: space-between; padding: 26px; background: #101e24; color: #edf5f3; }
+.visual-label, .visual-note { font-family: var(--font-mono); font-size: 10px; line-height: 1.5; letter-spacing: .06em; }
+.visual-label { text-transform: uppercase; }
+.visual-note { opacity: .85; }
+.visual-title { font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; line-height: 1.12; letter-spacing: -.04em; }
+.visual-title em { font-style: normal; color: #8de2c8; }
+.access-flow { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; padding: 0; list-style: none; }
+.access-flow li { border: 1px solid #46655d; border-radius: 8px; padding: 9px 5px; font-size: 10px; }
+.access-flow span { display: block; color: #8de2c8; font-family: var(--font-mono); margin-bottom: 7px; }
+.agentic { background: #09151b; }
+.agentic img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.agentic figcaption { position: absolute; inset: auto 0 0; padding: 12px 16px; background: #09151bf5; color: #d5e9e5; font-size: 10px; }
+.coffee { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 26px; background: #ede2d1; color: #392a20; }
+.coffee-icon { font-size: 45px; line-height: 1; }
+@media (max-width: 400px) { .zero, .coffee { padding: 20px; } }
+</style>

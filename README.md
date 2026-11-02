@@ -4,8 +4,8 @@
 
 [![CI](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml/badge.svg)](https://github.com/AlexisTak/alexis_gallard/actions/workflows/ci.yml)
 
-Site personnel d'Alexis Gallard, développeur Fullstack Senior et AI Engineer.
-Applications web, logiciels desktop en Rust, intégration IA (LLM, RAG, agents).
+Site personnel d'Alexis Gallard, Tech Lead IA et développeur Fullstack Senior.
+Encadrement d'équipes, applications web, logiciels desktop en Rust, intégration IA (LLM, RAG, agents).
 
 Site statique, sans backend ni base de données : le contenu vit dans le dépôt,
 l'hébergement se réduit à servir des fichiers.

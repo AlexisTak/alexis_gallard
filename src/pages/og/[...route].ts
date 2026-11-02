@@ -15,7 +15,7 @@ const posts = await getCollection('blog');
 const pages: Record<string, { title: string; description: string }> = {
 	index: {
 		title: 'Alexis Gallard',
-		description: 'Développeur Fullstack Senior · AI Engineer · Poitiers',
+		description: 'Freelance IA · Full-stack · Sécurité',
 	},
 	expertises: {
 		title: 'Expertises',
@@ -26,7 +26,7 @@ const pages: Record<string, { title: string; description: string }> = {
 		description: "12 ans à construire, déployer, réparer",
 	},
 	projets: {
-		title: 'Travail',
+		title: 'Projets',
 		description: 'Études de cas : contexte, choix techniques, résultats',
 	},
 	blog: {
@@ -35,7 +35,7 @@ const pages: Record<string, { title: string; description: string }> = {
 	},
 	contact: {
 		title: 'Contact',
-		description: 'Ouvert aux opportunités · Poitiers ou à distance',
+		description: 'Disponible pour des missions · Poitiers ou à distance',
 	},
 	'mentions-legales': {
 		title: 'Mentions légales',

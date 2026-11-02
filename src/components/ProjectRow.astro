@@ -6,9 +6,11 @@ interface Props {
 	summary: string;
 	stack: string[];
 	delay?: number;
+	status?: string;
+	role?: string;
 }
 
-const { slug, title, subtitle, summary, stack, delay = 0 } = Astro.props;
+const { slug, title, subtitle, summary, stack, status, role, delay = 0 } = Astro.props;
 ---
 
 <a
@@ -32,11 +34,14 @@ const { slug, title, subtitle, summary, stack, delay = 0 } = Astro.props;
 		</span>
 	</div>
 
+	{status && <p class="chip w-fit border border-line text-accent-strong">{status}</p>}
+	{role && <p class="text-sm text-muted">{role}</p>}
+
 	<p class="max-w-[56ch] leading-relaxed text-text/80">{summary}</p>
 
 	<ul class="mt-auto flex flex-wrap gap-2">
 		{stack.map((tech) => (
-			<li class="pill bg-bg text-muted">{tech}</li>
+			<li class="chip bg-bg text-muted">{tech}</li>
 		))}
 	</ul>
 </a>

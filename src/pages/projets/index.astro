@@ -31,12 +31,12 @@ const schemas = [
 	breadcrumbs={[{ name: 'Travail', path: '/projets/' }]}
 	schemas={schemas}
 	title="Travail — Alexis Gallard"
-	description="Études de cas : Anti-Pépins, La Minute de Code, Biscuits IA. Contexte, choix techniques et résultats."
+	description="Zero-Secret, Agentic OS, La Minute de Code : projets livrés et travaux en cours en sécurité, IA et développement web."
 >
 	<PageHeader
 		eyebrow="Travail"
-		title="Ce que j'ai construit."
-		lede="Pour chaque projet : le contexte, les choix techniques et pourquoi, les défis rencontrés, les résultats."
+		title="Des besoins concrets. Des choix expliqués."
+		lede="Découvrez le problème de départ, mon rôle et les choix qui font avancer chaque projet. Le statut distingue les réalisations livrées des travaux en cours."
 	/>
 
 	<Section label={`${projects.length} projets`}>
@@ -48,6 +48,8 @@ const schemas = [
 					subtitle={project.data.subtitle}
 					summary={project.data.summary}
 					stack={project.data.stack}
+					status={project.data.status}
+					role={project.data.role}
 					delay={i * 90}
 				/>
 			))}

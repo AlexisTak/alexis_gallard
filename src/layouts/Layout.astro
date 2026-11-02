@@ -131,11 +131,12 @@ const graph = {
 		</script>
 	</head>
 	<body class="bg-bg text-text">
+		<a class="skip-link" href="#top">Aller au contenu</a>
 		<Sidebar />
 
 		{/* La colonne de contenu laisse la place a la carte de visite fixe. */}
 		<div class="flex min-h-screen flex-col lg:ml-[19rem]">
-			<main id="top" class="flex-1 p-4 lg:py-4 lg:pl-0 lg:pr-4">
+			<main id="top" tabindex="-1" class="flex-1 p-4 lg:py-4 lg:pl-0 lg:pr-4">
 				<slot />
 			</main>
 			<Footer />

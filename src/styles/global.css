@@ -225,3 +225,6 @@ html.lenis body {
 		transition: none;
 	}
 }
+
+.skip-link{position:fixed;top:8px;left:8px;z-index:100;background:var(--c-surface);padding:12px 18px;border-radius:12px;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}

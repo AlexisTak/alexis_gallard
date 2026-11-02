@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import agenticVisual from '../../assets/projects/agentic-os.png';
 import { SITE } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -13,14 +15,14 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, subtitle, stack, summary, context, challenges, solution, results, link } =
+const { title, subtitle, stack, summary, context, challenges, solution, results, link, linkLabel, status, role } =
 	project.data;
 
 const sections = [
-	{ label: 'Contexte', text: context },
+	{ label: 'Le problème', text: context },
 	{ label: 'Défis', text: challenges },
-	{ label: 'Solution', text: solution },
-	{ label: 'Résultats', text: results },
+	{ label: 'Mon approche', text: solution },
+	{ label: status === 'En cours' ? 'État du projet' : 'Résultat', text: results },
 ];
 
 const url = `${SITE.url}/projets/${project.id}/`;
@@ -61,6 +63,11 @@ const schemas = [
 			<h1 class="display mt-8 max-w-[16ch] text-[clamp(1.9rem,7vw,5rem)] text-text">{title}</h1>
 			<p class="mt-6 max-w-[52ch] text-lg text-muted">{subtitle}</p>
 
+			<div class="mt-6 flex flex-wrap items-center gap-3">
+				{status && <span class="chip border border-line text-accent-strong">{status}</span>}
+				{role && <p class="text-sm text-muted">{role}</p>}
+			</div>
+
 			<ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2">
 				{stack.map((tech: string) => <li class="label">{tech}</li>)}
 			</ul>
@@ -70,12 +77,19 @@ const schemas = [
 					href={link}
 					target="_blank"
 					rel="noopener"
-					class="pill mt-8 inline-flex border border-line px-5 py-3 text-text transition-colors hover:border-accent-strong hover:text-accent-strong"
+					class="pill mt-8 inline-flex max-w-full whitespace-normal border border-line px-5 py-3 text-text transition-colors hover:border-accent-strong hover:text-accent-strong"
 				>
-					Voir en production ↗
+					{linkLabel ?? 'Découvrir le projet'} ↗
 				</a>
 			)}
 		</header>
+
+		{project.id === 'agentic-os' && (
+			<figure class="card mb-4 overflow-hidden p-4 md:p-6">
+				<Image src={agenticVisual} alt="Visuel du centre de commande Agentic OS : projets, agents, garde-fous et tests sous contrôle humain." widths={[480, 768, 1024]} sizes="(max-width: 1024px) 100vw, 75vw" class="mx-auto h-auto w-full max-w-4xl rounded-xl" loading="lazy" />
+				<figcaption class="mt-4 text-center text-sm text-muted">Visuel de conception — données illustratives.</figcaption>
+			</figure>
+		)}
 
 		{sections.map((section) => (
 			<Section label={section.label}>
@@ -87,15 +101,16 @@ const schemas = [
 
 		<Section label="Suite">
 			<h2 class="display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]" data-reveal>
-				Envie d'en parler ?
+				Vous avez un défi similaire ?
 			</h2>
+			<p class="mt-5 max-w-[58ch] leading-relaxed text-muted">Décrivez votre besoin, vos contraintes et ce que vous souhaitez améliorer. Nous pourrons identifier une première étape adaptée à votre projet.</p>
 			<a
 				href="/contact"
-				class="pill mt-8 inline-flex bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
+				class="pill mt-8 inline-flex max-w-full whitespace-normal bg-accent px-5 py-3 text-accent-ink transition-opacity hover:opacity-90"
 				data-reveal
 				data-reveal-delay="80"
 			>
-				Échangeons
+				Parlons de votre projet
 			</a>
 		</Section>
 	</article>

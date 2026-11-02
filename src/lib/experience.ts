@@ -26,6 +26,33 @@ export interface Job {
 
 export const EXPERIENCE: Job[] = [
 	{
+		id: 'randstad',
+		role: 'Lead Consultant · Lead Développeur',
+		place: 'Randstad Digital',
+		start: '2026-09',
+		note: 'Conseil et pilotage technique chez les clients',
+		points: [
+			"Encadrement technique d'une équipe de développeurs : architecture cible, revues de code et d'architecture, priorisation avec le métier.",
+			"Migration d'une application métier Angular / Java, de la conception à la mise en production, avec assistance par LLM sur l'analyse du legacy, la conversion et la documentation.",
+			'Garant de la qualité, de la sécurité et de la continuité de service pendant la bascule.',
+			"Montée en compétences de l'équipe et acculturation à l'IA générative.",
+		],
+	},
+	{
+		id: 'orange-muse',
+		role: 'Développeur Fullstack Java / Angular',
+		place: 'Orange — MUSE',
+		start: '2026-09',
+		end: '2026-10',
+		note: 'Mission client via Randstad Digital · migration menée en solo',
+		points: [
+			"Migration de MUSE, application de saisie et d'échange de segments de fibre optique, du legacy C#/.NET vers Java 21 / Quarkus et Angular.",
+			'Parité fonctionnelle et visuelle garantie par comparaison au golden master (JSON et pixel-perfect), tests d’intégration et de sécurité.',
+			'Développement piloté par agents IA (méthode BMAD, OpenCode) : découpage en epics et stories, tickets versionnés.',
+			'17 routes migrées et 3 epics construits en quelques jours ; conteneurisation Docker et CI/CD.',
+		],
+	},
+	{
 		id: 'independant',
 		role: 'Développeur Fullstack Senior · AI Engineer',
 		place: 'Indépendant',

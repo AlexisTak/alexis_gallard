@@ -1,13 +1,16 @@
 ---
 title: "La Minute de Code"
-subtitle: "Plateforme d'apprentissage du développement"
-stack: ["Next.js", "REST API", "iOS", "Android"]
-summary: "Une plateforme web et mobile pour apprendre à coder : cours, tutoriels vidéo, podcasts et mini-jeux, avec progression gamifiée et espace communautaire."
-context: "Apprendre à coder reste souvent aride et solitaire. Le pari : rendre la progression visible et motivante, en s'inspirant des mécaniques d'engagement des apps de langues, appliquées au développement."
-challenges: "Faire tenir un même contenu pédagogique et une même logique de progression sur trois plateformes (web, iOS, Android) sans tripler le travail de maintenance, tout en gérant un système de progression (XP, vies) qui doit rester cohérent en temps réel entre les appareils."
-solution: "Une API REST centralisée sert de source de vérité unique pour les comptes, la progression et le contenu, consommée par le site Next.js et les applications mobiles natives. L'offre Premium et l'espace communautaire s'appuient sur la même couche d'authentification et de permissions."
-results: "laminutedecode.com — plateforme en production avec comptes utilisateurs, progression gamifiée, offre Premium et communauté active, disponible sur web, iOS et Android."
-link: "https://laminutedecode.com"
+subtitle: "Donner une porte d’entrée claire à une communauté tech"
+status: "Réalisé"
+role: "Développement du site vitrine pour un ami"
+stack: ["Astro"]
+summary: "Un site vitrine Astro pour découvrir une communauté tech, retrouver ses lives et rejoindre son Discord. Une identité café, avec un soin porté à la rapidité et au SEO."
+context: "La Minute de Code rassemble une communauté autour du développement. Ses lives, son Discord et sa newsletter avaient besoin d’une porte d’entrée commune : un site qui explique l’univers du projet et donne envie d’y participer."
+challenges: "Présenter plusieurs façons de rejoindre la communauté sans disperser le visiteur. Le site devait garder une identité chaleureuse et reconnaissable, tout en restant rapide à consulter et structuré pour le référencement."
+solution: "J’ai développé pour un ami un site vitrine avec Astro. Il présente les lives, le Discord, la newsletter et le projet d’application mobile d’apprentissage du code. L’identité visuelle s’appuie sur un univers café, avec une attention portée à la hiérarchie de l’information, aux parcours vers les différents canaux et au SEO."
+results: "Un site vitrine livré et accessible sur laminutedecode.tech, qui centralise les points d’entrée de la communauté et présente la future application mobile. Cette réalisation porte sur le site web : l’application est annoncée comme un projet à venir."
+link: "https://laminutedecode.tech/"
+linkLabel: "Découvrir le site"
 featured: true
-order: 2
+order: 3
 ---

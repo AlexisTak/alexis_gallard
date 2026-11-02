@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 import { SITE } from '../lib/site';
+import { positioning } from '../lib/positioning';
 import { careerYears, jobs } from '../lib/experience';
 
 const skillGroups = [
 	{
 		label: 'Développement',
-		items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Vue.js', 'TailwindCSS', 'Node.js', 'NestJS', 'Laravel', 'PHP', 'REST API', 'GraphQL', 'Rust', 'Tauri', 'Applications desktop', 'Go'],
+		items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Vue.js', 'TailwindCSS', 'Node.js', 'NestJS', 'Laravel', 'PHP', 'REST API', 'GraphQL', 'Rust', 'Tauri', 'Applications desktop', 'Go', 'Java 21', 'Spring Boot', 'Quarkus', 'Angular', 'Migration de legacy'],
 	},
 	{
 		label: 'Intelligence artificielle',
@@ -20,7 +21,7 @@ const skillGroups = [
 	},
 	{
 		label: 'Bases de données',
-		items: ['PostgreSQL', 'MySQL / MariaDB', 'MongoDB', 'Redis'],
+		items: ['PostgreSQL', 'MySQL / MariaDB', 'MongoDB', 'Redis', 'SQL Server'],
 	},
 ];
 
@@ -50,10 +51,14 @@ const schemas = [
 	<PageHeader
 		eyebrow="Parcours"
 		title={`${careerYears} ans à construire, déployer, optimiser.`}
-		lede="Développeur Fullstack Senior et AI Engineer. Je conçois des applications web/mobile, des logiciels desktop en Rust et des outils métiers intégrant les technologies d'IA — LLM, RAG, fine-tuning, agents — avec un fort volet infrastructure et DevOps. J'interviens de la conception jusqu'à l'exploitation."
+		lede="Développeur full-stack, ingénieur IA freelance et fondateur de Biscuits IA. Je relie le produit, la sécurité et la transmission pour vous aider à construire des outils utiles."
 	/>
 
-	<Section label="Expérience">
+	<Section label="À propos" title="Construire avec vous. Vous donner les moyens de continuer.">
+ <div class="grid gap-6 md:grid-cols-2">{positioning.about.map(paragraph => <p class="max-w-[60ch] leading-relaxed text-muted">{paragraph}</p>)}</div>
+ <a class="pill mt-8 inline-flex bg-accent px-5 py-3 text-accent-ink" href="/contact/">Parlons de votre besoin ↗</a>
+ </Section>
+ <Section label="Expérience">
 		<ol class="flex flex-col">
 			{jobs.map((job, i) => (
 				<li
